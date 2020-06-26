@@ -1,0 +1,25 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    & *, & input {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 14px;
+    }
+    p {
+        margin: 0;
+    }
+    &.fixed-body {
+        width:100%;
+        overflow:hidden;
+        position: fixed;
+    }
+    main {
+        width:95%;
+        margin: 0 auto;
+    }
+    ul {
+        padding:0;
+        list-style: none;
+    }
+}
