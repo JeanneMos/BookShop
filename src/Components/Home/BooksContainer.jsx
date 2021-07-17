@@ -1,16 +1,12 @@
 import React from "react"
-import styled from "@emotion/styled"
 import { PropTypes } from "prop-types"
 import withDataFetched from "../../Utilities/withDataFetched"
 import BooksList from "./BooksList"
 import styledComponents from "../../Utilities/styledComponents"
 
-const Main = styled("main")`
-  margin-top: 2rem;
-`
 
 const BooksContainer = ({ books }) => {
-  const { Title } = styledComponents
+  const { Title, Main } = styledComponents
   return (
     <Main>
       <Title>Bienvenue dans la librairie</Title>

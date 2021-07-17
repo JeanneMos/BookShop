@@ -1,23 +1,36 @@
+import {
+  REMOVE_FROM_CART,
+  HIDE_SLIDER,
+  SHOW_SLIDER,
+  ITEM_ALREADY_ADDED,
+  ADD_TO_CART,
+  LOADING_DATA,
+  LOADED_DATA,
+  ERROR,
+  SEARCHING,
+  CANCEL_SEARCH,
+} from "../Utilities/constants"
+
 const booksReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case "LOADING_DATA":
+    case LOADING_DATA:
       return {
         ...state,
         loading: true,
       }
-    case "LOADED_DATA":
+    case LOADED_DATA:
       return {
         ...state,
         loading: false,
       }
-    case "ERROR":
+    case ERROR:
       return {
         ...state,
         loading: false,
         error: "Oups, il y a eu une erreur :(",
       }
-    case "SHOW_SLIDER":
+    case SHOW_SLIDER:
       return {
         ...state,
         openSlider: true,
@@ -32,7 +45,7 @@ const booksReducer = (state, action) => {
         alertMessage: null,
         searching: false,
       }
-    case "HIDE_SLIDER":
+    case HIDE_SLIDER:
       return {
         ...state,
         openSlider: false,
@@ -40,7 +53,7 @@ const booksReducer = (state, action) => {
         alertMessage: null,
         searching: false,
       }
-    case "ADD_TO_CART":
+    case ADD_TO_CART:
       return {
         ...state,
         openSlider: true,
@@ -49,14 +62,14 @@ const booksReducer = (state, action) => {
         alertMessage: null,
         searching: false,
       }
-    case "REMOVEFROMCART":
+    case REMOVE_FROM_CART:
       return {
         ...state,
         cartItems: state.cartItems.filter(
           (item) => item.isbn !== payload.item.isbn
         ),
       }
-    case "ITEM_ALREADY_ADDED":
+    case ITEM_ALREADY_ADDED:
       return {
         ...state,
         openSlider: true,
@@ -64,12 +77,12 @@ const booksReducer = (state, action) => {
         alertMessage: "Vous avez déjà ce livre dans votre panier.",
         searching: false,
       }
-    case "SEARCHING":
+    case SEARCHING:
       return {
         ...state,
         searching: true,
       }
-    case "CANCEL_SEARCH":
+    case CANCEL_SEARCH:
       return {
         ...state,
         searching: false,

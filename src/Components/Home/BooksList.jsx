@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import React, { useState, useEffect, useContext } from "react"
 import DotLoader from "react-spinners/DotLoader"
 import { PropTypes } from "prop-types"
@@ -40,7 +39,10 @@ const BooksList = ({ books }) => {
     dispatch(hideSlider())
     const addedBook = cartItems.find((item) => item.isbn === book.isbn)
     setTimeout(() => {
-      addedBook ? dispatch(itemAlreadyAdded()) : dispatch(addToCart(book))
+      if (addedBook) {
+        return dispatch(itemAlreadyAdded())
+      }
+      return dispatch(addToCart(book))
     }, 350)
   }
   const closeSlider = () => {
@@ -49,11 +51,12 @@ const BooksList = ({ books }) => {
 
   useEffect(() => {
     let isMounted = true
-    isMounted &&
-      books &&
+    if (isMounted && books) {
       setSearchArray(
         books.filter((book) => book.title.toLowerCase().includes(searchValue))
       )
+    }
+
     return () => {
       dispatch(hideSlider())
       isMounted = false

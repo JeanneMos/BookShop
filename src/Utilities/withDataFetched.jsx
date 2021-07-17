@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-return-assign */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { getBooksUrl } from "./constants"
@@ -12,10 +9,9 @@ const withDataFetched = (Component) => {
     const { dispatch } = useContext(BooksContext)
     const [books, setBooks] = useState(null)
     useEffect(() => {
-      let isMounted = true
       dispatch(loadingData())
-      async function fetchData() {
-        await axios
+      function fetchData() {
+        axios
           .get(getBooksUrl)
           .then((res) => {
             dispatch(loadedData())
@@ -23,13 +19,11 @@ const withDataFetched = (Component) => {
           })
           .catch((error) => {
             dispatch(displayError(error))
-            isMounted = false
           })
       }
       fetchData()
-      return () => (isMounted = false)
     }, [dispatch])
-    return <Component {...props} books={books} />
+    return <Component props={props} books={books} />
   }
   return WithDataComponent
 }

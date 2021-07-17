@@ -1,6 +1,10 @@
 import styled from "@emotion/styled"
 
 const styledComponents = {
+  Main: styled("main")`
+    margin-top: 2rem;
+  `,
+
   Wrapper: styled("div")`
     display: grid;
     grid-template-columns: 1fr;
