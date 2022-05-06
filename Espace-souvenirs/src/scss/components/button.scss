@@ -1,0 +1,116 @@
+
+.button {
+  text-transform:uppercase;
+  border-radius: rem(8px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: rem(16px);
+  line-height: normal;
+  font-family: var(--font-bold);
+  padding: rem(15px) rem(20px);
+  border-width: 1px;
+  border-color: var(--site-color);
+  cursor:pointer;
+}
+
+.bg-current {
+  @extend .button;
+  background-color: var(--site-color);
+  color: white;
+  &:hover, &:focus, &:active {
+    background-color: var(--site-color-hover);
+    color: var(--text-color-hover);
+    svg path {
+      fill: var(--icons-color-hover);
+    }
+  }
+}
+.bg-white {
+  @extend .button;
+  background-color: white;
+  color: var(--site-color);
+  &:hover, &:focus, &:active {
+    background-color: var(--site-color);
+    color: white;
+    svg path {
+      fill: white;
+    }
+  }
+}
+.bg-transparent {
+  @extend .button;
+  background-color: transparent;
+  color: var(--site-color);
+  border: 0;
+}
+.color-current {
+  color: var(--site-color);
+}
+.center {
+  margin: auto;
+}
+.separator {
+  width: rem(10px);
+}
+.hero-banner-modify-button {
+  position: absolute;
+  background-color: transparent;
+  padding:0;
+  right: rem(15px);
+  top: rem(15px);
+  border: 0;
+  cursor: pointer;
+}
+.edit-picture-button {
+  position: absolute;
+  background-color: transparent;
+  padding:0;
+  right: rem(-15px);
+  top: rem(-15px);
+  border: 0;
+  cursor: pointer;
+}
+.edit-administators-button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding:0;
+  border: 0;
+  cursor: pointer;
+  color: var(--site-color);
+  font-family: var(--font-bold);
+  gap: rem(5px);
+  margin-top: rem(10px);
+  padding-top: rem(15px);
+  margin-left: auto;
+  margin-right:auto;
+
+  @include from-tablet {
+    padding-top: 0;
+    margin-left: 0;
+  }
+  @include from-landscape {
+    margin-left: auto;
+    margin-right:0
+  }
+}
+
+.delete-image-button {
+  background-color: transparent;
+  padding:0;
+  border: 0;
+  cursor: pointer;
+}
+
+.edit-text-button {
+  @extend .button;
+  margin-left:0;
+  padding: rem(15px);
+  margin: 0;
+}
+.message-photo-button {
+  margin:0;
+}
+
+

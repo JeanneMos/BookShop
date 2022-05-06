@@ -1,0 +1,11 @@
+@use "sass:math";
+$base: 16px;
+
+/* Fonction de calcul de rem à partir de pixels */
+@function rem($target, $context: $base) {
+  @return math.div($target, $context) * 1rem;
+}
+/* Fonction de calcul de line-height dynamique */
+@function lineheight($fontSize, $lineHeight) {
+  @return math.div($lineHeight, $fontSize);
+}

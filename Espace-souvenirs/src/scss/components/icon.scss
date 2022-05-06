@@ -1,0 +1,143 @@
+.logout-icon {
+  height: rem(20px);
+  path {
+    fill: var(--site-color);
+  }
+}
+.user-icon {
+  height: rem(30px);
+  path {
+    fill: var(--site-color);
+  }
+}
+.toggle-menu-icon,
+.tab-list-mobile__toggle-icon {
+  height: 6px;
+  transition: transform .3s ease-in-out;
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+.close-icon {
+  width: rem(15px);
+  height:rem(15px);
+  path {
+    fill: var(--site-color)
+  }
+}
+.input-error-icon {
+  width: rem(15px);
+  height:rem(15px);
+  path {
+    fill: $red;
+  }
+}
+.white-icon {
+  width: rem(20px);
+  min-width: rem(20px);
+  height:rem(20px);
+  path {
+    fill: white;
+  }
+}
+.search-icon {
+  height: rem(20px);
+  width: rem(20px);
+  path {
+    fill: var(--site-color);
+  }
+}
+.current-icon {
+  height: rem(20px);
+  width: rem(20px);
+  min-width: rem(20px);
+  path {
+    fill: var(--site-color);
+  }
+}
+.book-icon {
+  height: rem(25px);
+  width: rem(37px);
+
+}
+
+.profile-default-icon {
+  width: rem(120px);
+  height:rem(120px);
+  path {
+    fill: var(--site-color);
+  }
+}
+
+.photo-icon {
+  width:rem(45px);
+  height: rem(45px);
+  path {
+    fill: var(--site-color);
+  }
+}
+
+.edit-picture-icon {
+  width: rem(35px);
+  height: rem(35px);
+  circle {
+    fill: var(--site-color);
+  }
+}
+.edit-administators-icon {
+  width: rem(23px);
+  height: rem(23px);
+  circle {
+    fill: var(--site-color);
+  }
+}
+
+.delete-image-icon {
+  width: rem(30px);
+  height: rem(30px);
+  path {
+    fill: $black;
+  }
+}
+.edit-text-icon {
+  width: rem(20px);
+  height: rem(20px);
+  path {
+    fill: white;
+  }
+  use {
+    fill: white;
+  }
+  mask {
+    fill: white;
+  }
+}
+.messages-success-icon {
+  width: rem(30px);
+  height: rem(30px);
+  path {
+    fill: var(--site-color);
+  }
+}
+
+.envelope-icon {
+  width: rem(24px);
+  height: rem(21px);
+}
+
+.tooltip-picture-icon {
+  display: block;
+  margin: auto;
+  height: rem(52px);
+  width: rem(66px);
+  margin-top: rem(10px);
+  path {
+    fill: $grey-5;
+  }
+}
+
+.share-icon {
+  width: rem(60px);
+  height: rem(60px);
+}
+

@@ -1,0 +1,81 @@
+
+.accueil-agency-wrapper {
+  margin-top: var(--block-mt);
+}
+.agency-wrapper {
+  margin-top: var(--block-mt);
+  padding: rem(15px);
+  position: relative;
+  width: calc(100% + #{rem(30px)});
+  margin-left: rem(-15px);
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: rem(200px);
+    background-color: var(--bg-color);
+    top: 0;
+    left: 0;
+  }
+}
+.agency-infos {
+  background-color: $white;
+  padding: rem(20px);
+  margin-top: rem(5px);
+}
+
+.agency-title {
+  font-size: rem(22px);
+  line-height: lineheight(22,27);
+  font-family: var(--font-bold);
+  margin: 0;
+}
+.agency-address {
+  margin:0;
+  margin-top: rem(10px);
+  font-size: rem(20px);
+}
+.agency-zipcode {
+  margin: 0;
+  margin-top: rem(5px);
+  font-size: rem(20px);
+}
+.agency-phone {
+  margin:0;
+  font-size: rem(20px);
+}
+.agency-phone-link {
+  font-size: rem(20px);
+  line-height: lineheight(20,26);
+}
+
+.agency-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+
+@include from-tablet {
+  .agency-title {
+    font-size: rem(27px);
+  }
+}
+@include from-landscape {
+
+  .agency-wrapper {
+    padding: rem(60px) 0 0 rem(185px);
+    &:before {
+      width: rem(670px);
+    }
+  }
+  .agency-infos {
+    padding: rem(25px) rem(30px);
+    max-width: rem(620px);
+  }
+}
+

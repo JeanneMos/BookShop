@@ -1,0 +1,26 @@
+$minMobile: 300px;
+$minTablet: 650px;
+$minLandscape: 1024px;
+$minDesktop: 1280px;
+$maxDesktop: 1600px;
+
+$maxMobile: 649px;
+$maxTablet: 1023px;
+$maxLandscape:1279px;
+
+
+@mixin from-tablet {
+  @media all and (min-width: #{$minTablet}) {
+    @content;
+  }
+}
+@mixin from-landscape {
+  @media all and (min-width: #{$minLandscape}) {
+    @content;
+  }
+}
+@mixin from-desktop {
+  @media all and (min-width: #{$minDesktop}) {
+    @content;
+  }
+}

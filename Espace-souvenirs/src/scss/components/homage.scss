@@ -1,0 +1,15 @@
+
+.homage-wrapper {
+  margin-top: var(--block-mt)
+}
+
+.content-homage {
+  margin-top: rem(25px);
+  padding: rem(25px) rem(30px);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  p {
+    margin: 0;
+  }
+}
+
+

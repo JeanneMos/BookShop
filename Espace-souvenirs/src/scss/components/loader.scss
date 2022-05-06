@@ -1,0 +1,40 @@
+
+@keyframes rotating {
+  from {
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+  }
+}
+
+.full-page-loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.1)
+}
+.loader {
+  width: rem(52px);
+  height: rem(52px);
+  background:transparent;
+  animation:rotating 0.5s ease-in-out infinite;
+  z-index:1;
+  position: relative;
+   svg {
+    width: rem(52px);
+    height: rem(50px);
+    path {
+      fill: var(--site-color);
+    }
+  } 
+  &.right {
+    position: absolute;
+    right: 0;
+  }
+  &.center {
+    margin: auto;
+  }
+}
