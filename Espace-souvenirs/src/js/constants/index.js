@@ -1,9 +1,9 @@
 export const mobileBreakpoint = 649;
 export const staletimeForSearchQuery = 60 * 1000 * 10; // 10minutes
-export const APIJsonPlaceholder = 'https://jsonplaceholder.typicode.com/posts';
+export const APIJsonPlaceholder = "https://jsonplaceholder.typicode.com/posts";
 export const footerMenu = "/es/get-menu/footer";
 export const mainMenu = "/es/get-menu/main";
-export const espaceSouvenirs = '/es/get-entity/espace_souvenirs';
+export const espaceSouvenirs = "/es/get-entity/espace_souvenirs";
 export const lineBreak = "<br />";
 export const postApiUrl = "/es/entity-save-field";
 export const postUserUrl = "/es/get-user";

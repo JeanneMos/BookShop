@@ -1,14 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import GlobalProvider from './context/provider';
-import AppQuery from './queries/queryClient';
+import GlobalProvider from "./context/provider";
+import AppQuery from "./queries/queryClient";
 
-import RouterComponent from './router/RouterComponent';
+import RouterComponent from "./router/RouterComponent";
 
 function MainComponent() {
   return (
-
     <GlobalProvider>
       <AppQuery>
         <RouterComponent />
@@ -17,9 +16,14 @@ function MainComponent() {
   );
 }
 
-const reactRoot = document.getElementById('react-app');
+const reactRoot = document.getElementById("react-app");
 
 // eslint-disable-next-line function-paren-newline
 if (reactRoot) {
-  ReactDOM.render(<React.StrictMode><MainComponent /></React.StrictMode>, reactRoot);
+  ReactDOM.render(
+    <React.StrictMode>
+      <MainComponent />
+    </React.StrictMode>,
+    reactRoot,
+  );
 }

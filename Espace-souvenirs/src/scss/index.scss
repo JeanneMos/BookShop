@@ -1,35 +1,20 @@
 /** UTILITIES */
 
-@import './utilities/base.scss',
-'./utilities/helpers.scss';
+@import "./utilities/base", "./utilities/helpers";
 
 /** Components */
 
-@import
-'./components/header.scss',
-'./components/logMenu.scss',
-'./components/landing.scss',
-'./components/agency.scss',
-'./components/legalNotice.scss',
-'./components/layout.scss',
-'./components/upload.scss',
-'./components/navigation.scss',
-'./components/switch.scss',
-'./components/modal.scss',
-'./components/messages.scss',
-'./components/loader.scss',
-'./components/button.scss',
-'./components/link.scss',
-'./components/search.scss',
-'./components/icon.scss',
-'./components/homage.scss',
-'./components/forms.scss',
-'./components/footer.scss',
-'./components/transversalBlocks.scss',
-'./components/shareEspace.scss',
-'./components/infos.scss',
-'./components/contentWrapper.scss',
-'./components/tabpanel.scss',
-'./components/biography.scss',
-'./components/administrators.scss',
-'./components/acknowledgement.scss';
+@import "./components/header", "./components/logMenu",
+  "./components/landing", "./components/agency",
+  "./components/legalNotice", "./components/layout",
+  "./components/upload", "./components/navigation",
+  "./components/switch", "./components/modal",
+  "./components/messages", "./components/loader",
+  "./components/button", "./components/link",
+  "./components/search", "./components/icon",
+  "./components/homage", "./components/forms",
+  "./components/footer", "./components/transversalBlocks",
+  "./components/shareEspace", "./components/infos",
+  "./components/contentWrapper", "./components/tabpanel",
+  "./components/biography", "./components/administrators",
+  "./components/acknowledgement";

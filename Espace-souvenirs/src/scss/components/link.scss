@@ -1,8 +1,9 @@
-
 .link {
   @extend .button;
+
   text-decoration: none;
-/*   text-transform:uppercase;
+
+  /*   text-transform:uppercase;
   border-radius: rem(8px);
   display: inline-flex;
   align-items: center;
@@ -13,13 +14,14 @@
   border-width: 1px;
   border-style: solid;
   border-color: var(--site-color);
-  
+
   cursor:pointer; */
 }
 
 .bg-current {
   @extend .link;
-/*   background-color: var(--site-color);
+
+  /*   background-color: var(--site-color);
   color: white;
   &:hover, &:focus, &:active {
     background-color: var(--site-color-hover);
@@ -29,9 +31,11 @@
     }
   } */
 }
+
 .bg-white {
   @extend .link;
-/*   background-color: white;
+
+  /*   background-color: white;
   color: var(--site-color);
   &:hover, &:focus, &:active {
     background-color: var(--site-color);
@@ -41,19 +45,23 @@
     }
   } */
 }
+
 .bg-transparent {
   @extend .link;
-/*   background-color: transparent;
+
+  /*   background-color: transparent;
   color: var(--site-color);
   border: 0; */
 }
+
 .color-current {
   color: var(--site-color);
 }
+
 .center {
   margin: auto;
 }
+
 .separator {
   width: rem(10px);
 }
-

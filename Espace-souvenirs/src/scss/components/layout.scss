@@ -10,30 +10,38 @@
   gap: rem(10px);
   justify-content: center;
   align-items: center;
+
   &.right {
     justify-content: flex-end;
   }
+
   &.left {
     justify-content: flex-start;
   }
+
   &.space-between {
     justify-content: space-between;
   }
+
   button {
     margin: 0;
   }
+
   &.width-auto {
     width: auto;
   }
 }
+
 .heading-button-wrapper {
   display: flex;
   align-items: center;
   gap: rem(20px);
   flex-wrap: wrap;
+
   &.between {
     justify-content: space-between;
   }
+
   button {
     margin: 0;
   }
@@ -43,9 +51,9 @@
   .buttons-wrapper.right {
     justify-content: flex-end;
   }
-/*   .heading-button-wrapper button {
+
+  /*   .heading-button-wrapper button {
     margin-right: 0;
     margin-left: auto;
   } */
 }
-

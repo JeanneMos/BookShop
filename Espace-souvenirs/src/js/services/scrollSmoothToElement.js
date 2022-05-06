@@ -3,6 +3,6 @@ export default function scrollSmoothToElement(element) {
 
   window.scrollTo({
     top: element?.offsetTop || 0,
-    behavior: 'smooth',
+    behavior: "smooth",
   });
 }

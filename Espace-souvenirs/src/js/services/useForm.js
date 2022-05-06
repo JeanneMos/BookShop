@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function useForm({ initialFormState, validationValues }) {
   const [inputValues, setValues] = useState(initialFormState);
@@ -8,14 +8,14 @@ export default function useForm({ initialFormState, validationValues }) {
   /** on vérifie au onBlur si le pattern correspond à la saisie,
    * si ce n'est pas le cas, retourne le message d'erreur, sinon on retourne null  */
   const getError = (target) => {
-    if (target.value !== '') {
+    if (target.value !== "") {
       const { pattern } = validationValues[target.name];
       if (pattern?.value && !RegExp(pattern.value).test(target.value)) {
         return pattern?.message;
       }
       return null;
     }
-    if (target.getAttribute('required') !== null && target.value === '') {
+    if (target.getAttribute("required") !== null && target.value === "") {
       const { required } = validationValues[target.name];
       return required;
     }
@@ -64,6 +64,11 @@ export default function useForm({ initialFormState, validationValues }) {
   };
 
   return {
-    inputValues, changeHandler, errorHandler, submitErrorsHandler, errors, isValid
+    inputValues,
+    changeHandler,
+    errorHandler,
+    submitErrorsHandler,
+    errors,
+    isValid,
   };
 }

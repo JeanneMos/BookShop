@@ -2,17 +2,20 @@
 
 .landing-wrapper {
   min-height: rem(780px);
+
   //background-color: white;
-  background-image:url('../assets/images/bg-images/img-bg.jpg');
+  background-image: url("../assets/images/bg-images/img-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 1px;
   padding-bottom: rem(40px);
 }
+
 .user-admin-login {
   display: flex;
   align-items: center;
   flex-direction: column;
+
   form {
     width: 100%;
   }

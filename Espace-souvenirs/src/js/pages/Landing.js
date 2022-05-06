@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import Layout from '../layouts/Layout';
-import Search from '../components/Search/Search';
-import scrollSmoothToElement from '../services/scrollSmoothToElement';
-
+import React, { useEffect } from "react";
+import Layout from "../layouts/Layout";
+import Search from "../components/Search/Search";
+import scrollSmoothToElement from "../services/scrollSmoothToElement";
 
 export default function Landing() {
   useEffect(() => {
-    document.title = 'Landing page';
+    document.title = "Landing page";
     scrollSmoothToElement();
   }, []);
 

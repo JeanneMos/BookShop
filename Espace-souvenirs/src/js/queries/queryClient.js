@@ -1,9 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query';
+import React from "react";
+import PropTypes from "prop-types";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,9 +12,7 @@ const queryClient = new QueryClient({
 
 export default function AppQuery({ children }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
 

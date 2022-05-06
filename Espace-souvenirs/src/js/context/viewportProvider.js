@@ -1,7 +1,5 @@
-import React, {
-  createContext, useEffect, useState, useMemo,
-} from 'react';
-import PropTypes from 'prop-types';
+import React, { createContext, useEffect, useState, useMemo } from "react";
+import PropTypes from "prop-types";
 
 export const ViewportContext = createContext({});
 
@@ -24,13 +22,19 @@ export default function ViewportProvider({ children }) {
   };
 
   useEffect(() => {
-    window.addEventListener('resize', debounce(() => handleWindowResize(), 1000));
-    return () => window.removeEventListener('resize', handleWindowResize);
+    window.addEventListener(
+      "resize",
+      debounce(() => handleWindowResize(), 1000),
+    );
+    return () => window.removeEventListener("resize", handleWindowResize);
   }, [width]);
 
-  const viewportValues = useMemo(() => ({
-    width,
-  }), [width]);
+  const viewportValues = useMemo(
+    () => ({
+      width,
+    }),
+    [width],
+  );
   return (
     <ViewportContext.Provider value={viewportValues}>
       {children}

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 import { fakeMessages } from "../services/fakeMessages";
 
@@ -8,42 +8,47 @@ const initialState = {
   messagesViewed: [],
 };
 
-
 export const messageSlice = createSlice({
-  name: 'messages',
+  name: "messages",
   initialState,
   reducers: {
     messagePictureUpdated: (state, action) => {
-      const {payload} = action;
-      state.messagePictures = payload?.messagePictures ? [...payload.messagePictures] : null;
+      const { payload } = action;
+      state.messagePictures = payload?.messagePictures
+        ? [...payload.messagePictures]
+        : null;
     },
     messagePictureDeleted: (state) => {
       state.messagePictures = null;
     },
     messagesViewed: (state, action) => {
-      const {payload} = action;
-      state.messagesViewed = [...payload.messagesViewed]
+      const { payload } = action;
+      state.messagesViewed = [...payload.messagesViewed];
     },
     messageAdded: (state, action) => {
-      const {payload} = action;
+      const { payload } = action;
       state.messages = [...state.messages, payload?.message];
     },
     messageUnpublished: (state, action) => {
-      const {payload} = action;
-      state.messages.map(message => {
-          message.id === payload.id ? message.published = !message.published : message.pablished;
-          return message
-        })
+      const { payload } = action;
+      state.messages.map((message) => {
+        message.id === payload.id
+          ? (message.published = !message.published)
+          : message.pablished;
+        return message;
+      });
     },
     messagePublished: (state, action) => {
-      const {payload} = action;
-      state.messages.map(message => {
-          message.id === payload.id ? message.published = !message.published : message.pablished;
-          return message
-        })
+      const { payload } = action;
+      state.messages.map((message) => {
+        message.id === payload.id
+          ? (message.published = !message.published)
+          : message.pablished;
+        return message;
+      });
     },
-  }
-})
+  },
+});
 
 // Action creators are generated for each case reducer function
 export const {
@@ -52,7 +57,7 @@ export const {
   messageAdded,
   messageUnpublished,
   messagePublished,
-  messagesViewed
-} = messageSlice.actions
+  messagesViewed,
+} = messageSlice.actions;
 
-export default messageSlice.reducer
+export default messageSlice.reducer;

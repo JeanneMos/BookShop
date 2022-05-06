@@ -1,15 +1,17 @@
-@import "./functions.scss",
-"./breakpoints.scss";
+@import "./functions", "./breakpoints";
 
 .mb-30 {
   margin-bottom: rem(30px);
 }
+
 .mt-40 {
   margin-top: rem(40px);
 }
+
 .mt-30 {
   margin-top: rem(30px);
 }
+
 .mt-20 {
   margin-top: rem(20px);
 }
@@ -17,14 +19,15 @@
 .title-underlined {
   position: relative;
   padding-bottom: rem(15px);
-  margin:0;
+  margin: 0;
   font-family: var(--font-bold);
   font-size: rem(24px);
-  &:after {
+
+  &::after {
     display: flex;
-    content:"";
-    width:rem(75px);
-    height:rem(2px);
+    content: "";
+    width: rem(75px);
+    height: rem(2px);
     background-color: var(--color);
     position: absolute;
     bottom: 0;
@@ -36,6 +39,7 @@
   line-height: rem(48px);
   font-family: var(--font-bold);
   margin: 0;
+
   @include from-tablet {
     font-size: rem(40px);
   }

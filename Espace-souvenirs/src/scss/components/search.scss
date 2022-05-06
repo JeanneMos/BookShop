@@ -1,17 +1,17 @@
 .search-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
   background-color: white;
   max-width: 700px;
-  width:90%;
+  width: 90%;
   margin: rem(60px) auto 0;
   padding-bottom: rem(30px);
 }
 
 .search-form {
   width: 100%;
-  padding-bottom:0;
+  padding-bottom: 0;
 }
 
 .search-form fieldset {
@@ -19,25 +19,28 @@
   margin: 0;
   padding: 0;
 }
+
 .search-form fieldset legend {
   font-size: 30px;
   font-family: var(--font-bold);
-  width:100%;
+  width: 100%;
   text-align: center;
   margin-bottom: rem(30px);
 }
+
 .search {
   display: flex;
   align-items: center;
-  position:relative;
+  position: relative;
 }
+
 .search-button {
   position: absolute;
-  display:flex;
+  display: flex;
   right: 2px;
   border: 0;
   background-color: white;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .search-results {
@@ -52,9 +55,11 @@
   font-size: rem(20px);
   display: flex;
   align-items: center;
+
   &:first-of-type {
     padding-top: rem(20px);
   }
+
   &:last-of-type {
     padding-bottom: 0;
   }
@@ -68,4 +73,3 @@
 .fetch-error-message {
   padding: 0 rem(30px);
 }
-

@@ -1,40 +1,40 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
+import { useSelector, useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
-import { userLoggedIn,isAdminSet } from '../../context/userSlice';
-import { currentAdministratorSet } from '../../context/administratorSlice';
-import { modalClosed } from '../../context/modalSlice';
-import usePostQuery from '../../services/usePostQuery';
-import useForm from '../../services/useForm';
-import {postUserUrl} from "../../constants";
-import { getMainAdminESEntities } from '../../services/getGestionnairePrincipalES';
+import { userLoggedIn, isAdminSet } from "../../context/userSlice";
+import { currentAdministratorSet } from "../../context/administratorSlice";
+import { modalClosed } from "../../context/modalSlice";
+import usePostQuery from "../../services/usePostQuery";
+import useForm from "../../services/useForm";
+import { postUserUrl } from "../../constants";
+import { getMainAdminESEntities } from "../../services/getGestionnairePrincipalES";
 
-import FormInput from './FormInput';
-import Button from '../Button/Button';
-import Icon from '../Icons/Icon';
-import Loader from '../Loader/Loader';
+import FormInput from "./FormInput";
+import Button from "../Button/Button";
+import Icon from "../Icons/Icon";
+import Loader from "../Loader/Loader";
 
 /* import './forms.scss'; */
 
 const initialFormState = {
-  username: '',
-  password: '',
+  username: "",
+  password: "",
 };
 
 const validationValues = {
   username: {
     pattern: {
       value: /^([^<>()[\],"])+$/,
-      message: 'Merci de renseigner votre identifiant',
+      message: "Merci de renseigner votre identifiant",
     },
     isRequired: true,
-    required: 'Merci de renseigner votre identifiant',
+    required: "Merci de renseigner votre identifiant",
   },
   password: {
     isRequired: true,
-    required: 'Merci de renseigner votre mot de passe',
+    required: "Merci de renseigner votre mot de passe",
   },
 };
 export default function LoginUserForm() {
@@ -45,7 +45,12 @@ export default function LoginUserForm() {
   const modalState = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const {
-    inputValues, changeHandler, errorHandler, submitErrorsHandler, errors, isValid,
+    inputValues,
+    changeHandler,
+    errorHandler,
+    submitErrorsHandler,
+    errors,
+    isValid,
   } = useForm({ initialFormState, validationValues });
   const form = useRef(null);
 
@@ -57,7 +62,9 @@ export default function LoginUserForm() {
 
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
-        .filter(([key, value]) => validationValues[key].isRequired && value === '')
+        .filter(
+          ([key, value]) => validationValues[key].isRequired && value === "",
+        )
         .map(([key]) => key);
 
       if (emptyFields.length) {
@@ -66,44 +73,66 @@ export default function LoginUserForm() {
         e.preventDefault();
         const user_obj = {
           username: inputValues.username,
-          password: inputValues.password
-        }
+          password: inputValues.password,
+        };
         try {
           setIsLoader(true);
-          postUser.mutate({data: user_obj, postApiUrl:postUserUrl }, {
-            onSuccess: async (data) => {
-            // const token = await axios.get('/session/token');
-              if(!data.data.code) {
-                setWrongCredentialsMessage(null);
-                const {field_user_civility, field_user_surname, field_user_name, field_user_email, field_user_phone, user_gp_entity} = data.data
-                const user = {
-                  isLogged: true,
-                  lastName:field_user_surname,
-                  firstName: field_user_name,
-                  email: field_user_email,
-                  phone: field_user_phone,
-                  civility:field_user_civility,
-                  gp_entities: user_gp_entity
+          postUser.mutate(
+            { data: user_obj, postApiUrl: postUserUrl },
+            {
+              onSuccess: async (data) => {
+                // const token = await axios.get('/session/token');
+                if (!data.data.code) {
+                  setWrongCredentialsMessage(null);
+                  const {
+                    field_user_civility,
+                    field_user_surname,
+                    field_user_name,
+                    field_user_email,
+                    field_user_phone,
+                    user_gp_entity,
+                  } = data.data;
+                  const user = {
+                    isLogged: true,
+                    lastName: field_user_surname,
+                    firstName: field_user_name,
+                    email: field_user_email,
+                    phone: field_user_phone,
+                    civility: field_user_civility,
+                    gp_entities: user_gp_entity,
+                  };
+                  Cookies.set("userInfo", JSON.stringify(user), {
+                    expires: 24,
+                  });
+                  dispatch(userLoggedIn({ isLogged: true }));
+                  dispatch(currentAdministratorSet({ administrator: user }));
+                  if (getMainAdminESEntities().length && params) {
+                    dispatch(
+                      isAdminSet({
+                        isAdmin: getMainAdminESEntities().includes(
+                          params.espaceId,
+                        ),
+                      }),
+                    );
+                  }
+                  setIsLoader(false);
+                  if (modalState.isOpen) dispatch(modalClosed());
+                  if (userState.isAdmin) window.location.reload();
+                } else {
+                  setWrongCredentialsMessage(
+                    "Merci de vérifier vos identifiants",
+                  );
+                  setIsLoader(false);
                 }
-                Cookies.set('userInfo', JSON.stringify(user), {expires: 24})
-                dispatch(userLoggedIn({isLogged: true }))
-                dispatch(currentAdministratorSet({administrator: user}))
-                if (getMainAdminESEntities().length && params) {
-                  dispatch(isAdminSet({isAdmin: getMainAdminESEntities().includes(params.espaceId)}))
-                }
+              },
+              onError: () => {
                 setIsLoader(false);
-                if (modalState.isOpen) dispatch(modalClosed());
-                if (userState.isAdmin) window.location.reload();
-              } else {
-                setWrongCredentialsMessage('Merci de vérifier vos identifiants');
-                setIsLoader(false);
-              }
+                setWrongCredentialsMessage(
+                  "Merci de vérifier vos identifiants",
+                );
+              },
             },
-            onError : () => {
-              setIsLoader(false);
-              setWrongCredentialsMessage('Merci de vérifier vos identifiants');
-            }
-          })
+          );
         } catch (err) {
           setIsLoader(false);
           setWrongCredentialsMessage(null);
@@ -127,12 +156,7 @@ export default function LoginUserForm() {
   return (
     <>
       <p className="wrong-credentials-message">{wrongCredentialsMessage}</p>
-      <form
-        ref={form}
-        noValidate
-        id="user-login-form"
-        onSubmit={handleSubmit}
-      >
+      <form ref={form} noValidate id="user-login-form" onSubmit={handleSubmit}>
         <FormInput
           id="username"
           name="username"
@@ -167,7 +191,9 @@ export default function LoginUserForm() {
           </Button>
           {isLoader && <Loader />}
         </div>
-        <a href="/user/password" className="forgot-password-link">Mot de pass oublié?</a>
+        <a href="/user/password" className="forgot-password-link">
+          Mot de pass oublié?
+        </a>
       </form>
     </>
   );

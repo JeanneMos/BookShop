@@ -1,20 +1,31 @@
-import React from 'react';
-import flowersDesktop from 'Images/transversal/flowers-desktop.jpg';
-import flowersMobile from 'Images/transversal/flowers-mobile.jpg';
-import StyledLink from '../Link/Link';
-import { textWithBreaks } from '../../services/formatting';
-import Icon from '../Icons/Icon';
+import React from "react";
+import flowersDesktop from "Images/transversal/flowers-desktop.jpg";
+import flowersMobile from "Images/transversal/flowers-mobile.jpg";
+import StyledLink from "../Link/Link";
+import { textWithBreaks } from "../../services/formatting";
+import Icon from "../Icons/Icon";
 
-
-export default function PrestationTransversal({prestation}) {
-  const { field_prest_titre : title,field_prest_image:images, field_prest_description: description, field_prest_url: cta} = prestation;
+export default function PrestationTransversal({ prestation }) {
+  const {
+    field_prest_titre: title,
+    field_prest_image: images,
+    field_prest_description: description,
+    field_prest_url: cta,
+  } = prestation;
   return (
     <article className="transversal-item">
       {images && (
         <picture>
           <source srcSet={images[0]?.url} media="(min-width: 650px)" />
           <source srcSet={images[0]?.url} />
-          <img className="transversal-image" loading='lazy' src={images[0]?.url} alt="" width="452" height="250" />
+          <img
+            className="transversal-image"
+            loading="lazy"
+            src={images[0]?.url}
+            alt=""
+            width="452"
+            height="250"
+          />
         </picture>
       )}
 

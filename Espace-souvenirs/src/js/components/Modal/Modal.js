@@ -1,18 +1,16 @@
-import React, {
-  useRef, useEffect, useCallback,
-} from 'react';
-import ReactDOM from 'react-dom';
-import FocusTrap from 'focus-trap-react';
-import classNames from 'classnames';
-import { modalClosed } from '../../context/modalSlice';
+import React, { useRef, useEffect, useCallback } from "react";
+import ReactDOM from "react-dom";
+import FocusTrap from "focus-trap-react";
+import classNames from "classnames";
+import { modalClosed } from "../../context/modalSlice";
 
-import { useSelector, useDispatch } from 'react-redux';
-import Icon from '../Icons/Icon';
-import HomageModal from './HomageModal';
-import LoginModal from './LoginModal';
-import MessagePictureHeroModal from './MessagePictureHeroModal';
-import HeroBannerModal from './HeroBannerModal';
-import DefuntPictureModal from './DefuntPictureModal';
+import { useSelector, useDispatch } from "react-redux";
+import Icon from "../Icons/Icon";
+import HomageModal from "./HomageModal";
+import LoginModal from "./LoginModal";
+import MessagePictureHeroModal from "./MessagePictureHeroModal";
+import HeroBannerModal from "./HeroBannerModal";
+import DefuntPictureModal from "./DefuntPictureModal";
 import ShareModal from "./ShareModal";
 
 /* import './modal.scss'; */
@@ -24,21 +22,21 @@ export default function Modal() {
 
   const handleUserKeyPress = useCallback((event) => {
     const { key, keyCode } = event;
-    if (keyCode === 27 || key === 'Escape') {
+    if (keyCode === 27 || key === "Escape") {
       dispatch(modalClosed());
     }
   }, []);
 
   const closeModal = () => {
-    dispatch(modalClosed())
-  }
+    dispatch(modalClosed());
+  };
 
   useEffect(() => {
     if (closeButton.current) closeButton.current.focus();
-    window.addEventListener('keydown', handleUserKeyPress);
+    window.addEventListener("keydown", handleUserKeyPress);
     return () => {
       dispatch(modalClosed());
-      window.removeEventListener('keydown', handleUserKeyPress);
+      window.removeEventListener("keydown", handleUserKeyPress);
     };
   }, []);
 
@@ -48,14 +46,14 @@ export default function Modal() {
     MessagePictureHeroModal,
     HeroBannerModal,
     DefuntPictureModal,
-    ShareModal
-  }
+    ShareModal,
+  };
   const modalContent = () => {
-    if(!modalState.modalType) return null; 
-   
+    if (!modalState.modalType) return null;
+
     const SpecificModal = MODAL_COMPONENTS[modalState.modalType];
-    return <SpecificModal />
-  }
+    return <SpecificModal />;
+  };
 
   if (!modalState.isOpen) return null;
   return ReactDOM.createPortal(
@@ -63,9 +61,14 @@ export default function Modal() {
       <div>
         <div className="modal-overlay" onClick={closeModal} />
         <div className="modal-wrapper" role="dialog" data-testid="modalTest">
-          <div className={classNames('modal', modalState.theme)}>
-            {modalState.hasCloseButton && (
-              <button type="button" className="modal-close" ref={closeButton} onClick={closeModal}>
+          <div className={classNames("modal", modalState.theme)}>
+            {(modalState.hasCloseButton || !modalState.modalType) && (
+              <button
+                type="button"
+                className="modal-close"
+                ref={closeButton}
+                onClick={closeModal}
+              >
                 <Icon name="cross" iconClass="close-icon" />
                 <span className="sr-only">Fermer la popin</span>
               </button>
@@ -75,6 +78,6 @@ export default function Modal() {
         </div>
       </div>
     </FocusTrap>,
-    document.getElementById('react-portal'),
+    document.getElementById("react-portal"),
   );
 }

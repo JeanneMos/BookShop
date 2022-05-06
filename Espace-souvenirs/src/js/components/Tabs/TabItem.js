@@ -1,22 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
-import { administratorEdited } from '../../context/administratorSlice';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { administratorEdited } from "../../context/administratorSlice";
 /* import './navigation.scss'; */
 
 export default function TabItem({ tabInfos, activeMobileTab }) {
   const dispatch = useDispatch();
   const handleTabsClick = () => {
-    tabInfos.handleActiveTab(tabInfos.id)
-    dispatch(administratorEdited({isEditingAdministator:false}))
-  }
-  
+    tabInfos.handleActiveTab(tabInfos.id);
+    dispatch(administratorEdited({ isEditingAdministator: false }));
+  };
+
   return (
     <button
       type="button"
       role="tab"
-      className={classNames('tab-item', {
+      className={classNames("tab-item", {
         active: tabInfos.activeLink === tabInfos.id,
       })}
       hidden={activeMobileTab === tabInfos.id}

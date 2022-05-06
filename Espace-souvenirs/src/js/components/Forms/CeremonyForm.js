@@ -1,78 +1,83 @@
-import React, { useRef } from 'react';
-import FormInput from './FormInput';
-import useForm from '../../services/useForm';
-import Button from '../Button/Button';
-import Icon from '../Icons/Icon';
-import ModalTitle from '../Modal/ModalTitle';
-import scrollSmoothToElement from '../../services/scrollSmoothToElement';
+import React, { useRef } from "react";
+import FormInput from "./FormInput";
+import useForm from "../../services/useForm";
+import Button from "../Button/Button";
+import Icon from "../Icons/Icon";
+import ModalTitle from "../Modal/ModalTitle";
+import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 
 /* import './forms.scss'; */
 
 const initialFormState = {
-  eventName: '',
-  eventPlace: '',
-  eventDate: '',
-  eventTime: '',
-  address: '',
-  address2: '',
-  city: '',
-  zipCode: '',
+  eventName: "",
+  eventPlace: "",
+  eventDate: "",
+  eventTime: "",
+  address: "",
+  address2: "",
+  city: "",
+  zipCode: "",
 };
 
 const validationValues = {
   eventName: {
     pattern: {
       value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: 'Merci de renseigner le nom de votre événement',
+      message: "Merci de renseigner le nom de votre événement",
     },
     isRequired: true,
-    required: 'Merci de renseigner le nom de votre événement',
+    required: "Merci de renseigner le nom de votre événement",
   },
   eventPlace: {
     pattern: {
       value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: 'Merci de renseigner le lieu de votre événement',
+      message: "Merci de renseigner le lieu de votre événement",
     },
     isRequired: true,
-    required: 'Merci de renseigner le lieu de votre événement',
+    required: "Merci de renseigner le lieu de votre événement",
   },
   address: {
     pattern: {
       value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: 'Merci de renseigner l\'adresse de l’événement',
+      message: "Merci de renseigner l'adresse de l’événement",
     },
     isRequired: true,
-    required: 'Merci de renseigner l\'adresse de l’événement',
+    required: "Merci de renseigner l'adresse de l’événement",
   },
   address2: {
     pattern: {
       value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: 'Merci de renseigner l\'adresse de l’événement',
+      message: "Merci de renseigner l'adresse de l’événement",
     },
     isRequired: false,
   },
-  city: '',
+  city: "",
   eventDate: {
     isRequired: true,
-    required: 'Merci de renseigner la date de l’événement',
+    required: "Merci de renseigner la date de l’événement",
   },
   eventTime: {
     isRequired: true,
-    required: 'Merci de renseigner l\'heure de l’événement',
+    required: "Merci de renseigner l'heure de l’événement",
   },
   zipCode: {
     pattern: {
       value: /^[0-9]{5}$/,
-      message: 'Merci de renseigner un code postal à 5 chiffres',
+      message: "Merci de renseigner un code postal à 5 chiffres",
     },
     isRequired: true,
-    required: 'Merci de renseigner un code postal à 5 chiffres',
+    required: "Merci de renseigner un code postal à 5 chiffres",
   },
 };
 
 export default function CeremonyForm() {
   const {
-    inputValues, changeHandler, errorHandler, submitErrorsHandler, errors, isValid,
+    inputValues,
+    changeHandler,
+    errorHandler,
+    submitErrorsHandler,
+    errors,
+    isValid,
   } = useForm({ initialFormState, validationValues });
 
   const hiddenGlobalError = useRef();
@@ -87,7 +92,9 @@ export default function CeremonyForm() {
 
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
-        .filter(([key, value]) => validationValues[key].isRequired && value === '')
+        .filter(
+          ([key, value]) => validationValues[key].isRequired && value === "",
+        )
         .map(([key]) => key);
 
       if (emptyFields.length) {
@@ -99,7 +106,11 @@ export default function CeremonyForm() {
     <>
       <ModalTitle>Ajouter un évènement</ModalTitle>
       <form noValidate onSubmit={handleSubmit}>
-        {!isValid && <p className="sr-only" tabIndex={0} ref={hiddenGlobalError}>Merci de corriger les erreurs</p>}
+        {!isValid && (
+          <p className="sr-only" tabIndex={0} ref={hiddenGlobalError}>
+            Merci de corriger les erreurs
+          </p>
+        )}
         <FormInput
           id="eventName"
           name="eventName"
@@ -124,7 +135,7 @@ export default function CeremonyForm() {
             onInputChange={changeHandler}
             onInputBlur={errorHandler}
             error={errors.eventDate}
-            min={new Date().toISOString().split('T')[0]}
+            min={new Date().toISOString().split("T")[0]}
           />
           <FormInput
             id="eventTime"

@@ -2,16 +2,19 @@
 
 form {
   padding: rem(20px);
- /*  width: rem(340px); */
+
+  /*  width: rem(340px); */
   display: flex;
   flex-direction: column;
   margin: auto;
 }
+
 .messages-form-wrapper {
   position: relative;
   margin-top: rem(30px);
   padding-top: 1px;
-  &:before {
+
+  &::before {
     content: "";
     height: rem(300px);
     width: calc(100% + #{rem(30px)});
@@ -22,10 +25,11 @@ form {
     position: absolute;
   }
 }
+
 .messages-form {
   position: relative;
   background-color: white;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 15%);
   width: rem(820px);
   max-width: 100%;
   margin: 0 auto;
@@ -39,45 +43,54 @@ form {
   text-align: center;
   margin: rem(50px) auto;
 }
+
 .input-wrapper {
   margin-bottom: rem(20px);
 }
+
 .image-radios-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: rem(30px);
 }
+
 .input-wrapper--radio {
   flex: 1;
   flex-basis: calc(50% - #{rem(15px)});
   margin: 0;
 }
+
 label {
   display: block;
   font-family: var(--font);
   font-size: rem(18px);
-  line-height: lineheight(18,28);
+  line-height: lineheight(18, 28);
   margin-bottom: rem(5px);
 }
+
 .label-error {
   color: $red;
 }
+
 .optional-label {
   color: var(--site-color);
   font-style: italic;
 }
+
 input {
   display: block;
   width: 100%;
   height: rem(50px);
-  padding:0 rem(15px);
+  padding: 0 rem(15px);
   font-family: var(--font-bold);
   font-size: rem(16px);
   border: 1px solid $grey-5;
+
   &::placeholder {
     color: $grey-5;
     font-family: var(--font);
   }
+
   &::-webkit-datetime-edit-fields-wrapper {
     font-family: var(--font);
   }
@@ -87,19 +100,21 @@ input {
     background-repeat: no-repeat;
     background-size: rem(15px);
     background-position: 98% center;
+
     &:focus {
       border-color: $red;
       outline-color: $red;
     }
   }
+
   &:disabled {
     background-color: $grey-5;
   }
 }
 
-input[type=file],
-input[type=radio],
-input[type=checkbox] {
+input[type="file"],
+input[type="radio"],
+input[type="checkbox"] {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -110,76 +125,82 @@ input[type=checkbox] {
   white-space: nowrap;
   border: 0;
 }
-input[type=file]:focus + label{
+
+input[type="file"]:focus + label {
   outline: auto;
 }
 
-input[type=file]:disabled + label {
+input[type="file"]:disabled + label {
   border-color: $grey-5;
   cursor: unset;
   background-color: $grey-5;
 }
 
-input[type=radio] + label {
+input[type="radio"] + label {
   border: 4px solid transparent;
   display: flex;
   margin: 0;
 }
-input[type=checkbox] + label {
+
+input[type="checkbox"] + label {
   position: relative;
   padding-left: rem(40px);
-  &:before {
+
+  &::before {
     content: "";
     display: block;
     position: absolute;
     left: 0;
-    top:0;
-    border:1px solid $grey-5;
+    top: 0;
+    border: 1px solid $grey-5;
     width: rem(25px);
     height: rem(25px);
   }
-  &:after {
+
+  &::after {
     content: none;
   }
-
 }
-input[type=radio]:focus + label,
-input[type=radio]:checked + label {
+
+input[type="radio"]:focus + label,
+input[type="radio"]:checked + label {
   border-color: var(--site-color);
 }
 
-input[type=checkbox]:hover + label,
-input[type=checkbox]:focus + label {
-  &:before {
+input[type="checkbox"]:hover + label,
+input[type="checkbox"]:focus + label {
+  &::before {
     border-color: var(--site-color);
   }
 }
 
-input[type=checkbox]:checked + label {
-  &:after {
+input[type="checkbox"]:checked + label {
+  &::after {
     content: "\2714";
-    width:rem(25px);
+    width: rem(25px);
     height: rem(25px);
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    left:0;
+    left: 0;
     top: 0;
     color: $white;
     background-color: var(--site-color);
   }
 }
+
 input:read-only {
   background-color: $grey-5;
 }
+
 .label-image {
-  width:100%;
-  height:auto;
+  width: 100%;
+  height: auto;
   object-fit: cover;
 }
 
-.file-input-label{
+.file-input-label {
   border: 1px solid transparent;
   padding: rem(15px) rem(20px);
   border-radius: rem(8px);
@@ -188,9 +209,8 @@ input:read-only {
   font-family: var(--font-bold);
   font-size: rem(16px);
   text-transform: uppercase;
-
-  cursor:pointer;
-  display:inline-flex;
+  cursor: pointer;
+  display: inline-flex;
 }
 
 .error-message {
@@ -199,8 +219,10 @@ input:read-only {
   color: $red;
   font-size: rem(14px);
 }
+
 .wrong-credentials-message {
   @extend .error-message;
+
   padding: 0 rem(30px);
   text-align: center;
 }
@@ -214,9 +236,10 @@ button {
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .date-input-wrapper,
 .time-input-wrapper {
-  width: calc(50% -  math.div(rem(30px), 2));
+  width: calc(50% - math.div(rem(30px), 2));
 }
 
 .forgot-password-link {
@@ -236,8 +259,10 @@ textarea {
   font-size: rem(16px);
   border: 1px solid $grey-5;
   padding: rem(30px) rem(15px);
+
   &.input-error {
     border-color: $red;
+
     &:focus {
       border-color: $red;
       outline-color: $red;
@@ -247,50 +272,59 @@ textarea {
 
 .message-photo-upload {
   border: none;
-  margin:0;
+  margin: 0;
   margin-bottom: rem(20px);
-  padding:0;
+  padding: 0;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
+
   legend {
     font-family: var(--font);
     font-size: rem(18px);
-    line-height: lineheight(18,28);
+    line-height: lineheight(18, 28);
     margin-bottom: rem(20px);
     display: flex;
     align-items: baseline;
     width: 100%;
     flex-wrap: wrap;
   }
-  .input-file-wrapper{
-    width:100%;
+
+  .input-file-wrapper {
+    width: 100%;
+
     label {
       width: 100%;
     }
   }
+
   .message-photo-button {
     width: 100%;
   }
 }
+
 .image-preview-wrapper {
   width: 100%;
   gap: rem(10px);
   flex-wrap: wrap;
-    .image-preview {
-      width: rem(215px);
-      height: rem(165px);
-    }
+
+  .image-preview {
+    width: rem(215px);
+    height: rem(165px);
   }
+}
+
 .message-photo-requirements {
   font-size: rem(14px);
   color: $grey-2;
   margin-left: auto;
   margin-right: 0;
 }
+
 .messages-form .buttons-wrapper {
   flex-wrap: wrap;
+
   button {
     width: 100%;
   }
@@ -298,29 +332,31 @@ textarea {
 
 .biography-form {
   position: relative;
-  padding:0;
+  padding: 0;
 }
 
 .biography-textarea {
   position: relative;
   background-color: white;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 15%);
   max-width: 100%;
   width: 100%;
   margin: 0;
   font-size: rem(18px);
-  line-height: lineheight(18,32);
+  line-height: lineheight(18, 32);
+
   .textarea {
     min-height: rem(700px);
   }
-  
 }
+
 .biography-form fieldset {
-  border:0;
-  padding:0;
+  border: 0;
+  padding: 0;
 }
+
 .biography-form .upload-error-message {
-  padding:0;
+  padding: 0;
   text-align: center;
 }
 
@@ -328,21 +364,25 @@ textarea {
   align-items: center;
   flex-wrap: wrap;
   padding: rem(20px) rem(30px);
+
   .image-preview {
     height: auto;
   }
 }
+
 .biography-photo-upload {
   border: 2px dashed $grey-5;
   margin-top: rem(20px);
   padding: rem(30px);
 }
+
 .biography-photo-title {
   font-size: rem(18px);
   font-family: var(--font-bold);
   text-align: center;
   margin: 0;
 }
+
 .biography-photo-requirements {
   font-size: rem(14px);
   margin: rem(10px) 0 0;
@@ -354,15 +394,18 @@ textarea {
   justify-content: center;
   position: relative;
 }
+
 .biography-photo-description {
   margin: rem(10px) 0 0;
   font-size: rem(14px);
   text-align: center;
   color: $grey-2;
 }
+
 .biography-photo-upload .input-file-wrapper {
-  margin-top: rem(25px)
+  margin-top: rem(25px);
 }
+
 .tooltip {
   color: var(--site-color);
   background-color: transparent;
@@ -374,6 +417,7 @@ textarea {
   font-size: rem(12px);
   line-height: normal;
 }
+
 .biography-tooltip-text {
   display: none;
   position: absolute;
@@ -385,7 +429,8 @@ textarea {
   height: rem(155px);
   padding: rem(20px) rem(15px);
   font-size: rem(14px);
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 15%);
+
   &.open {
     display: block;
   }
@@ -397,6 +442,7 @@ textarea {
   max-width: 100%;
   width: rem(825px);
 }
+
 .personal-info-form fieldset {
   width: 100%;
   margin-left: auto;
@@ -407,10 +453,11 @@ textarea {
 }
 
 .fieldset-description {
-  font-size:rem(24px);
+  font-size: rem(24px);
   font-family: var(--font-bold);
   margin: 0 0 rem(10px) 0;
 }
+
 .password-check {
   margin: 0;
   margin-top: rem(5px);
@@ -418,17 +465,20 @@ textarea {
   flex-direction: column;
 }
 
-
 /* specific to drupal */
 
-.user-pass, .user-login-form, .user-form {
+.user-pass,
+.user-login-form,
+.user-form {
   max-width: rem(730px);
 }
+
 .form-submit {
   background-color: var(--site-color);
   color: $white;
   border-color: var(--site-color);
 }
+
 .form-item {
   margin-bottom: rem(30px);
 }
@@ -438,29 +488,36 @@ textarea {
     /* width: rem(570px); */
     padding: rem(30px);
   }
+
   .messages-form {
     padding: rem(30px) rem(85px);
   }
+
   .message-photo-upload legend {
     flex-wrap: nowrap;
   }
-  .message-photo-upload .input-file-wrapper{
+
+  .message-photo-upload .input-file-wrapper {
     width: calc(50% - #{rem(5px)});
-    
   }
+
   .message-photo-upload .message-photo-button {
     width: calc(50% - #{rem(5px)});
   }
+
   .messages-form .buttons-wrapper {
     flex-wrap: nowrap;
+
     button {
       width: inherit;
     }
   }
+
   button {
     margin-right: 0;
     margin-left: auto;
   }
+
   .biography-form {
     margin-top: rem(40px);
   }
@@ -468,22 +525,27 @@ textarea {
   .biography-textarea {
     padding: rem(35px);
   }
+
   .biography-form,
-  .biography-textarea  {
+  .biography-textarea {
     width: rem(820px);
   }
+
   .biography-photo-title {
     font-size: rem(20px);
   }
+
   .biography-photo-requirements {
     font-size: rem(16px);
   }
+
   .personal-info-form fieldset {
     padding: rem(40px);
   }
 }
+
 @include from-landscape {
   form {
-   /*  width: rem(650px); */
+    /*  width: rem(650px); */
   }
 }

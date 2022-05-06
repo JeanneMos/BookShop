@@ -1,13 +1,12 @@
-import { MODAL_CLOSED, MODAL_OPENED } from './modalAction';
+import { MODAL_CLOSED, MODAL_OPENED } from "./modalAction";
 
 const initialModalState = {
   isOpen: false,
-  theme: 'white',
+  theme: "white",
   hasCloseButton: true,
 };
 
 const modalReducer = (state = initialModalState, action) => {
-
   const { type, payload } = action;
 
   switch (type) {

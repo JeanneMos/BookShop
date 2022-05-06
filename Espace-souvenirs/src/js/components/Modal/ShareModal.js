@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
-import ModalTitle from './ModalTitle';
-import ShareDirectLink from '../DefuntInfo/ShareDirectLink';
-import ShareSocialMedias from '../DefuntInfo/ShareSocialMedias';
+import ModalTitle from "./ModalTitle";
+import ShareDirectLink from "../DefuntInfo/ShareDirectLink";
+import ShareSocialMedias from "../DefuntInfo/ShareSocialMedias";
 
 export default function ShareModal() {
   return (
@@ -11,5 +11,5 @@ export default function ShareModal() {
       <ShareDirectLink />
       <ShareSocialMedias />
     </>
-  )
+  );
 }

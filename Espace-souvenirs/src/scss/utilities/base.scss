@@ -1,16 +1,16 @@
-
-@import "./fonts.scss",
-"./colors.scss",
-"./functions.scss",
-"./breakpoints.scss";
+@import "./fonts", "./colors", "./functions",
+  "./breakpoints";
 
 html {
   scroll-behavior: smooth;
 }
-html, body {
+
+html,
+body {
   margin: 0;
-  padding:0;
+  padding: 0;
 }
+
 body {
   --bg-color: #{$grey-4};
   --color: #{$black};
@@ -21,7 +21,7 @@ body {
   --text-color-hover: #{$white};
   --font: #{$lato};
   --font-bold: #{$latoBold};
-  --font-bold-title: #{$latoBold};;
+  --font-bold-title: #{$latoBold};
   --block-mt: #{rem(30px)};
 
   @media screen and (min-width: 650px) {
@@ -41,6 +41,7 @@ body.class-roblot {
   --font-italic: #{$robotoItalic};
   --font-bold-title: #{$merriweatherBold};
 }
+
 body.class-dignite {
   --bg-color: #{$grey-6};
   --site-color: #{$blue-1};
@@ -52,6 +53,7 @@ body.class-dignite {
   --font-bold: #{$openSansBold};
   --font-bold-title: #{$openSansBold};
 }
+
 body.class-marque-locale {
   --bg-color: #{$green-3};
   --site-color: #{$green-2};
@@ -63,6 +65,7 @@ body.class-marque-locale {
   --font-bold: #{$ralewayBold};
   --font-bold-title: #{$ralewayBold};
 }
+
 body.class-h2b {
   --bg-color: #{$beige-2};
   --site-color: #{$green-1};
@@ -75,12 +78,16 @@ body.class-h2b {
   --font-bold-title: #{$playfairBold};
 }
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
+
 .layout-container {
   color: var(--color);
 }
+
 .react-app {
   min-height: 100vh;
   font-family: var(--font);
@@ -89,8 +96,9 @@ body.class-h2b {
 }
 
 h1 {
-  font-family: var(--font-bold)
+  font-family: var(--font-bold);
 }
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -103,11 +111,10 @@ h1 {
   border: 0;
 }
 
-
-
 #block-souvenirs-page-title {
   display: none;
 }
+
 #block-souvenirs-local-tasks {
   ul {
     display: flex;

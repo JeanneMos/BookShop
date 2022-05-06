@@ -1,4 +1,4 @@
-Object.defineProperty(URL, 'createObjectURL', {
+Object.defineProperty(URL, "createObjectURL", {
   writable: true,
-  value: jest.fn()
-})
+  value: jest.fn(),
+});

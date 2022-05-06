@@ -1,9 +1,9 @@
-import React from 'react';
-import Icon from '../Icons/Icon';
-import StyledLink from "../Link/Link"
+import React from "react";
+import Icon from "../Icons/Icon";
+import StyledLink from "../Link/Link";
 
-export default function MailTo({email, subject}) {
-  const customSubject = subject ? `?subject=${subject}`: null
+export default function MailTo({ email, subject }) {
+  const customSubject = subject ? `?subject=${subject}` : null;
   return (
     <StyledLink
       as="ahref"
@@ -14,5 +14,5 @@ export default function MailTo({email, subject}) {
       <span className="separator">&nbsp;</span>
       <span className="link-text">Répondre</span>
     </StyledLink>
-  )
+  );
 }

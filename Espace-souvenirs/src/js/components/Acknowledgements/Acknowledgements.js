@@ -1,8 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Button from '../Button/Button';
-import Icon from '../Icons/Icon';
-/* import './acknowledgement.scss'; */
+import React from "react";
+import { useSelector } from "react-redux";
+import Button from "../Button/Button";
+import Icon from "../Icons/Icon";
 
 const thanks = true;
 export default function Acknowledgements() {
@@ -21,7 +20,9 @@ export default function Acknowledgements() {
           <p>
             Chère famille, chers amis,
             <br />
-            Cet espace privé est destiné à recueillir vos témoignages : un message, un souvenir, une anecdote ou une photo, illustrant un moment de vie. Merci pour votre précieux soutien.
+            Cet espace privé est destiné à recueillir vos témoignages : un
+            message, un souvenir, une anecdote ou une photo, illustrant un
+            moment de vie. Merci pour votre précieux soutien.
           </p>
         </div>
       </div>

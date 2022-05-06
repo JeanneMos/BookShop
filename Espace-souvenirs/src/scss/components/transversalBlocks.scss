@@ -17,6 +17,7 @@
   max-width: rem(260px);
   height: auto;
 }
+
 .transversal-content {
   margin-left: rem(15px);
   padding: rem(25px) rem(35px) rem(35px);
@@ -28,7 +29,7 @@
 @include from-tablet {
   .transversal-blocks {
     width: 100%;
-    margin-left: 0; 
+    margin-left: 0;
     gap: rem(30px);
   }
 
@@ -36,8 +37,8 @@
     min-width: auto;
     width: calc(50% - #{rem(15px)});
   }
+
   .transversal-image {
     max-width: 100%;
-
   }
 }
