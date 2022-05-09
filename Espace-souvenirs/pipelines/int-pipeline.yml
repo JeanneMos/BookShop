@@ -1,0 +1,249 @@
+name: $(sitename)-$(environment)-$(Build.BuildId)
+
+trigger:
+  - integration
+
+variables:
+  - group: 'int-espsouv'
+  - name: namespace
+    value: $(environment)-$(sitename)
+  - name: site_domain
+    value: $(sitename).aks-int.ogf.fr
+  - name: site_url
+    value: https://$(site_domain)
+
+
+stages:
+  ###############################
+  ####### PRE BUILD STAGE #######
+  ###############################
+- stage: prebuild
+  displayName: 'Pre-Build'
+  jobs:
+
+  - job: Setup_dependecies
+    displayName: 'Install npm/composer dependencies'
+    steps:
+
+      - task: DockerInstaller@0
+        displayName: Install Docker
+        inputs:
+          dockerVersion: '17.09.0-ce'
+
+      - task: Docker@2
+        displayName: Connect to ACR
+        inputs:
+          containerRegistry: 'acr-sc'
+          command: 'login'
+
+      - task: Bash@3
+        displayName: Start composer Container
+        inputs:
+          targetType: 'inline'
+          script: |
+            cp .env.example .env
+            docker run -d -it --name composer-setup-$(NAMESPACE) --env-file .env -v "$(Build.SourcesDirectory)/src:/var/www/html/"  ogffrdrupalacr.azurecr.io/base/ogf-apache-php:7.4
+
+      - task: Bash@3
+        displayName: Setup composer
+        inputs:
+          targetType: 'inline'
+          script: |
+            docker exec composer-setup-$(NAMESPACE)  composer install --optimize-autoloader
+
+      - task: Bash@3
+        displayName: Start npm/webpack Container
+        inputs:
+          targetType: 'inline'
+          script: |
+            docker run -d -it --name node-setup --volume $(Build.SourcesDirectory)/src:/src node:carbon-stretch-slim
+
+      - task: Bash@3
+        displayName: Setup npm
+        inputs:
+          targetType: 'inline'
+          script: |
+            docker exec node-setup sh -c "cd /src && npm install"
+
+      - task: Bash@3
+        displayName: Setup Webpack
+        inputs:
+          targetType: 'inline'
+          script: |
+            cd src && npm run build
+
+      - task: ArchiveFiles@2
+        displayName: Zip dependecies
+        inputs:
+          rootFolderOrFile: '$(Build.SourcesDirectory)/src'
+          includeRootFolder: false
+          archiveType: 'tar'
+          archiveFile: '$(SourceBranchName)/$(Build.BuildId).tar.gz'
+          replaceExistingArchive: true
+          verbose: true
+
+      - task: PublishPipelineArtifact@1
+        displayName: Upload dependecies Artifact
+        inputs:
+          targetPath: '$(SourceBranchName)/$(Build.BuildId).tar.gz'
+          artifactName: '$(SITENAME)-sources.tar.gz'
+
+  #############################
+  ######## BUILD STAGE ########
+  #############################
+
+- stage: Build
+  displayName: 'Build'
+  dependsOn: prebuild
+  condition: succeeded()
+  jobs:
+
+    - job: Build
+      displayName: 'Build k8s Image'
+      steps:
+
+        - task: DownloadPipelineArtifact@2
+          displayName: Download dependecies Artifact
+          inputs:
+            buildType: 'current'
+            artifactName: '$(SITENAME)-sources.tar.gz'
+            itemPattern:
+            targetPath: '$(Build.SourcesDirectory)'
+
+        - task: ExtractFiles@1
+          displayName: Unzip dependecies Artifact
+          inputs:
+            archiveFilePatterns: '$(Build.SourcesDirectory)/$(Build.BuildId).tar.gz'
+            destinationFolder: '$(Build.SourcesDirectory)/src'
+            cleanDestinationFolder: true
+            overwriteExistingFiles: true
+
+        - task: Docker@2
+          displayName: Build&Push Apache k8s
+          inputs:
+            containerRegistry: 'acr-sc'
+            repository: 'espsouv/apache'
+            command: 'buildAndPush'
+            Dockerfile: '$(Build.SourcesDirectory)/iaac/docker/apache/Dockerfile'
+            buildContext: '$(Build.SourcesDirectory)'
+            tags: '$(NAMESPACE)'
+            addPipelineData: false
+            addBaseImageData: false
+
+        - task: Docker@2
+          displayName: Build&Push Varnish k8s
+          inputs:
+            containerRegistry: 'acr-sc'
+            repository: 'espsouv/varnish'
+            command: 'buildAndPush'
+            Dockerfile: '$(Build.SourcesDirectory)/iaac/docker/varnish/Dockerfile'
+            buildContext: '$(Build.SourcesDirectory)/iaac/docker/varnish'
+            tags: '$(NAMESPACE)'
+            addPipelineData: false
+            addBaseImageData: false
+
+#############################
+######## DEPLOY STAGE #######
+#############################
+
+- stage: Deploy
+  displayName: 'Deploy to k8s'
+  condition: always()
+  pool:
+    name: Default
+    demands: Agent.Name -equals prddevops3
+  jobs:
+
+    - job: Deploy
+      steps:
+        - checkout: self
+          clean: false
+
+        - task: Kubernetes@1
+          displayName: 'K8s Login'
+          inputs:
+            connectionType: 'Kubernetes Service Connection'
+            kubernetesServiceEndpoint: 'k8s-hprod-drupal'
+            namespace: '$(NAMESPACE)'
+            command: 'login'
+            versionSpec: '1.23.1'
+
+        - task: HelmInstaller@0
+          displayName: 'Setup Helm'
+          inputs:
+            helmVersion: '2.14.1'
+            installKubectl: true
+
+        - task: Bash@3
+          displayName: Create namespace
+          inputs:
+            targetType: 'inline'
+            script: |
+              kubectl create ns ${NAMESPACE} || true
+
+        - task: Bash@3
+          displayName: Deploy Redis
+          inputs:
+            targetType: 'inline'
+            script: |
+              helm repo add bitnami https://charts.bitnami.com/bitnami
+              export REDIS_PASSWORD=$(kubectl get secret --namespace "${NAMESPACE}" ${NAMESPACE}-redis -o jsonpath="{.data.redis-password}" | base64 --decode) || true
+              helm upgrade -i --namespace ${NAMESPACE} -f $(Build.SourcesDirectory)/iaac/helm/redis/values.yml ${NAMESPACE}-redis bitnami/redis --set auth.password=$REDIS_PASSWORD
+
+        - task: HelmDeploy@0
+          displayName: 'Deploy Drupal'
+          inputs:
+            connectionType: 'Kubernetes Service Connection'
+            kubernetesServiceConnection: 'k8s-hprod-drupal'
+            namespace: '$(NAMESPACE)'
+            command: 'upgrade'
+            chartType: 'FilePath'
+            chartPath: '$(Build.SourcesDirectory)/iaac/helm/drupal'
+            releaseName: '$(NAMESPACE)-drupal'
+            overrideValues: 'namespace=$(NAMESPACE),environment=$(ENVIRONMENT),site_name=$(SITENAME),drupal.ingress_hostname=$(SITE_DOMAIN),drupal.ingress_base_url=$(SITE_URL),image_tag=$(NAMESPACE)'
+            valueFile: '$(Build.SourcesDirectory)/iaac/helm/$(ENVIRONMENT)-values.yml'
+
+        - task: HelmDeploy@0
+          displayName: 'Deploy Varnish'
+          inputs:
+            connectionType: 'Kubernetes Service Connection'
+            kubernetesServiceConnection: 'k8s-hprod-drupal'
+            namespace: '$(NAMESPACE)'
+            command: 'upgrade'
+            chartType: 'FilePath'
+            chartPath: '$(Build.SourcesDirectory)/iaac/helm/varnish'
+            releaseName: '$(NAMESPACE)-varnish'
+            overrideValues: 'namespace=$(NAMESPACE),environment=$(ENVIRONMENT),site_name=$(SITENAME),varnish.ingress_hostname=$(SITE_DOMAIN),image_tag=$(NAMESPACE)'
+            valueFile: '$(Build.SourcesDirectory)/iaac/helm/$(ENVIRONMENT)-values.yml'
+
+#############################
+##### POST DEPLOY STAGE #####
+#############################
+
+- stage: Post_Deploy
+  displayName: 'Post Deploy'
+  condition: always()
+  pool:
+    name: Default
+    demands: Agent.Name -equals prddevops3
+  jobs:
+    - job: Deploy
+      steps:
+        - checkout: self
+          clean: false
+
+        - task: Kubernetes@1
+          displayName: 'K8s Login'
+          inputs:
+            connectionType: 'Kubernetes Service Connection'
+            kubernetesServiceEndpoint: 'k8s-hprod-drupal'
+            namespace: '$(NAMESPACE)'
+            command: 'login'
+            versionSpec: '1.23.1'
+
+        - task: Bash@3
+          displayName: 'Drupal Update'
+          inputs:
+            targetType: 'inline'
+            script: |
+              cd iaac && make run-app-update

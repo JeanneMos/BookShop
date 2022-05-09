@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "eslint:recommended"
+  ],
+  "settings": {
+    "import/resolver": "webpack",
+    "react": {
+      "pragma": "React",  // Pragma to use, default to "React"
+      "fragment": "Fragment",  // Fragment to use (may be a property of <pragma>), default to "Fragment"
+      "version": "detect", // React version. "detect" automatically picks the version you have installed.
+                           // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+                           // It will default to "latest" and warn if missing, and to "detect" in the future
+      "flowVersion": "0.53" // Flow version
+    }
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "function-paren-newline": "off",
+    "react/prop-types": [0],
+    "no-unused-vars": [0],
+    "arrow-body-style": "off",
+    "default-param-last": "off",
+    "prefer-arrow-callback": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "indent": ["error", 2],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"]
+  }
+}

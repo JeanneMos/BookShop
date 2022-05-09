@@ -1,0 +1,170 @@
+/* PFG - Lato fonts */
+
+@font-face {
+  font-family: "LatoBold";
+  src: url("../assets/fonts/lato-bold.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("../assets/fonts/lato-regular.woff") format("woff");
+  font-display: swap;
+}
+
+/* Roblot - Roboto + merriweather */
+
+/* merriweather-700 - latin */
+@font-face {
+  font-family: "Merriweather-Bold";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/merriweather-700.woff2") format("woff2"),
+    url("../assets/fonts/merriweather-700.woff")
+    format("woff"),
+    url("../assets/fonts/merriweather-700.ttf")
+    format("truetype");
+}
+
+/* roboto-condensed-300 - latin */
+@font-face {
+  font-family: "Roboto Condensed Light";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/roboto-condensed-300.woff2") format("woff2"),
+    url("../assets/fonts/roboto-condensed-300.woff")
+    format("woff"),
+    url("../assets/fonts/roboto-condensed-300.ttf")
+    format("truetype");
+}
+
+/* roboto-condensed-regular - latin */
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/roboto-condensed.woff2") format("woff2"),
+    url("../assets/fonts/roboto-condensed.woff")
+    format("woff"),
+    url("../assets/fonts/roboto-condensed.ttf")
+    format("truetype");
+}
+
+/* roboto-condensed-italic - latin */
+@font-face {
+  font-family: "Roboto Condensed italic";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("../assets/fonts/roboto-condensed-italic.woff2") format("woff2"),
+    url("../assets/fonts/roboto-condensed-italic.woff") format("woff"),
+    url("../assets/fonts/roboto-condensed-italic.ttf")
+    format("truetype");
+}
+
+/* roboto-condensed-700 - latin */
+@font-face {
+  font-family: "Roboto Condensed Bold";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/roboto-condensed-700.woff2") format("woff2"),
+    url("../assets/fonts/roboto-condensed-700.woff")
+    format("woff"),
+    url("../assets/fonts/roboto-condensed-700.ttf")
+    format("truetype");
+}
+
+/* open-sans-regular - latin */
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/open-sans.woff2") format("woff2"),
+    url("../assets/fonts/open-sans.woff")
+    format("woff"),
+    url("../assets/fonts/open-sans.ttf")
+    format("truetype");
+}
+
+/* open-sans-800 - latin */
+@font-face {
+  font-family: "Open Sans Bold";
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/open-sans-700.woff2") format("woff2"),
+    url("../assets/fonts/open-sans-700.woff")
+    format("woff"),
+    url("../assets/fonts/open-sans-700.ttf")
+    format("truetype");
+}
+
+/* Playfair display */
+@font-face {
+  font-family: "playfair-display";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/playfair-display.woff2") format("woff2"),
+    url("../assets/fonts/playfair-display.woff")
+    format("woff"),
+    url("../assets/fonts/playfair-display.ttf")
+    format("truetype");
+}
+
+/* Playfair display bold */
+@font-face {
+  font-family: "playfair-display-bold";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/playfair-display-800.woff2") format("woff2"),
+    url("../assets/fonts/playfair-display-800.woff")
+    format("woff"),
+    url("../assets/fonts/playfair-display-800.ttf")
+    format("truetype");
+}
+
+/* raleway */
+@font-face {
+  font-family: "raleway";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/raleway.woff2") format("woff2"),
+    url("../assets/fonts/raleway.woff")
+    format("woff"),
+    url("../assets/fonts/raleway.ttf") format("truetype");
+}
+
+/* raleway bold */
+@font-face {
+  font-family: "raleway-bold";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/raleway-800.woff2") format("woff2"),
+    url("../assets/fonts/raleway-800.woff")
+    format("woff"),
+    url("../assets/fonts/raleway-800.ttf")
+    format("truetype");
+}
+
+$lato: "Lato", sans-serif;
+$latoBold: "LatoBold", sans-serif;
+$merriweatherBold: "Merriweather-Bold", sans-serif;
+$robotoLight: "Roboto Condensed Light", sans-serif;
+$roboto: "Roboto Condensed", sans-serif;
+$robotoItalic: "Roboto Condensed italic", sans-serif;
+$robotoBold: "Roboto Condensed Bold", sans-serif;
+$openSans: "Open Sans", sans-serif;
+$openSansBold: "Open Sans Bold", sans-serif;
+$raleway: "raleway", sans-serif;
+$ralewayBold: "raleway-bold", sans-serif;
+$playfair: "playfair-display", sans-serif;
+$playfairBold: "playfair-display-bold", sans-serif;

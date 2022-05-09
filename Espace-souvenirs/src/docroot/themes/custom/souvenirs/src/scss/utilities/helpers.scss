@@ -1,0 +1,51 @@
+@import "./functions", "./breakpoints";
+
+.mb-30 {
+  margin-bottom: rem(30px);
+}
+
+.mt-40 {
+  margin-top: rem(40px);
+}
+
+.mt-30 {
+  margin-top: rem(30px);
+}
+
+.mt-20 {
+  margin-top: rem(20px);
+}
+
+.title-underlined {
+  position: relative;
+  margin: 0;
+  padding-bottom: rem(15px);
+  font-family: var(--font-bold);
+  font-size: rem(24px);
+
+  &::after {
+    display: flex;
+    width: rem(75px);
+    height: rem(2px);
+    position: absolute;
+    bottom: 0;
+    background-color: var(--color);
+    content: "";
+  }
+}
+
+.content-heading-2 {
+  margin: 0;
+  line-height: rem(48px);
+  font-family: var(--font-bold);
+  font-size: rem(32px);
+  font-weight: normal;
+
+  @include from-tablet {
+    font-size: rem(40px);
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}

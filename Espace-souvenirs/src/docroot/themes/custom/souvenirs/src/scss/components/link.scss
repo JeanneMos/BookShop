@@ -1,0 +1,28 @@
+.link {
+  text-decoration: none;
+  @extend .button;
+}
+
+.bg-current {
+  @extend .link;
+}
+
+.bg-white {
+  @extend .link;
+}
+
+.bg-transparent {
+  @extend .link;
+}
+
+.color-current {
+  color: var(--site-color);
+}
+
+.center {
+  margin: auto;
+}
+
+.separator {
+  width: rem(10px);
+}

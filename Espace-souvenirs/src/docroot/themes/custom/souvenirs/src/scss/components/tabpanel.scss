@@ -1,0 +1,13 @@
+.tab-panel {
+  min-height: rem(700px);
+}
+
+.messages-success {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-bottom: rem(40px);
+  font-family: var(--font-bold);
+  font-size: rem(20px);
+  gap: rem(10px);
+}

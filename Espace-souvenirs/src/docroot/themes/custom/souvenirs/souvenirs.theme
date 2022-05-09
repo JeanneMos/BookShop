@@ -1,0 +1,47 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * This is taken from the awesome setup by Sam Mortenson:
+ * @link https://thinkshout.com/blog/2019/10/adding-webpack-to-a-traditional-drupal-theme/
+ */
+function souvenirs_page_attachments_alter(array &$attachments) {
+  // Use the dev library if we're developing locally.
+  if (in_array('souvenirs/base', $attachments['#attached']['library']) && file_exists(__DIR__ . '/js/dist_dev')) {
+    $index = array_search('souvenirs/base', $attachments['#attached']['library']);
+    $attachments['#attached']['library'][$index] = 'souvenirs/base_dev';
+  }
+}
+
+function souvenirs_theme_template_preprocess_page(&$variables) {
+  $language_interface = \Drupal::languageManager()
+    ->getCurrentLanguage();
+  foreach (\Drupal::theme()
+    ->getActiveTheme()
+    ->getRegions() as $region) {
+    if (!isset($variables['page'][$region])) {
+      $variables['page'][$region] = array();
+    }
+  }
+  $variables['base_path'] = base_path();
+  $variables['front_page'] = \Drupal::url('<front>');
+  $variables['language'] = $language_interface;
+
+  // An exception might be thrown.
+  try {
+    $variables['is_front'] = \Drupal::service('path.matcher')
+      ->isFrontPage();
+  } catch (Exception $e) {
+
+    // If the database is not yet available, set default values for these
+    // variables.
+    $variables['is_front'] = FALSE;
+    $variables['db_is_active'] = FALSE;
+  }
+  if ($node = \Drupal::routeMatch()
+    ->getParameter('node')) {
+    $variables['node'] = $node;
+  }
+}
