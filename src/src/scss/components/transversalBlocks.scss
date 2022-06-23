@@ -1,0 +1,49 @@
+.transversal-blocks {
+  display: flex;
+  width: calc(100% + 30px);
+  flex-wrap: nowrap;
+  margin-top: var(--block-mt);
+  margin-left: rem(-15px);
+  overflow-x: auto;
+}
+
+.transversal-item {
+  width: rem(290px);
+  min-width: rem(290px);
+}
+
+.transversal-image-wrapper {
+  max-height: rem(250px);
+  overflow: hidden;
+}
+
+.transversal-image {
+  display: block;
+  max-width: rem(260px);
+  height: auto;
+}
+
+.transversal-content {
+  position: relative;
+  margin-top: rem(-20px);
+  margin-left: rem(15px);
+  background-color: white;
+  padding: rem(25px) rem(35px) rem(35px);
+}
+
+@include from-tablet {
+  .transversal-blocks {
+    width: 100%;
+    margin-left: 0;
+    gap: rem(30px);
+  }
+
+  .transversal-item {
+    width: calc(50% - #{rem(15px)});
+    min-width: auto;
+  }
+
+  .transversal-image {
+    max-width: 100%;
+  }
+}

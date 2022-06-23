@@ -1,0 +1,117 @@
+.image-preview-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+
+  & ~ .image-preview-wrapper {
+    border-top: 2px solid $grey-4;
+  }
+
+  &.image-preview-wrapper--modal {
+    max-width: rem(150px);
+    flex-direction: column;
+    border: 0;
+    word-break: break-word;
+    gap: rem(5px);
+  }
+}
+
+.image-preview-placeholder {
+  display: flex;
+  width: rem(170px);
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  gap: rem(5px);
+}
+
+.image-preview {
+  display: flex;
+  width: rem(130px);
+  max-width: 100%;
+  height: rem(130px);
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: white;
+  padding: rem(5px);
+}
+
+.image-preview-image {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+.upload-defunt-image-wrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: rem(20px) rem(15px);
+
+  .preview-description {
+    align-self: flex-start;
+
+    &--bold {
+      align-self: flex-start;
+      margin-top: rem(5px);
+    }
+  }
+  .cancel-button {
+    padding: 0;
+  }
+}
+
+.preview-description {
+  font-size: rem(14px);
+
+  &--bold {
+    font-family: var(--font-bold);
+    font-size: rem(14px);
+    font-weight: normal;
+  }
+}
+
+.input-file-description {
+  text-align: center;
+  color: $grey-2;
+  font-size: rem(14px);
+  font-style: italic;
+}
+
+.modal-image-description {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+  margin-bottom: rem(50px);
+}
+
+.input-file-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.upload-error-message {
+  padding: rem(10px) rem(30px);
+  color: $red;
+}
+
+@include from-tablet {
+  .upload-defunt-image-wrapper {
+    justify-content: stretch;
+    padding: rem(20px) rem(30px);
+    .cancel-button {
+      padding: rem(15px) rem(20px);
+    }
+  }
+  .image-preview-wrapper {
+    .image-preview-placeholder {
+      max-width: rem(150px);
+    }
+  }
+}

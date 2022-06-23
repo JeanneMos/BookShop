@@ -1,0 +1,138 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: rem(8px);
+  border-color: var(--site-color);
+  cursor: pointer;
+  padding: rem(15px) rem(20px);
+  text-transform: uppercase;
+  line-height: normal;
+  font-family: var(--font-bold);
+  font-size: rem(16px);
+  font-weight: normal;
+}
+
+.bg-current {
+  @extend .button;
+
+  background-color: var(--site-color);
+  color: white;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: var(--site-color-hover);
+    color: var(--text-color-hover);
+
+    svg path {
+      fill: var(--icons-color-hover);
+    }
+  }
+}
+
+.bg-white {
+  @extend .button;
+
+  background-color: white;
+  color: var(--site-color);
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: var(--site-color);
+    color: white;
+
+    svg path {
+      fill: white;
+    }
+  }
+}
+
+.bg-transparent {
+  @extend .button;
+  border: 0;
+
+  background-color: transparent;
+  color: var(--site-color);
+}
+
+.color-current {
+  color: var(--site-color);
+}
+
+.center {
+  margin: auto;
+}
+
+.separator {
+  width: rem(10px);
+}
+
+.hero-banner-modify-button {
+  position: absolute;
+  top: rem(15px);
+  right: rem(15px);
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.edit-picture-button {
+  position: absolute;
+  top: rem(-15px);
+  right: rem(-15px);
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.edit-administators-button {
+  display: flex;
+  align-items: center;
+  margin-top: rem(10px);
+  margin-right: auto;
+  margin-left: auto;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  padding-top: rem(15px);
+  color: var(--site-color);
+  font-family: var(--font-bold);
+  font-weight: normal;
+  gap: rem(5px);
+
+  @include from-tablet {
+    margin-left: 0;
+    padding-top: 0;
+  }
+
+  @include from-landscape {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+.delete-image-button {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.edit-text-button {
+  @extend .button;
+  margin: 0;
+
+  margin-left: 0;
+  padding: rem(15px);
+}
+
+.message-photo-button {
+  margin: 0;
+}

@@ -1,0 +1,18 @@
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding: 15px 30px;
+}
+
+a {
+  color: $grey-1;
+  font-size: rem(14px);
+}
+
+.footer-nav {
+  display: flex;
+  list-style: none;
+  gap: rem(10px);
+}

@@ -1,0 +1,17 @@
+.tab-panel {
+  min-height: rem(500px);
+}
+
+[role="tabpanel"]:focus {
+  outline: none;
+}
+
+.message-status {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-family: var(--font-bold);
+  font-size: rem(20px);
+  font-weight: normal;
+  gap: rem(10px);
+}

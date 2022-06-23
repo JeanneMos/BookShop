@@ -1,0 +1,93 @@
+.accueil-obituary-wrapper {
+  margin-top: var(--block-mt);
+}
+
+.obituary-wrapper {
+  width: calc(100% + #{rem(30px)});
+  position: relative;
+  margin-top: rem(30px);
+  margin-left: rem(-15px);
+  background-color: var(--bg-color);
+  padding: rem(40px) rem(15px);
+  &:before {
+    display: block;
+    width: rem(100px);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $white;
+    content: "";
+  }
+}
+
+.obituary-content-wrapper {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  column-gap: rem(30px);
+  background-color: $white;
+  padding: rem(35px);
+}
+
+.obituary-content {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.obituary-description {
+  max-width: 100%;
+  padding-top: rem(25px);
+}
+
+.obituary-agency {
+  display: flex;
+  align-items: center;
+  margin-top: rem(20px);
+  font-family: var(--font-bold);
+  font-size: rem(18px);
+  font-weight: normal;
+}
+
+.obituary-name {
+  @extend .title-underlined;
+  max-width: 100%;
+  margin: 0;
+  word-wrap: break-word;
+  color: var(--site-color);
+  span {
+    word-wrap: break-word;
+  }
+}
+
+.obituary-place {
+  margin: rem(20px) 0;
+  text-transform: uppercase;
+  font-size: rem(18px);
+}
+
+.obituary-publication {
+  margin: 0;
+}
+
+.obituary-links {
+  width: 100%;
+  margin-top: rem(20px);
+}
+
+@include from-tablet {
+  .obituary-content-wrapper {
+    flex-wrap: nowrap;
+  }
+  .obituary-agency {
+    margin-top: 0;
+    margin-left: auto;
+  }
+  .obituary-wrapper {
+    &:before {
+      width: rem(330px);
+    }
+  }
+}

@@ -1,0 +1,43 @@
+header {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%);
+  background-color: white;
+  padding: rem(15px);
+}
+
+.banner-link {
+  border: none;
+  text-decoration: none;
+  line-height: 1.5;
+  color: var(--site-color);
+  font-family: var(--font-bold-title);
+  font-size: 22px;
+  font-weight: normal;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: none;
+    text-decoration: none;
+    color: var(--site-color);
+  }
+}
+
+.login-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 15px;
+  font-family: var(--font-bold);
+  font-weight: normal;
+  appearance: none;
+}
+
+@include from-tablet {
+  .banner-link {
+    font-size: 32px;
+  }
+}
