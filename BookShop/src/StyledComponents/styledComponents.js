@@ -4,7 +4,13 @@ const styledComponents = {
   Main: styled("main")`
     margin-top: 2rem;
   `,
-
+  HeaderBlock: styled("header")`
+    border-bottom: 1px solid #cccccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  `,
   Wrapper: styled("div")`
     display: grid;
     grid-template-columns: 1fr;
@@ -48,6 +54,11 @@ const styledComponents = {
   Paragraph: styled("p")`
     margin: 0.3rem 0;
     font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+  `,
+  ErrorParagraph: styled("p")`
+    margin: 0.3rem 0;
+    color: red;
+    font-size: 1.5rem;
   `,
   DescriptionParagraph: styled("p")`
     padding: 1rem 2rem;

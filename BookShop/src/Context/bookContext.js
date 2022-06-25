@@ -11,8 +11,6 @@ const initialState = {
 }
 
 const BooksContext = createContext(initialState)
-
-// eslint-disable-next-line react/prop-types
 const BooksProvider = ({ children }) => {
   const [state, dispatch] = useReducer(booksReducer, initialState)
   return (

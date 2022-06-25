@@ -2,7 +2,7 @@ import React from "react"
 import { PropTypes } from "prop-types"
 import withDataFetched from "../../Utilities/withDataFetched"
 import BooksList from "./BooksList"
-import styledComponents from "../../Utilities/styledComponents"
+import styledComponents from "../../StyledComponents/styledComponents"
 
 
 const BooksContainer = ({ books }) => {

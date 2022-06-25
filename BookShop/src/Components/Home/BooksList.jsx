@@ -11,7 +11,7 @@ import {
 import Book from "./Book"
 import Search from "../Search/Search"
 import SlidePopup from "../SidePanel/SlidePopup"
-import styledComponents from "../../Utilities/styledComponents"
+import styledComponents from "../../StyledComponents/styledComponents"
 
 const BooksList = ({ books }) => {
   const { state, dispatch } = useContext(BooksContext)

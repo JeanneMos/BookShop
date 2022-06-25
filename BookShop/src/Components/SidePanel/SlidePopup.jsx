@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-expressions */
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import FocusLock from "react-focus-lock"
 import { PropTypes } from "prop-types"
-import styledComponents from "../../Utilities/styledComponents"
+import styledComponents from "../../StyledComponents/styledComponents"
 import CartItem from "../Cart/CartItem"
 
 const SlidePopup = (props) => {

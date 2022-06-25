@@ -1,6 +1,6 @@
 import React from "react"
 import { PropTypes } from "prop-types"
-import styledComponents from "../../Utilities/styledComponents"
+import styledComponents from "../../StyledComponents/styledComponents"
 
 const Search = ({ bookSearch }) => {
   const { GlobalSearchFieldset } = styledComponents

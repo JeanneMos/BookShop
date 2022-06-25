@@ -1,24 +1,21 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
 import React, { useContext, useEffect, useCallback, useState } from "react"
 import axios from "axios"
-import { css } from "emotion"
 import { BooksContext } from "../../Context/bookContext"
 import { getOfferUrl } from "../../Utilities/constants"
 import WithOffersPrice from "../../Utilities/withOffersPrice"
 import CartItem from "./CartItem"
-import styledComponents from "../../Utilities/styledComponents"
+import styledComponents from "../../StyledComponents/styledComponents"
 import { RemoveFromCart } from "../../Context/bookActions"
 
 const initState = { newPrice: 0, offerType: null }
 const Cart = () => {
   const { state, dispatch } = useContext(BooksContext)
-  const { Button, Title, StyledLink, Paragraph } = styledComponents
+  const { Button, Title, StyledLink, Paragraph, ErrorParagraph } = styledComponents
   let products = []
   let price = null
   const { cartItems } = state
   const [{ newPrice, offerType }, setNewPrice] = useState(initState)
+  const [networkError, setNetworkError] = useState(null)
 
   if (cartItems.length > 0) {
     products = cartItems.map((item) => item.isbn).join()
@@ -28,15 +25,17 @@ const Cart = () => {
 
   const calculateSale = useCallback(async () => {
     const url = getOfferUrl.replace("$products", products)
-    await axios
-      .get(url)
-      .then((res) => res.data.offers)
-      .then((offers) => WithOffersPrice(offers, price))
-      .then(({ calculatedPrice, calculatedType }) => {
-        setNewPrice({ newPrice: calculatedPrice, offerType: calculatedType })
-      })
-      // - TO define behaviour later
-      .catch((err) => console.error(`oups, ${err}`))
+    try {
+      const result = await axios.get(url);
+      const offers  = result.data.offers;
+      const offersWithPrice = WithOffersPrice(offers, price);
+      setNewPrice({ newPrice: offersWithPrice.calculatedPrice, offerType: offersWithPrice.calculatedType })
+    }
+    catch(err) {
+      console.error(err);
+      setNetworkError("Nous avons rencontré une erreur. Merci de réessayer plus tard.");
+    }
+
   }, [price, products])
 
   const removeItemFromCart = (item) => {
@@ -55,11 +54,7 @@ const Cart = () => {
       </Paragraph>
       {cartItems.length > 0 && (
         <>
-          <ul
-            className={css`
-              padding: 0;
-            `}
-          >
+          <ul>
             {cartItems.map((item) => (
               <CartItem
                 key={item.isbn}
@@ -71,6 +66,7 @@ const Cart = () => {
           </ul>
           {newPrice === 0 ? (
             <div>
+              {networkError && <ErrorParagraph>{networkError}</ErrorParagraph>}
               <Paragraph>
                 Le sous-total sans réduction de votre panier est{" "}
                 <span data-testid="initialPrice">{price}€</span>
@@ -79,7 +75,6 @@ const Cart = () => {
               <Paragraph>Pour découvrir et en profiter, cliquez ici:</Paragraph>
               <Button
                 border="#5a5a5a"
-                padding=".8rem .5rem"
                 type="button"
                 onClick={calculateSale}
               >
