@@ -1,18 +1,23 @@
 import React from "react"
+
 import {
   render,
   fireEvent,
   cleanup,
   waitForElement,
+  waitFor,
   getAllByText,
+  getByTestId,
+  queryByTestId,
+
 } from "@testing-library/react"
-import { BrowserRouter as Router } from "react-router-dom"
+import { MemoryRouter } from "react-router-dom"
 import { act } from "react-dom/test-utils"
 import BooksList from "./BooksList"
 import SlidePopup from "../SidePanel/SlidePopup"
-import Search from "../Search/Search"
-import { BooksProvider } from "../../Context/bookContext"
-import { globalSearch } from "../../Tests/constants"
+
+
+import { BooksContext } from "../../Context/bookContext"
 import "@testing-library/jest-dom/extend-expect"
 
 const books = [
@@ -31,7 +36,7 @@ const books = [
     synopsis: ["Blabwla", "Blabbla"],
   },
   {
-    title: "Henri PPP",
+    title: "Book 3",
     cover: "img3.jpg",
     price: 35,
     isbn: "SDFSlfklk",
@@ -39,17 +44,20 @@ const books = [
   },
 ]
 
+const state = {
+  cartItems: books,
+  openSlider: false,
+}
+
 describe("should render components", () => {
   let renderer = null
   const bookSearch = jest.fn()
   const closeSlider = jest.fn()
   beforeEach(() => {
     const { container } = render(
-      <BooksProvider>
-        <BooksList books={books}>
-          <Search bookSearch={bookSearch} />
-        </BooksList>
-      </BooksProvider>
+      <BooksContext.Provider value={{ state, dispatch: () =>jest.fn() }}>
+        <BooksList books={books} />
+      </BooksContext.Provider>
     )
     renderer = container
   })
@@ -57,48 +65,32 @@ describe("should render components", () => {
     renderer = null
     cleanup()
   })
-  test("should render the global search", () => {
-    const globaSearch = renderer.querySelector(
-      `[data-testid="${globalSearch}"]`
-    )
-    expect(globaSearch).toBeTruthy()
-  })
   test("should render a list of books", () => {
     const list = renderer.querySelectorAll("article")
     expect(list).toHaveLength(3)
   })
   test("should show a slider if click on add to cart button", async () => {
     const btn = getAllByText(renderer, "Ajouter au panier")[0]
-    const Slider = render(
-      <Router>
-        <SlidePopup cartItems={books} open={false} closeSlider={closeSlider} />
-      </Router>
+    const {getByTestId} = render(
+      <BooksContext.Provider value={{ state, dispatch: () =>jest.fn() }}>
+        <MemoryRouter>
+          <SlidePopup cartItems={books} open={false} closeSlider={closeSlider} />
+        </MemoryRouter>
+      </BooksContext.Provider>
     )
-    act(() => {
-      fireEvent.click(btn)
-    })
-    expect(Slider).toBeTruthy()
+    fireEvent.click(btn)
+    expect(getByTestId("modalDialog")).toBeTruthy();
   })
   test("should show a slider if click on See Book button", async () => {
     const btn = getAllByText(renderer, "Ajouter au panier")[0]
-    const Slider = render(
-      <SlidePopup book={books[0]} open={false} closeSlider={closeSlider} />
-    )
-    act(() => {
+    const {getByTestId} = render(
+        <BooksContext.Provider value={{ state, dispatch: () =>jest.fn() }}>
+          <MemoryRouter>
+            <SlidePopup book={books[0]} open={false} closeSlider={closeSlider} />
+          </MemoryRouter>
+        </BooksContext.Provider>
+      ) 
       fireEvent.click(btn)
+      expect(getByTestId("modalDialog")).toBeTruthy();
     })
-    expect(Slider).toBeTruthy()
-  })
-
-  test("should show results when searching", async () => {
-    const input = renderer.querySelector("input")
-    fireEvent.change(input, { target: { value: "book 2" } })
-    const results = await waitForElement(
-      () => renderer.querySelector('[data-testid="resultArray"]'),
-      { renderer }
-    )
-    expect(results).toBeTruthy()
-    fireEvent.change(input, { target: { value: "Book" } })
-    expect(results.querySelectorAll("article")).toHaveLength(2)
-  })
 })

@@ -1,6 +1,6 @@
 import React from "react"
 import { render, queryByLabelText, cleanup } from "@testing-library/react"
-import { BrowserRouter as Router } from "react-router-dom"
+import { MemoryRouter } from "react-router-dom"
 import { BooksContext } from "../../Context/bookContext"
 import BooksList from "../Home/BooksList"
 import SlidePopup from "./SlidePopup"
@@ -24,11 +24,11 @@ describe("should render components", () => {
   beforeEach(() => {
     const { container } = render(
       <BooksContext.Provider value={{ state, dispatch }}>
-        <Router>
+        <MemoryRouter>
           <BooksList books={[book]}>
             <SlidePopup props={state} open closeSlider={closeSidePanel} />
           </BooksList>
-        </Router>
+        </MemoryRouter>
       </BooksContext.Provider>
     )
     content = container
@@ -37,6 +37,7 @@ describe("should render components", () => {
     content = null
     cleanup()
   })
+  afterAll(cleanup)
 
   test("should render the component with a button close and the focus must be ib the button", () => {
     const btn = queryByLabelText(content, "Close dialog")

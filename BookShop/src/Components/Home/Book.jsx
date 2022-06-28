@@ -2,7 +2,7 @@ import React from "react"
 import { PropTypes } from "prop-types"
 import styledComponents from "../../StyledComponents/styledComponents"
 
-const Book = ({ book, displayBook, addToCart }) => {
+const Book = React.memo(function Book({ book, displayBook, addToCart }) {
   const { cover, price, title } = book
   const { BookItem, BookImg, Button, Paragraph } = styledComponents
   return (
@@ -18,7 +18,7 @@ const Book = ({ book, displayBook, addToCart }) => {
       </Button>
     </BookItem>
   )
-}
+})
 
 Book.propTypes = {
   book: PropTypes.shape({

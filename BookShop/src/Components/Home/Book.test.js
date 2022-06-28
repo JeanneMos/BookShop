@@ -1,5 +1,5 @@
 import React from "react"
-import { render, getByAltText, queryByText } from "@testing-library/react"
+import { render, getByAltText, queryByText, cleanup } from "@testing-library/react"
 import Book from "./Book"
 
 describe("should render components", () => {
@@ -8,6 +8,7 @@ describe("should render components", () => {
     price: 105,
     cover: "image_of_the_book.jpg",
   }
+  afterAll(cleanup)
 
   test("should render the component with alt on img", () => {
     const { container } = render(<Book book={book} />)

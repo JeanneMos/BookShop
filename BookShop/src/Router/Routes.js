@@ -1,14 +1,12 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import BooksContainer from "../Components/Home/BooksContainer"
-import Cart from "../Components/Cart/Cart"
-import ConfirmationPage from "../Components/Cart/ConfirmationPage"
-import Header from "../Components/Header/Header"
+import BooksContainer from "../Pages/BooksContainer"
+import Cart from "../Pages/Cart"
+import ConfirmationPage from "../Pages/ConfirmationPage"
 
 const Routes = () => {
   return (
     <Router>
-      <Header />
       <Switch>
         <Route exact path="/">
           <BooksContainer />

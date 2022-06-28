@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react"
-import DotLoader from "react-spinners/DotLoader"
+import React, { useContext } from "react"
+
 import { PropTypes } from "prop-types"
 import { BooksContext } from "../../Context/bookContext"
 import {
@@ -9,26 +9,16 @@ import {
   addToCart,
 } from "../../Context/bookActions"
 import Book from "./Book"
-import Search from "../Search/Search"
+
 import SlidePopup from "../SidePanel/SlidePopup"
 import styledComponents from "../../StyledComponents/styledComponents"
 
 const BooksList = ({ books }) => {
   const { state, dispatch } = useContext(BooksContext)
-  const { cartItems, openSlider, alertMessage, bookToDisplay, loading } = state
-  const { LoaderWrapper, Wrapper, NoResultsWrapper } = styledComponents
-  const [searchValue, setSearchValue] = useState("")
-  const [searchArray, setSearchArray] = useState([])
-  const bookSearch = (val) => {
-    setSearchValue(val)
-    if (val !== "" && val.length > 2) {
-      setSearchArray(
-        books.filter((book) =>
-          book.title.toLowerCase().includes(val.toLowerCase())
-        )
-      )
-    }
-  }
+  const { cartItems, openSlider, alertMessage, bookToDisplay } = state
+  const { Wrapper, NoResultsWrapper } = styledComponents
+
+
   const displaySliderForNewBook = (book) => {
     dispatch(hideSlider())
     setTimeout(() => {
@@ -49,28 +39,12 @@ const BooksList = ({ books }) => {
     dispatch(hideSlider())
   }
 
-  useEffect(() => {
-    let isMounted = true
-    if (isMounted && books) {
-      setSearchArray(
-        books.filter((book) => book.title.toLowerCase().includes(searchValue))
-      )
-    }
-
-    return () => {
-      dispatch(hideSlider())
-      isMounted = false
-    }
-  }, [searchValue, books, dispatch])
+  if (!books) {
+    return null;
+  }
   return (
     <>
-      <Search bookSearch={bookSearch} inputSearchValue={searchValue} />
-      {loading && (
-        <LoaderWrapper>
-          <DotLoader size={200} color="#feaf46" />
-        </LoaderWrapper>
-      )}
-      {!loading && searchArray.length === 0 && (
+      {books.length === 0 && (
         <NoResultsWrapper
           role="alert"
           aria-live="assertive"
@@ -82,12 +56,11 @@ const BooksList = ({ books }) => {
           </p>
         </NoResultsWrapper>
       )}
-      {!loading && searchArray.length > 0 && (
+      {books.length > 0 && (
         <Wrapper
-          aria-live={searchValue ? "assertive" : null}
-          data-testid={searchValue ? "resultArray" : null}
+          data-testid={books.length > 0 ? "resultsArray" : "emptyArray"}
         >
-          {searchArray.map((book) => (
+          {books.map((book) => (
             <Book
               book={book}
               key={book.isbn}

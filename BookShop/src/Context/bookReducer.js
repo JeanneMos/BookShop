@@ -4,8 +4,7 @@ import {
   SHOW_SLIDER,
   ITEM_ALREADY_ADDED,
   ADD_TO_CART,
-  LOADING_DATA,
-  LOADED_DATA,
+  SET_BOOK,
   ERROR,
   SEARCHING,
   CANCEL_SEARCH,
@@ -14,33 +13,22 @@ import {
 const booksReducer = (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case LOADING_DATA:
-      return {
-        ...state,
-        loading: true,
-      }
-    case LOADED_DATA:
-      return {
-        ...state,
-        loading: false,
-      }
     case ERROR:
       return {
         ...state,
-        loading: false,
         error: "Oups, il y a eu une erreur :(",
       }
+      case SET_BOOK:
+        return {
+          ...state,
+          bookToDisplay: payload.book,
+          alertMessage: null,
+          searching: false,
+        }
     case SHOW_SLIDER:
       return {
         ...state,
         openSlider: true,
-        bookToDisplay: payload.book,
-        alertMessage: null,
-        searching: false,
-      }
-    case "SET_BOOK":
-      return {
-        ...state,
         bookToDisplay: payload.book,
         alertMessage: null,
         searching: false,

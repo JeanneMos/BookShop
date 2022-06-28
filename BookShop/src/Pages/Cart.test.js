@@ -6,7 +6,8 @@ import {
   getByText,
   waitForElement,
 } from "@testing-library/react"
-import { BooksContext } from "../../Context/bookContext"
+import { BooksContext } from "../Context/bookContext"
+import { MemoryRouter } from "react-router-dom"
 import Cart from "./Cart"
 
 const books = [
@@ -31,7 +32,9 @@ let content = null
 beforeEach(() => {
   const { container } = render(
     <BooksContext.Provider value={{ state }}>
-      <Cart />
+      <MemoryRouter>
+        <Cart />
+      </MemoryRouter>
     </BooksContext.Provider>
   )
   content = container
@@ -40,19 +43,13 @@ afterEach(() => {
   content = null
   cleanup()
 })
+afterAll(cleanup)
 describe("should render components", () => {
   test("should render the Cart with 3 items", () => {
     const items = content.querySelectorAll("article")
     expect(items).toHaveLength(3)
   })
   test("should have an initial price and a button to recalculate price", () => {
-    const initialPrice = content.querySelector(`[data-testid="initialPrice"]`)
-    expect(initialPrice.textContent).toBe("95€")
-
-    const btn = getByText(content, "Appliquer la réduction")
-    expect(btn).toBeTruthy()
-  })
-  test("should calculate a new price", () => {
     const initialPrice = content.querySelector(`[data-testid="initialPrice"]`)
     expect(initialPrice.textContent).toBe("95€")
 

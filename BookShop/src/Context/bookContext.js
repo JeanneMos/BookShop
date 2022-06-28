@@ -7,7 +7,6 @@ const initialState = {
   cartItems: [],
   alertMessage: null,
   searching: false,
-  loading: false,
 }
 
 const BooksContext = createContext(initialState)

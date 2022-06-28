@@ -1,20 +1,21 @@
 let calculatedPrices = []
 const getSlices = (price, offer) => {
-  return price / offer.sliceValue
+  return +price / +offer.sliceValue
 }
 const calculatePrice = (offer, price) => {
   const { type, value } = offer
   let newPrice = 0
+  
   switch (type) {
     case "minus":
-      newPrice = price - value
+      newPrice = +price - +value
       calculatedPrices = [
         ...calculatedPrices,
         { calculatedPrice: newPrice, calculatedType: type },
       ]
       break
     case "percentage":
-      newPrice = price - (price * value) / 100
+      newPrice = +price - (+price * +value) / 100
       calculatedPrices = [
         ...calculatedPrices,
         { calculatedPrice: newPrice, calculatedType: type },

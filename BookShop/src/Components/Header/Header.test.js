@@ -1,6 +1,6 @@
 import React from "react"
-import { render, getByTestId } from "@testing-library/react"
-import { BrowserRouter as Router } from "react-router-dom"
+import { render, getByTestId,cleanup } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
 import { BooksContext } from "../../Context/bookContext"
 import Header from "./Header"
 
@@ -31,17 +31,18 @@ describe("should render components", () => {
   const state = {
     cartItems: books,
   }
+  afterAll(cleanup)
 
   test("should render the Header with 3 articles in cart link", () => {
     const { container } = render(
       <BooksContext.Provider value={{ state }}>
-        <Router>
+        <MemoryRouter>
           <Header />
-        </Router>
+        </MemoryRouter>
       </BooksContext.Provider>
     )
-    const span = getByTestId(container, "cartItemsSpan")
-    expect(span).toBeTruthy()
-    expect(span.textContent).toBe("3 articles")
+    const itemsNumber = getByTestId(container, "cartItemsSpan")
+    expect(itemsNumber).toBeTruthy()
+    expect(itemsNumber.textContent).toBe("3 articles")
   })
 })

@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import FocusLock from "react-focus-lock"
 import { PropTypes } from "prop-types"
 import styledComponents from "../../StyledComponents/styledComponents"
 import CartItem from "../Cart/CartItem"
+import {hideSlider} from "../../Context/bookActions"
+import { useContext } from "react"
+import { BooksContext } from "../../Context/bookContext"
 
 const SlidePopup = (props) => {
   const {
@@ -17,40 +20,38 @@ const SlidePopup = (props) => {
     Slider,
     BtnClose,
   } = styledComponents
-  const { open, book, cartItems, alertMessage, addToCart, closeSlider } = props
+  const { book, cartItems, alertMessage, addToCart, closeSlider, open } = props
   const { cover, title, price, synopsis } = book || {}
-  const [openSlider, setOpenSlider] = useState(false)
   const modalRef = useRef(null)
+  const {dispatch} = useContext(BooksContext)
 
   // focus management with ref of 'emotion'
   let btnClose = null
   const closeSidePanel = () => {
-    setOpenSlider(false)
+    dispatch(hideSlider())
     setTimeout(() => {
       closeSlider()
     }, 400)
   }
 
   useEffect(() => {
-    let isOpen = true
-    setOpenSlider(open)
-    isOpen && open && btnClose.focus()
+    btnClose.focus()
     return () => {
-      setOpenSlider(false)
-      isOpen = false
+      dispatch(hideSlider())
     }
-  }, [open, btnClose])
+  }, [dispatch, btnClose])
   return (
     <FocusLock>
-      <SliderOverlay shown={openSlider} onClick={closeSidePanel} />
+      <SliderOverlay shown={open} onClick={closeSidePanel} />
       <Slider
         ref={modalRef}
-        open={openSlider}
+        open={open}
         aria-modal="true"
         role="dialog"
         aria-labelledby="dialogParagraphTitle"
         aria-describedby="dialogDescription"
         id="modalDialog"
+        data-testid="modalDialog"
       >
         <BtnClose
           aria-label="Close dialog"
@@ -59,7 +60,7 @@ const SlidePopup = (props) => {
             btnClose = button
           }}
         />
-        <BookItem marginTop="2" role="document">
+        <BookItem role="document">
           {book ? (
             <>
               <BookImg lg role="presentation" src={cover} alt="" />
