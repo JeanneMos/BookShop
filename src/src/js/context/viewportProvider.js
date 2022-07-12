@@ -13,10 +13,9 @@ export default function ViewportProvider({ children }) {
     let timeoutID;
     const timeout = time || 200;
     return function debouncer(...args) {
-      const scope = this;
       clearTimeout(timeoutID);
       timeoutID = setTimeout(() => {
-        func.apply(scope, Array.prototype.slice.call(args));
+        func.apply(this, Array.prototype.slice.call(args));
       }, timeout);
     };
   };

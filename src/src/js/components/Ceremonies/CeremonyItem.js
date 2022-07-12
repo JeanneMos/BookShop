@@ -35,27 +35,25 @@ const CeremonyItem = React.memo(function CeremonyItem({ ceremony }) {
         </p>
       )}
       <div className="ceremony-place">
-        {type && <p className="ceremony-type">{type}</p>}
-        <div className="ceremony-description-link">
-          <p className="ceremony-description">
-            {memoizedHour && `Aura lieu à ${memoizedHour}`}
-            {nom && ` à ${nom}`}
+        {type && (
+          <p className="ceremony-type-with-link">
+            <span>{type}</span>
+            {globalInfoState?.marque?.urlBoutique &&
+              globalInfoState?.obituary?.fleursAutorise && (
+                <StyledLink
+                  as="ahref"
+                  linkTo={globalInfoState?.marque?.urlBoutique}
+                  linkClass="link bg-white boutique-link"
+                  dataTestid="boutiqueCta"
+                  target="_blank"
+                >
+                  <span className="link-text">offrir des fleurs</span>
+                  <span className="separator">&nbsp;</span>
+                  <Icon name="next" iconClass="current-icon" />
+                </StyledLink>
+              )}
           </p>
-          {globalInfoState?.marque?.urlBoutique &&
-            globalInfoState?.obituary?.fleursAutorise && (
-              <StyledLink
-                as="ahref"
-                linkTo={globalInfoState?.marque?.urlBoutique}
-                linkClass="link bg-white boutique-link"
-                dataTestid="boutiqueCta"
-                target="_blank"
-              >
-                <span className="link-text">offrir des fleurs</span>
-                <span className="separator">&nbsp;</span>
-                <Icon name="next" iconClass="current-icon" />
-              </StyledLink>
-            )}
-        </div>
+        )}
 
         <div className="ceremony-name-address">
           <Icon name="geoloc" iconClass="geoloc-icon" />

@@ -1,4 +1,5 @@
 import { decode } from "html-entities";
+import DOMPurify from "isomorphic-dompurify";
 import React from "react";
 
 import { lineBreak } from "../constants";
@@ -63,25 +64,25 @@ export const capitalisedName = (name) => {
   return name.replace(/^\w/, (c) => c.toUpperCase());
 };
 
+export const sanitizedData = (htmlToPurify) => {
+  if (htmlToPurify) {
+    return {
+      __html: DOMPurify.sanitize(htmlToPurify),
+    };
+  }
+  return null;
+};
+
 export const textWithBreaks = (text) => {
   if (typeof text === "string") {
-    const separators = /<br \/>|<br\/>|<br>|\n|\r\n/;
-    return text.split(separators).map(function (item, index) {
-      if (
-        item !== lineBreak &&
-        item !== "" &&
-        item !== "\n" &&
-        item !== "\r\n"
-      ) {
-        return (
-          <span key={index}>
-            {item}
-            <br />
-          </span>
-        );
-      }
-      return null;
-    });
+    const separators = /\n|\r\n/g;
+    return text.replace(separators, "<br />");
   }
   return text;
+};
+export const sanitizedText = (text) => {
+  if (typeof text !== "string") {
+    return text;
+  }
+  return sanitizedData(textWithBreaks(text));
 };

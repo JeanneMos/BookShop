@@ -34,9 +34,7 @@ export const initialglobalInfoState = {
       libelle: "Publié",
     },
     defunt_fk: {
-      civilite_fk: {
-        libelle: "Monsieur",
-      },
+      civilite_fk: "Monsieur",
       nom: "RAJNAK",
       nomjeunefille: null,
       prenom: "Thierry",
@@ -46,6 +44,7 @@ export const initialglobalInfoState = {
       photo: [],
     },
     lieux: [],
+    url_emc_detail: "http://go-to-my-account.com",
   },
   field_es_surname: "DUBOIS",
   field_nom_de_naissance: "SEULBOIS",

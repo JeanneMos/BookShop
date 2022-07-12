@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -7,21 +7,12 @@ import { biographyUpdated } from "../../context/biographySlice";
 import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import { decoded } from "../../services/formatting";
 import scrollSmoothToElement from "../../services/scrollSmoothToElement";
-import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
+import CKEditorCustom from "./CKEditorCustom";
 /* import BiographyPhotosFieldset from "./BiographyPhotosFieldset"; */
-import FormTextarea from "./FormTextarea";
 
-const validationValues = {
-  biography: {
-    isRequired: false,
-  },
-  photos: {
-    isRequired: false,
-  },
-};
 export default function BiographyForm({ reference, closeForm }) {
   const params = useParams();
   const biographyState = useSelector((state) => state.biography);
@@ -29,28 +20,42 @@ export default function BiographyForm({ reference, closeForm }) {
   const initialFormState = {
     biography: biographyState?.isBiographyEdited
       ? decoded(biographyState?.biography)
-      : "",
+      : null,
     photos: null,
   };
-
-  const { inputValues, changeHandler, errorHandler, errors, isValid } = useForm(
-    { initialFormState, validationValues },
-  );
+  const max = 1000;
 
   const updateBiography = usePostQuery();
-
+  const [editorValue, setEditorValue] = useState(
+    biographyState?.isBiographyEdited ? decoded(biographyState?.biography) : "",
+  );
   const [networkError, setNetworkError] = useState("");
+  const [characters, setCaracters] = useState(
+    (initialFormState?.biography &&
+      max -
+        decoded(initialFormState?.biography).replace(/<[^>]*>/g, "").length) ||
+      max,
+  );
   const networkErrorMessage = useRef(null);
+  const editorRef = useRef(null);
+  const heading = useRef(null);
 
   const handleCloseForm = () => {
     closeForm({ messageSent: false });
+  };
+  const changeHandler = (text, characters) => {
+    setEditorValue(text);
+    if (max) {
+      const newCaracters = Number(max) - characters.length;
+      setCaracters(newCaracters);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const biography_obj = {
       field_value: {
-        field_bio_story: inputValues.biography,
+        field_bio_story: editorValue,
         field_bio_photo: null,
       },
       field_machine_name: bioMachineName,
@@ -60,7 +65,7 @@ export default function BiographyForm({ reference, closeForm }) {
       updateBiography.mutate(
         { data: biography_obj, apiUrl: postSaveFieldApiUrl },
         {
-          onSuccess: (data) => {
+          onSuccess: ({ data }) => {
             /*           const structuredImages = compressedFiles.map(file => {
             const imgObject = {
               url: window.URL.createObjectURL(file),
@@ -69,7 +74,7 @@ export default function BiographyForm({ reference, closeForm }) {
             return imgObject
           }) */
             const { field_bio_story, field_bio_custom } = JSON.parse(
-              data?.data?.field_value,
+              data?.field_value,
             );
             //dispatch(biographyPhotoAdded({biographyPhotos: structuredImages}))
             dispatch(
@@ -98,6 +103,12 @@ export default function BiographyForm({ reference, closeForm }) {
     }
   };
 
+  useEffect(() => {
+    if (heading?.current) {
+      heading.current.focus();
+    }
+  }, [heading]);
+
   return (
     <>
       {networkError && (
@@ -106,7 +117,9 @@ export default function BiographyForm({ reference, closeForm }) {
           <span>{networkError}</span>
         </p>
       )}
-      <h2 className="content-heading-2">Écrire la biographie</h2>
+      <h2 className="content-heading-2" ref={heading} tabIndex={-1}>
+        Écrire la biographie
+      </h2>
       <div className="biography-wrapper">
         <form
           noValidate
@@ -115,25 +128,22 @@ export default function BiographyForm({ reference, closeForm }) {
           data-testid="biographyForm"
           className="biography-form"
         >
-          {!isValid && (
-            <p className="sr-only" tabIndex={0}>
-              Merci de corriger les erreurs
-            </p>
-          )}
           <div className="biography-textarea">
-            <FormTextarea
-              labelText="biographie"
-              labelHidden
-              isRequired
+            <CKEditorCustom
+              value={editorValue}
+              editorRef={editorRef}
               id="biography"
-              name="biography"
-              max={1000}
-              value={inputValues.biography}
-              inputPlaceholder="Biographie"
               onInputChange={changeHandler}
-              onInputBlur={errorHandler}
-              error={errors.biography}
             />
+            {max && (
+              <p
+                className="characters-count"
+                data-testid="caractersCount"
+                id={`${name}-requirement`}
+              >
+                {characters} caractères restants.
+              </p>
+            )}
           </div>
           {/* <BiographyPhotosFieldset /> */}
 

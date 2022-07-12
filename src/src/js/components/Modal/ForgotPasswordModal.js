@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { forgotPassword } from "../../constants";
 import { modalClosed } from "../../context/modalSlice";
 import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import Button from "../Button/Button";
@@ -23,7 +24,7 @@ export default function ForgotPasswordModal() {
     return (
       <>
         <ModalTitle titleModalClass="login-modal-title">
-          MOT DE PASSE oublié
+          {forgotPassword}
         </ModalTitle>
         <ModalSubTitle>
           Un e-mail a été envoyé à l&apos;adresse indiquée. Merci de vérifier
@@ -45,11 +46,8 @@ export default function ForgotPasswordModal() {
   return (
     <>
       <ModalTitle titleModalClass="login-modal-title">
-        MOT DE PASSE oublié
+        {forgotPassword}
       </ModalTitle>
-      <ModalSubTitle>
-        Renseigner votre email, un lien de connexion vous sera envoyé.
-      </ModalSubTitle>
       <ForgotPasswordForm
         handleCloseModal={handleCloseModal}
         handleConfirmationMessage={handleConfirmationMessage}

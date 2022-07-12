@@ -1,6 +1,6 @@
 import React from "react";
 
-import { decoded, textWithBreaks } from "../../services/formatting";
+import { decoded, sanitizedText } from "../../services/formatting";
 import Icon from "../Icons/Icon";
 import StyledLink from "../Link/StyledLink";
 
@@ -34,7 +34,7 @@ export default function PrestationTransversal({ prestation }) {
 
       <div className="transversal-content">
         <h3 className="title-underlined">{title}</h3>
-        <p>{textWithBreaks(decoded(description))}</p>
+        <p dangerouslySetInnerHTML={sanitizedText(decoded(description))} />
         <StyledLink
           as="ahref"
           linkTo={cta?.url}

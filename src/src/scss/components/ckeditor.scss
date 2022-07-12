@@ -1,0 +1,88 @@
+.document-editor {
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 15%);
+  font-family: var(--font);
+  font-size: rem(16px);
+
+  .ck.ck-toolbar {
+    border-radius: 0;
+    border-color: transparent;
+    border-bottom-color: $grey-5;
+    background-color: $white;
+    padding: rem(10px);
+  }
+  .ck.ck-button {
+    border: 1px solid $grey-5;
+    padding: rem(10px);
+  }
+  .ck-rounded-corners .ck.ck-button {
+    border-radius: rem(8px);
+  }
+  .ck.ck-button:not(.ck-disabled):hover {
+    border-color: var(--site-color);
+    background-color: $white;
+  }
+  .ck.ck-button.ck-on {
+    border-color: var(--site-color);
+    background-color: $white;
+  }
+  .ck.ck-icon {
+    width: rem(23px);
+    height: rem(23px);
+  }
+  .ck.ck-editor__editable.ck-rounded-corners:not(.ck-editor__nested-editable) {
+    min-height: rem(350px);
+    padding: rem(30px) rem(15px);
+  }
+
+  // Separator
+  .ck.ck-toolbar .ck.ck-toolbar__separator {
+    display: none;
+  }
+
+  // Color button
+  .ck.ck-dropdown.ck-color-ui-dropdown {
+    .ck-button.ck-dropdown__button:not(.ck-button_with-text) {
+      padding-left: rem(10px);
+    }
+    .ck.ck-icon.ck-dropdown__arrow {
+      display: none;
+    }
+  }
+
+  // Alignment buttons
+  .ck.ck-toolbar > .ck-toolbar__items > .ck:last-child {
+    margin-left: auto;
+  }
+  .ck.ck-toolbar
+    > .ck.ck-toolbar__grouped-dropdown
+    > .ck.ck-button.ck-dropdown__button {
+    padding-left: rem(10px);
+  }
+  .ck.ck-dropdown.ck-toolbar-dropdown.ck-alignment-dropdown {
+    display: flex;
+
+    .ck.ck-button.ck-dropdown__button {
+      display: none;
+    }
+
+    .ck.ck-dropdown__panel.ck-dropdown__panel_se {
+      display: flex;
+      position: static;
+      z-index: 0;
+      border: 0;
+      box-shadow: none;
+    }
+    .ck.ck-toolbar.ck-toolbar_vertical > .ck-toolbar__items {
+      flex-direction: row;
+      flex-flow: unset;
+    }
+    .ck.ck-toolbar.ck-toolbar_vertical > .ck-toolbar__items > .ck {
+      border: 1px solid $grey-5;
+      border-radius: rem(8px);
+      padding: rem(10px);
+      &:not(:last-of-type) {
+        margin-right: rem(5px);
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-/* import './footer.scss'; */
+import { errorMessageNetwork } from "../../constants";
 
 function Footer({ data, isFetching, error }) {
   const displayMenu = (items) => {
@@ -17,19 +17,12 @@ function Footer({ data, isFetching, error }) {
     <footer>
       {isFetching ? "Fetching" : null}
       {isNaN(data) ||
-        (error && (
-          <p className="fetch-error-message">
-            Nous avons rencontré une erreur, merci de réessayer plus tard
-          </p>
-        ))}
-      {data && data.length && (
+        (error && <p className="fetch-error-message">{errorMessageNetwork}</p>)}
+      {data && data.length ? (
         <ul className="footer-nav" data-testid="footerFetchedLinks">
           {displayMenu(data)}
         </ul>
-      )}
-      <Link to="/main-page/1" style={{ marginLeft: "15px" }}>
-        Contenu du ES
-      </Link>
+      ) : null}
     </footer>
   );
 }

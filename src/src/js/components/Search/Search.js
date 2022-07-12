@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { APIJsonPlaceholder } from "../../constants";
+import { APIJsonPlaceholder, errorMessageNetwork } from "../../constants";
 import useGetQuery from "../../services/useGetQuery";
 import Icon from "../Icons/Icon";
 import Loader from "../Loader/Loader";
@@ -37,7 +37,7 @@ export default function Search() {
     <div className="search-wrapper">
       <form onSubmit={handleSearch} className="search-form">
         <fieldset>
-          <legend>Recherche d&apos;un espace souvenirs</legend>
+          <legend>Recherche d&apos;un Espace Hommage</legend>
           <div className="search">
             <input
               data-testid="searchInput"
@@ -54,11 +54,9 @@ export default function Search() {
       </form>
 
       {isFetching ? <Loader position="center" /> : null}
-      {error ? "Désolé il y a une erreur, merci de réessayer plus tard" : null}
+      {error ? errorMessageNetwork : null}
       {Number.isNaN(data) && (
-        <p className="fetch-error-message">
-          Nous avons rencontré une erreur, merci de réessayer plus tard
-        </p>
+        <p className="fetch-error-message">{errorMessageNetwork}</p>
       )}
       {profiles && profiles.length ? <SearchList profiles={profiles} /> : null}
     </div>

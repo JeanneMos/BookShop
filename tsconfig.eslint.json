@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "types": ["@types/node"],
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+  },
+  "extends": "./tsconfig.json",
+  "files": ["*.ts", "*.tsx", "*.js"],
+  "include": [
+    ".eslintrc.js",
+    "jest.config.ts",
+    "lint-staged.config.js",
+    "./docroot/themes/custom/souvenirs/src/**/*.tsx",
+    "./docroot/themes/custom/souvenirs/src/**/*.ts",
+    "./docroot/themes/custom/souvenirs/src/**/*.js",
+  ],
+}

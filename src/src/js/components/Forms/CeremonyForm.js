@@ -6,6 +6,7 @@ import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import ModalTitle from "../Modal/ModalTitle";
 import FormInput from "./FormInput";
+import { ceremonyValidationValues } from "./FormValidationValues";
 
 const initialFormState = {
   eventName: "",
@@ -18,57 +19,6 @@ const initialFormState = {
   zipCode: "",
 };
 
-const validationValues = {
-  eventName: {
-    pattern: {
-      value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: "Merci de renseigner le nom de votre événement",
-    },
-    isRequired: true,
-    required: "Merci de renseigner le nom de votre événement",
-  },
-  eventPlace: {
-    pattern: {
-      value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: "Merci de renseigner le lieu de votre événement",
-    },
-    isRequired: true,
-    required: "Merci de renseigner le lieu de votre événement",
-  },
-  address: {
-    pattern: {
-      value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: "Merci de renseigner l'adresse de l’événement",
-    },
-    isRequired: true,
-    required: "Merci de renseigner l'adresse de l’événement",
-  },
-  address2: {
-    pattern: {
-      value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: "Merci de renseigner l'adresse de l’événement",
-    },
-    isRequired: false,
-  },
-  city: "",
-  eventDate: {
-    isRequired: true,
-    required: "Merci de renseigner la date de l’événement",
-  },
-  eventTime: {
-    isRequired: true,
-    required: "Merci de renseigner l'heure de l’événement",
-  },
-  zipCode: {
-    pattern: {
-      value: /^[0-9]{5}$/,
-      message: "Merci de renseigner un code postal à 5 chiffres",
-    },
-    isRequired: true,
-    required: "Merci de renseigner un code postal à 5 chiffres",
-  },
-};
-
 export default function CeremonyForm() {
   const {
     inputValues,
@@ -79,7 +29,7 @@ export default function CeremonyForm() {
     isValid,
   } = useForm({
     initialFormState,
-    validationValues,
+    validationValues: ceremonyValidationValues,
   });
 
   const hiddenGlobalError = useRef();
@@ -95,7 +45,8 @@ export default function CeremonyForm() {
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
         .filter(
-          ([key, value]) => validationValues[key].isRequired && value === "",
+          ([key, value]) =>
+            ceremonyValidationValues[key].isRequired && value === "",
         )
         .map(([key]) => key);
 

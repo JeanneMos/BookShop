@@ -7,7 +7,7 @@ export default function LoginModal() {
   return (
     <>
       <ModalTitle titleModalClass="login-modal-title">
-        MON ESPACE SOUVENIRS
+        MON Espace Hommage
       </ModalTitle>
       <LoginUserForm />
     </>

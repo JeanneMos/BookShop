@@ -8,7 +8,9 @@
   "extends": [
     "plugin:react/recommended",
     "eslint:recommended",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended"
   ],
   "settings": {
     "import/resolver": "webpack",
@@ -22,21 +24,27 @@
       "flowVersion": "0.53" // Flow version
     }
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "tsx" : true
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+/*     "project": "tsconfig.json", */
+    "project": ["**/tsconfig.json"],
+    /* "tsconfigRootDir": __dirname, */
+    "sourceType": "module",
+    "ecmaVersion": "latest"
   },
   "plugins": [
     "react",
     "simple-import-sort",
-    "import"
+    "import",
+    "@typescript-eslint"
   ],
   "rules": {
     "react/jsx-uses-react": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
     "function-paren-newline": "off",
     "react/prop-types": [0],
     "no-unused-vars": [0],
@@ -49,9 +57,20 @@
     "simple-import-sort/imports": 1,
     "simple-import-sort/exports": 1,
     "import/first": 1,
+    "import/extensions": 0,
     "import/newline-after-import": 1,
     "import/no-duplicates": "error",
-    "import/no-unresolved": [2, { "commonjs": true }],
-    "import/no-named-as-default": [0]
+    "import/no-unresolved": [1, { "commonjs": false }],
+    "import/no-named-as-default": [0],
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-var-requires": 0
+/*     "@typescript-eslint/no-unsafe-argument": 0,
+    "@typescript-eslint/no-unsafe-member-access": 0,
+    "@typescript-eslint/no-unsafe-assignment": 0,
+    
+    "@typescript-eslint/no-unsafe-call": 0,
+    "@typescript-eslint/no-unsafe-return": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-this-alias": 0 */
   }
 }

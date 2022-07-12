@@ -22,7 +22,7 @@ const LoginMenu = React.lazy(() =>
   import(/* webpackChunkName: "LoginMenu" */ "./LoginMenu"),
 );
 
-export default function Header() {
+export default function Header({ showLogin }) {
   const administratorState = useSelector((state) => state.administrator);
   const dispatch = useDispatch();
   const { espaceId } = useParams();
@@ -81,13 +81,13 @@ export default function Header() {
   return (
     <header>
       <Banner />
-      {isFetching && <LoginLoader />}
-      {!isFetching && administratorState.isLogged && (
+      {isFetching && showLogin && <LoginLoader />}
+      {!isFetching && administratorState.isLogged && showLogin && (
         <React.Suspense fallback={<p>attendez...</p>}>
           <LogoutMenu />
         </React.Suspense>
       )}
-      {!isFetching && !administratorState.isLogged && (
+      {!isFetching && !administratorState.isLogged && showLogin && (
         <React.Suspense fallback={<p>attendez...</p>}>
           <LoginMenu handleLogIn={handleLogIn} />
         </React.Suspense>

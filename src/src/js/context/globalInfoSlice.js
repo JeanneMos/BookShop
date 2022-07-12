@@ -25,6 +25,7 @@ export const globalInfoSlice = createSlice({
       state.homageText = payload?.homageText;
       state.agency = payload?.agency;
       state.defuntImage = payload?.defuntImage;
+      state.heroBannerImage = payload?.heroBannerImage;
       state.manager = payload?.manager;
       state.marque = payload?.marque;
       state.obituary = payload?.obituary;

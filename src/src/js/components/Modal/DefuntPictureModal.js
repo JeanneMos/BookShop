@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { defuntPhotoMachineName, postSaveFieldApiUrl } from "../../constants";
+import {
+  defuntPhotoMachineName,
+  errorMessageNetwork,
+  postSaveFieldApiUrl,
+} from "../../constants";
 import { defuntImageUpdated } from "../../context/globalInfoSlice";
 import { modalClosed } from "../../context/modalSlice";
 import usePostQuery from "../../services/usePostQuery";
@@ -55,10 +59,7 @@ export default function DefuntPictureModal() {
               dispatch(modalClosed());
               setError(null);
             } else {
-              console.log("erreur ");
-              setError(
-                "Une erreur s'est produite. Merci de réessayer plus tard",
-              );
+              setError(errorMessageNetwork);
             }
           },
           onError: (err) => {

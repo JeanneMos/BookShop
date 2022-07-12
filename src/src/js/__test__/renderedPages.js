@@ -9,7 +9,7 @@ import administratorSlice from "../context/administratorSlice";
 import globalInfoSlice from "../context/globalInfoSlice";
 import messageSlice from "../context/messageSlice";
 import modalSlice from "../context/modalSlice";
-import Landing from "../pages/Landing.js";
+import Landing from "../pages/Landing";
 import MainPage from "../pages/MainPage";
 
 /* const dispatch = useDispatch(); */

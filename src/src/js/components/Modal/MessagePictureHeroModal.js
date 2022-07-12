@@ -42,8 +42,8 @@ export default function MessagePictureHeroModal() {
     <>
       <ModalTitle>Sélectionner une photo d’arrière plan</ModalTitle>
       <ModalSubTitle>
-        Personnalisez votre espace souvenirs avec la photo d’arrière plan de
-        votre choix parmi une sélection :
+        Personnalisez votre Espace Hommage avec la photo d’arrière plan de votre
+        choix parmi une sélection :
       </ModalSubTitle>
       <form noValidate onSubmit={handleSubmit}>
         <div className="image-radios-wrapper">

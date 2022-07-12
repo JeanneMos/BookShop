@@ -198,3 +198,7 @@
     fill: var(--site-color);
   }
 }
+
+.previous-icon {
+  transform: rotate(180deg);
+}

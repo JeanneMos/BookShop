@@ -28,6 +28,8 @@ export default function Ceremonies() {
                   <img
                     className="ceremony-agency-logo"
                     src={globalInfoState?.marque?.logo?.url}
+                    width="135"
+                    height="50"
                   />
                 </span>
               </>

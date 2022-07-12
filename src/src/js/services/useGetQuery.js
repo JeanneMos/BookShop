@@ -15,8 +15,7 @@ export default function useGetQuery({
     key,
     async () => {
       try {
-        const result = await axios.get(API);
-        const data = await result?.data;
+        const { data } = await axios.get(API);
         return data;
       } catch (error) {
         return {

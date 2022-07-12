@@ -7,11 +7,12 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-/* const dotenv = require('dotenv');
-const env = dotenv.config().parsed;
-const isDevMode = env && env.NODE_ENV === 'development' ? true : false; */
+const dotenv = require("dotenv");
 
-
+dotenv.config();
+//const isDevMode = env && env.NODE_ENV === "development" ? true : false;
+console.log("CURRENT_ENV:", process.env.CURRENT_ENV);
+console.log("NODE_ENV:", process.env.NODE_ENV);
 
 module.exports = (env) => {
   const isDevMode = !env?.production || env?.production !== true;
@@ -24,13 +25,14 @@ module.exports = (env) => {
     devtool: isDevMode ? "source-map" : false,
     mode: isDevMode ? "development" : "production",
     output: {
+      /* filename: isDevMode ? "[name].[contenthash].js" : "[name].[contenthash].min.js", */
       filename: isDevMode ? "[name].bundle.js" : "[name].bundle.min.js",
       path: isDevMode ? path.resolve(__dirname, "./docroot/themes/custom/souvenirs/js/dist_dev") : path.resolve(__dirname, "./docroot/themes/custom/souvenirs/js/dist"),
       clean: true,
     },
     cache: false,
     resolve: {
-      extensions: ["*", ".js", ".jsx"],
+      extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
       alias: {
         Images: path.resolve(__dirname, "./docroot/themes/custom/souvenirs/src/assets/images"),
         Components: path.resolve(__dirname, "./docroot/themes/custom/souvenirs/src/js/components"),
@@ -125,6 +127,17 @@ module.exports = (env) => {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
           type: "asset/resource",
         },
+        {
+          test: /\.tsx?$/,
+            use: [
+              {
+                loader: "ts-loader",
+                options: {
+                  transpileOnly: true,
+                },
+              },
+            ],
+        },  
       ],
     },
     optimization: {
@@ -166,7 +179,10 @@ module.exports = (env) => {
     },
     plugins: [
       new ESLintPlugin({
-        fix: false
+        fix: false,
+        quiet: true,
+        extensions: ["ts", "tsx", "js"],
+        failOnError: false
       }),
       new MiniCssExtractPlugin({
         filename: "[name].css"

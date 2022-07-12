@@ -263,6 +263,7 @@ button {
 .button-loader-wrapper {
   display: flex;
   position: relative;
+  flex-wrap: wrap;
 }
 
 textarea {
@@ -518,6 +519,13 @@ textarea {
 
 .form-item {
   margin-bottom: rem(30px);
+}
+
+.characters-count {
+  margin: 0;
+  margin-top: rem(10px);
+  color: $grey-2;
+  font-size: rem(16px);
 }
 
 @include from-tablet {

@@ -98,18 +98,21 @@
   }
 }
 
-.ceremony-description-link {
+.ceremony-type-with-link {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-}
-.ceremony-type {
+  justify-content: space-between;
   margin: 0;
+}
+
+.ceremony-type-with-link > span {
   line-height: lineheight(24, 32);
   font-family: var(--font-bold);
   font-size: rem(24px);
   font-style: normal;
 }
+
 .ceremony-name-address {
   display: flex;
   column-gap: rem(10px);

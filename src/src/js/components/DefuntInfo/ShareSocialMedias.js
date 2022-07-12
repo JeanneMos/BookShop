@@ -11,14 +11,14 @@ export default function ShareSocialMedias() {
   const globalInfoState = useSelector((state) => state.globalInfo);
   const { firstName, lastName } = globalInfoState.defunt;
 
-  const bodyEmail = `Vous êtes invité à rejoindre l'Espace Souvenirs en l'hommage de ${
+  const bodyEmail = `Vous êtes invité à rejoindre l'Espace Hommage en mémoire de ${
     capitalisedName(firstName) || ""
   } ${lastName}.
   %0D%0A %0D%0A ${directLink}
   %0D%0A %0D%0A Cet espace privé est destiné à recueillir vos témoignages : un message, un souvenir, une anecdote ou une photo, illustrant un moment de vie.
   %0D%0A %0D%0A Merci pour votre précieux soutien.`;
 
-  const subjectWithUser = `Partage de l'Espace Souvenirs de ${
+  const subjectWithUser = `Partage de l'Espace Hommage en mémoire de ${
     capitalisedName(firstName) || ""
   } ${lastName}`;
 

@@ -11,7 +11,7 @@ const Modal = React.lazy(() =>
   import(/* webpackChunkName: "Modal" */ "../components/Modal/Modal"),
 );
 
-export default function Layout({ children }) {
+export default function Layout({ children, showLogin = true }) {
   const modalState = useSelector((state) => state.modal);
 
   const {
@@ -27,7 +27,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <Header />
+      <Header showLogin={showLogin} />
       <main>{children}</main>
       <Footer data={footerData} error={footerErr} isFetching={footerFetching} />
       {modalState.isOpen && <Modal theme={modalState.theme} />}

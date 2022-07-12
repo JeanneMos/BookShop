@@ -2,15 +2,17 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { modalOpened } from "../../context/modalSlice";
-import { decoded, textWithBreaks } from "../../services/formatting";
+import { decoded, sanitizedText } from "../../services/formatting";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
-
-/* import './homage.scss'; */
 
 export default function Homage() {
   const globalInfoState = useSelector((state) => state.globalInfo);
   const administratorState = useSelector((state) => state.administrator);
+
+  const parsedHomageText = globalInfoState?.homageText
+    ? JSON.parse(globalInfoState?.homageText)
+    : null;
 
   const dispatch = useDispatch();
   const handleEditModal = () => {
@@ -37,9 +39,12 @@ export default function Homage() {
             <Icon name="pencil" iconClass="edit-text-icon" />
           </Button>
         </div>
-        <div className="content-homage">
-          {textWithBreaks(decoded(globalInfoState?.homageText))}
-        </div>
+        {parsedHomageText && (
+          <div
+            className="content-homage"
+            dangerouslySetInnerHTML={sanitizedText(decoded(parsedHomageText))}
+          />
+        )}
       </div>
     );
   }
@@ -49,9 +54,12 @@ export default function Homage() {
         <div className="heading-button-wrapper">
           <h2 className="content-heading-2">Rendre Hommage</h2>
         </div>
-        <div className="content-homage">
-          {textWithBreaks(decoded(globalInfoState?.homageText))}
-        </div>
+        {parsedHomageText && (
+          <div
+            className="content-homage"
+            dangerouslySetInnerHTML={sanitizedText(decoded(parsedHomageText))}
+          />
+        )}
       </div>
     );
   }

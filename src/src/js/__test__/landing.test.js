@@ -1,11 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -14,8 +8,6 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 
 import Header from "../components/Header/Header";
-import LoginModal from "../components/Modal/LoginModal";
-import Modal from "../components/Modal/Modal";
 import Search from "../components/Search/Search";
 import administratorSlice, {
   isAdminSet,
@@ -25,15 +17,10 @@ import administratorSlice, {
 import biographySlice from "../context/biographySlice";
 import globalInfoSlice from "../context/globalInfoSlice";
 import messageSlice from "../context/messageSlice";
-import modalSlice, { modalOpened } from "../context/modalSlice";
-import Landing from "../pages/Landing";
-/* import '@testing-library/jest-dom/extend-expect' */
+import modalSlice from "../context/modalSlice";
 import useGetQuery from "../services/useGetQuery";
-import { initialglobalInfoState, resultsSuggestions } from "./constants";
-import {
-  renderedLoggedInLanding,
-  renderedLoggedOutLanding,
-} from "./renderedPages";
+import { resultsSuggestions } from "./constants";
+import { renderedLoggedOutLanding } from "./renderedPages";
 
 jest.mock("../services/useGetQuery");
 
@@ -48,6 +35,7 @@ describe("As a user i should see :", () => {
     },
   });
   const queryClient = new QueryClient();
+  window.HTMLElement.prototype.scrollIntoView = jest.fn();
   afterEach(cleanup);
   afterAll(() => {
     jest.clearAllMocks();
@@ -71,13 +59,6 @@ describe("As a user i should see :", () => {
     const { getByTestId } = render(renderedLoggedOutLanding);
     const linkText = getByTestId("bannerLink");
     expect(linkText).toBeTruthy();
-  });
-
-  test("Login button", async () => {
-    const { getByText, getByTestId } = render(renderedLoggedOutLanding);
-    await waitFor(() => getByTestId("loginMenu"));
-    const loginMenu = getByText(/Se connecter/i);
-    expect(loginMenu).toBeTruthy();
   });
 
   /*   test("Login button click", async () => {
@@ -120,26 +101,6 @@ describe("As a user i should see :", () => {
     );
   }); */
 
-  test("should have logout menu if user connected", async () => {
-    useGetQuery.mockImplementation(() => ({ data: null }));
-    const { getByTestId, getByText } = render(
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <React.Suspense fallback={<p>attendez...</p>}>
-            <MemoryRouter>
-              <Header />
-            </MemoryRouter>
-          </React.Suspense>
-        </Provider>
-      </QueryClientProvider>,
-    );
-    store.dispatch(userLoggedIn());
-    store.dispatch(isAdminSet({ isAdmin: true }));
-    await waitFor(() => getByTestId("logoutButton"));
-    const loginMenu = getByText(/Se déconnecter/i);
-    expect(loginMenu).toBeTruthy();
-  });
-
   /*   test("should have fetched items in logout menu if user connected", async () => {
     useGetQuery.mockImplementation(() => ({
       data: [
@@ -164,28 +125,6 @@ describe("As a user i should see :", () => {
     const drowdownMenu = getByTestId("dropdownMainMenu");
     expect(drowdownMenu.childNodes.length).toBe(3);
   }); */
-
-  test("should get Login menu if user logs out", async () => {
-    useGetQuery.mockImplementation(() => ({ data: null }));
-    const { getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <React.Suspense fallback={<p>attendez...</p>}>
-            <MemoryRouter>
-              <Header />
-            </MemoryRouter>
-          </React.Suspense>
-        </Provider>
-      </QueryClientProvider>,
-    );
-    store.dispatch(userLoggedIn());
-    store.dispatch(isAdminSet({ isAdmin: true }));
-    await waitFor(() => getByTestId("logoutLink"));
-    const logoutMenu = getByTestId("logoutLink");
-    fireEvent.click(logoutMenu);
-    store.dispatch(userLoggedOut());
-    await waitFor(() => expect(getByTestId("loginMenu")).toBeTruthy());
-  });
 
   test("should have suggestions of search if title is in the list", async () => {
     useGetQuery.mockImplementation(() => ({ data: resultsSuggestions }));

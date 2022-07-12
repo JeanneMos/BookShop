@@ -87,8 +87,10 @@ body.class-henri-de-borniol {
 }
 
 .react-app {
+  display: flex;
   max-width: rem($maxDesktop);
   min-height: 100vh;
+  flex-direction: column;
   margin: 0 auto;
   overflow-x: hidden;
   font-family: var(--font);
@@ -109,6 +111,13 @@ h1 {
   overflow: hidden;
   white-space: nowrap;
   clip: rect(0, 0, 0, 0);
+}
+h2,
+p,
+div {
+  &:focus {
+    outline: none;
+  }
 }
 
 #block-souvenirs-page-title {

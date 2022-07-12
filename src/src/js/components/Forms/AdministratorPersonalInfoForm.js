@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { postUserUpdateUrl } from "../../constants";
@@ -15,67 +15,10 @@ import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import Loader from "../Loader/Loader";
 import FormInput from "./FormInput";
+import { administratorValidationValues } from "./FormValidationValues";
 import NewPasswordFieldset from "./NewPasswordFieldset";
 
-const validationValues = {
-  surname: {
-    pattern: {
-      value: /^([a-zA-Z\u00C0-\u00FF '-])+$/,
-      message: "Merci de renseigner votre nom de famille correct",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre nom de famille",
-  },
-  name: {
-    pattern: {
-      value: /^([a-zA-Z\u00C0-\u00FF '-])+$/,
-      message: "Merci de renseigner votre prénom",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre prénom",
-  },
-  email: {
-    isRequired: true,
-    required: "Merci de renseigner votre email",
-  },
-  phone: {
-    pattern: {
-      value: /^([0-9])+$/,
-      message:
-        "Merci de renseigner le numéro de téléphone au format requis (ex. 0799999999)",
-    },
-    isRequired: false,
-  },
-  current_password: {
-    isRequired: false,
-  },
-  repeat_new_password: {
-    isRequired: false,
-  },
-  new_password: {
-    isRequired: false,
-    patterns: [
-      {
-        name: "patternNumber",
-        value: /[0-9]/,
-      },
-      {
-        name: "patternLength",
-        value: /^[\s\S]{8,}$/,
-      },
-      {
-        name: "patternMaj",
-        value: /[A-Z]/,
-      },
-      {
-        name: "patternSpecialChar",
-        value: /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/,
-      },
-    ],
-  },
-};
-
-export default function AdministratorPersonalInfoForm({ closeForm }) {
+export default function AdministratorPersonalInfoForm({ closeForm, heading }) {
   const administratorState = useSelector((state) => state.administrator);
   const globalInfoState = useSelector((state) => state.globalInfo);
   const dispatch = useDispatch();
@@ -101,7 +44,7 @@ export default function AdministratorPersonalInfoForm({ closeForm }) {
     isValid,
   } = useForm({
     initialFormState,
-    validationValues,
+    validationValues: administratorValidationValues,
   });
 
   const updatePersonalInfo = usePostQuery();
@@ -117,7 +60,8 @@ export default function AdministratorPersonalInfoForm({ closeForm }) {
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
         .filter(
-          ([key, value]) => validationValues[key].isRequired && value === "",
+          ([key, value]) =>
+            administratorValidationValues[key].isRequired && value === "",
         )
         .map(([key]) => key);
 
@@ -246,6 +190,12 @@ export default function AdministratorPersonalInfoForm({ closeForm }) {
     );
   };
 
+  useEffect(() => {
+    if (heading?.current) {
+      heading.current.focus();
+    }
+  }, [heading]);
+
   return (
     <>
       {networkError && (
@@ -254,11 +204,11 @@ export default function AdministratorPersonalInfoForm({ closeForm }) {
           <span>{networkError}</span>
         </p>
       )}
-      <h2 className="content-heading-2">
+      <h2 className="content-heading-2" ref={heading} tabIndex={-1}>
         Modification des informations personnelles
       </h2>
       {!isValid && (
-        <p className="sr-only" tabIndex={0} ref={hiddenGlobalError}>
+        <p className="sr-only" tabIndex={-1} ref={hiddenGlobalError}>
           Merci de corriger les erreurs
         </p>
       )}
@@ -325,9 +275,10 @@ export default function AdministratorPersonalInfoForm({ closeForm }) {
             type="checkbox"
             id="eventsOptin"
             name="eventsOptin"
+            onInputChange={changeHandler}
             wrapperClass="mt-30"
             isRequired={false}
-            labelText="Je souhaite être alerté des évènements privés ajoutés dans cet Espace Souvenirs"
+            labelText="Je souhaite être alerté des évènements privés ajoutés dans cet Espace Hommage"
           />
         </fieldset>
         <fieldset aria-describedby="password-info" className="mt-30">

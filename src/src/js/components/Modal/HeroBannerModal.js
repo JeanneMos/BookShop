@@ -1,9 +1,16 @@
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
+import {
+  errorMessageNetwork,
+  heroBannerMachineName,
+  postSaveFieldApiUrl,
+} from "../../constants";
 import { heroImageUpdated } from "../../context/globalInfoSlice";
 import { modalClosed } from "../../context/modalSlice";
+import usePostQuery from "../../services/usePostQuery";
 import Button from "../Button/Button";
 import FormInput from "../Forms/FormInput";
 import Icon from "../Icons/Icon";
@@ -27,6 +34,9 @@ export default function HeroBannerModal() {
   const globalInfoState = useSelector((state) => state.globalInfo);
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState(globalInfoState.heroBannerImage);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const postHeroBanner = usePostQuery();
+  const params = useParams();
   const handleImageChange = (e) => {
     setInputValue(e.target);
   };
@@ -34,25 +44,45 @@ export default function HeroBannerModal() {
     e.preventDefault();
 
     const heroImgObject = {
-      // url: inputValue.value,
-      name: inputValue.dataset.imagename,
+      field_value: inputValue.dataset.imagename,
+      field_machine_name: heroBannerMachineName,
+      entity_hash: params.espaceId,
     };
-
-    dispatch(heroImageUpdated({ heroBannerImage: { ...heroImgObject } }));
-    dispatch(modalClosed());
+    try {
+      postHeroBanner.mutate(
+        { data: heroImgObject, apiUrl: postSaveFieldApiUrl },
+        {
+          onSuccess: ({ data }) => {
+            dispatch(
+              heroImageUpdated({
+                heroBannerImage: { name: data?.field_value },
+              }),
+            );
+            dispatch(modalClosed());
+          },
+          onError: () => {
+            setErrorMessage(errorMessageNetwork);
+          },
+        },
+      );
+    } catch {
+      // Something went wrong
+      setErrorMessage(errorMessageNetwork);
+    }
   };
 
   return (
     <>
       <ModalTitle>Sélectionner une photo d’arrière plan</ModalTitle>
       <ModalSubTitle>
-        Personnalisez votre espace souvenirs avec la photo d’arrière plan de
-        votre choix parmi une sélection :
+        Personnalisez votre Espace Hommage avec la photo d’arrière plan de votre
+        choix parmi une sélection :
       </ModalSubTitle>
+      {errorMessage && <p className="message-status mb-40">{errorMessage}</p>}
       <form noValidate onSubmit={handleSubmit}>
         <div className="image-radios-wrapper">
           {imagesWithId.map(({ imgId, name }) => {
-            const localSrc = `${window.location.origin}/themes/custom/souvenirs/src/assets/images/bg-images/${name}`;
+            const localSrc = `${window.location.origin}/themes/custom/souvenirs/src/assets/images/bg-images/thumbnails/${name}`;
             return (
               <FormInput
                 key={imgId}

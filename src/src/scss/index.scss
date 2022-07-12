@@ -5,12 +5,14 @@
 /** Components */
 
 @import "./components/button", "./components/link", "./components/layout",
-  "./components/header", "./components/logMenu", "./components/landing",
-  "./components/resetPassword", "./components/agency", "./components/upload",
-  "./components/ceremonies", "./components/navigation", "./components/switch",
-  "./components/modal", "./components/messages", "./components/loader",
-  "./components/icon", "./components/homage", "./components/forms",
-  "./components/footer", "./components/transversalBlocks",
-  "./components/shareEspace", "./components/search", "./components/infos",
-  "./components/tabpanel", "./components/biography", "./components/obituary",
-  "./components/administrators", "./components/acknowledgement";
+  "./components/ckeditor", "./components/header", "./components/logMenu",
+  "./components/landing", "./components/basePage", "./components/resetPassword",
+  "./components/agency", "./components/upload", "./components/ceremonies",
+  "./components/navigation", "./components/switch", "./components/modal",
+  "./components/messages", "./components/loader", "./components/icon",
+  "./components/homage", "./components/forms", "./components/footer",
+  "./components/transversalBlocks", "./components/shareEspace",
+  "./components/search", "./components/infos", "./components/tabpanel",
+  "./components/biography", "./components/obituary",
+  "./components/administrators", "./components/acknowledgement",
+  "./components/temporaryMessage";

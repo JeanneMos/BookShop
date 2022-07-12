@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
+  errorMessageNetwork,
   messagesAccueilKey,
   messagesListKey,
+  mobileBreakpoint,
   numberMessagesKey,
   postMessageSendUrl,
 } from "../../constants";
@@ -19,6 +21,7 @@ import { isEmptyArray } from "../../services/formatting";
 import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
+import useViewport from "../../services/useViewport";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import Loader from "../Loader/Loader";
@@ -27,6 +30,7 @@ import InputWithDescription from "../Upload/InputWithDescription";
 import useUpload from "../Upload/useUpload";
 import FormInput from "./FormInput";
 import FormTextarea from "./FormTextarea";
+import { messageValidationValues } from "./FormValidationValues";
 
 const initialFormState = {
   firstName: "",
@@ -36,44 +40,7 @@ const initialFormState = {
   photo: "",
   eventsOptin: "",
 };
-const validationValues = {
-  firstName: {
-    pattern: {
-      value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: "Merci de renseigner votre prénom",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre prénom",
-  },
-  lastName: {
-    pattern: {
-      value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
-      message: "Merci de renseigner votre nom de famille",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre nom de famille",
-  },
-  email: {
-    pattern: {
-      value:
-        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/,
-      message:
-        "Merci de renseigner une adresse email valide (p.e. email@domain.com)",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre adresse email",
-  },
-  message: {
-    isRequired: true,
-    required: "Merci de remplir le texte du message",
-  },
-  photo: {
-    isRequired: false,
-  },
-  eventsOptin: {
-    isRequired: false,
-  },
-};
+
 export default function MessageForm({ reference, closeForm }) {
   const messagesState = useSelector((state) => state.messages);
   const [error, setError] = useState(null);
@@ -83,6 +50,7 @@ export default function MessageForm({ reference, closeForm }) {
   const sendMessage = usePostQuery();
   const queryClient = useQueryClient();
   const hiddenGlobalError = useRef();
+  const { width } = useViewport();
   const {
     inputValues,
     changeHandler,
@@ -92,7 +60,7 @@ export default function MessageForm({ reference, closeForm }) {
     isValid,
   } = useForm({
     initialFormState,
-    validationValues,
+    validationValues: messageValidationValues,
   });
 
   const {
@@ -148,7 +116,8 @@ export default function MessageForm({ reference, closeForm }) {
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
         .filter(
-          ([key, value]) => validationValues[key].isRequired && value === "",
+          ([key, value]) =>
+            messageValidationValues[key].isRequired && value === "",
         )
         .map(([key]) => key);
 
@@ -191,15 +160,11 @@ export default function MessageForm({ reference, closeForm }) {
                   closeForm({ messageSent: true });
                 }, 1000);
               } else {
-                setError(
-                  "Une erreur s'est produite. Merci de réessayer plus tard.",
-                );
+                setError(errorMessageNetwork);
               }
             },
             onError: (err) => {
-              setError(
-                "Une erreur s'est produite. Merci de réessayer plus tard.",
-              );
+              setError(errorMessageNetwork);
             },
           },
         );
@@ -236,6 +201,7 @@ export default function MessageForm({ reference, closeForm }) {
             name="lastName"
             labelText="Votre nom"
             type="text"
+            inputClass="uppercase"
             isRequired
             value={inputValues.lastName}
             inputPlaceholder="Nom"
@@ -248,6 +214,7 @@ export default function MessageForm({ reference, closeForm }) {
             name="firstName"
             labelText="Votre prénom"
             type="text"
+            inputClass="capitalize"
             isRequired
             value={inputValues.firstName}
             inputPlaceholder="Prénom"
@@ -332,31 +299,57 @@ export default function MessageForm({ reference, closeForm }) {
             type="checkbox"
             id="eventsOptin"
             name="eventsOptin"
+            onInputChange={changeHandler}
             isRequired={false}
-            labelText="Je souhaite être alerté des évènements privés ajoutés dans cet Espace Souvenirs"
+            labelText="Je souhaite être alerté des évènements privés ajoutés dans cet Espace Hommage"
           />
           <ButtonsWrapper position="right">
             <div className="button-loader-wrapper">
-              <Button
-                type="button"
-                btnClass="bg-transparent"
-                onClickAction={handleCloseForm}
-              >
-                Annuler
-              </Button>
-
-              <Button
-                type="submit"
-                disabled={sendMessage?.isLoading}
-                btnClass="bg-current"
-                dataTestid="submitMessageForm"
-                onClickAction={handleSubmit}
-              >
-                <span className="button-text">Envoyer un message</span>
-                <span className="separator">&nbsp;</span>
-                <Icon name="next" iconClass="white-icon" />
-              </Button>
-              {sendMessage?.isLoading && <Loader position="relative" />}
+              {width > mobileBreakpoint ? (
+                <>
+                  <Button
+                    type="button"
+                    btnClass="bg-transparent"
+                    onClickAction={handleCloseForm}
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={sendMessage?.isLoading}
+                    btnClass="bg-current"
+                    dataTestid="submitMessageForm"
+                    onClickAction={handleSubmit}
+                  >
+                    <span className="button-text">Envoyer un message</span>
+                    <span className="separator">&nbsp;</span>
+                    <Icon name="next" iconClass="white-icon" />
+                  </Button>
+                  {sendMessage?.isLoading && <Loader position="relative" />}
+                </>
+              ) : (
+                <>
+                  <Button
+                    type="submit"
+                    disabled={sendMessage?.isLoading}
+                    btnClass="bg-current"
+                    dataTestid="submitMessageForm"
+                    onClickAction={handleSubmit}
+                  >
+                    <span className="button-text">Envoyer un message</span>
+                    <span className="separator">&nbsp;</span>
+                    <Icon name="next" iconClass="white-icon" />
+                  </Button>
+                  {sendMessage?.isLoading && <Loader position="relative" />}
+                  <Button
+                    type="button"
+                    btnClass="bg-transparent"
+                    onClickAction={handleCloseForm}
+                  >
+                    Annuler
+                  </Button>
+                </>
+              )}
             </div>
           </ButtonsWrapper>
         </form>

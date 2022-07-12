@@ -10,7 +10,7 @@ import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import {
   capitalisedName,
   dateHoursFormat,
-  textWithBreaks,
+  sanitizedText,
   timeStampToDate,
 } from "../../services/formatting";
 import usePostQuery from "../../services/usePostQuery";
@@ -144,7 +144,7 @@ const MessageItem = React.memo(function MessageItem({ message }) {
             open: showFullMessage,
           })}
         >
-          <p ref={messageBody}>{textWithBreaks(body)}</p>
+          <p ref={messageBody} dangerouslySetInnerHTML={sanitizedText(body)} />
         </div>
       )}
 

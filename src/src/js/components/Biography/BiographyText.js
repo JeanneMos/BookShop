@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { decoded, textWithBreaks } from "../../services/formatting";
+import { decoded, sanitizedText } from "../../services/formatting";
 
 export default function BiographyText() {
   const biographyState = useSelector((state) => state.biography);
-
+  const parsedText = biographyState?.biography;
   return (
     <div className="biography-wrapper">
-      <p className="biography-body" data-testid="biographyText">
-        {textWithBreaks(decoded(biographyState?.biography))}
-      </p>
+      <div className="biography-body" data-testid="biographyText">
+        <div dangerouslySetInnerHTML={sanitizedText(decoded(parsedText))} />
+      </div>
     </div>
   );
 }

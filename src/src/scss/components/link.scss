@@ -26,9 +26,22 @@
 .separator {
   width: rem(10px);
 }
+
 .boutique-link {
   max-width: 100%;
   flex: 0 0 auto;
-  margin-right: 0;
-  margin-left: auto;
+}
+.edit-obituary-link {
+  padding: rem(15px);
+}
+
+.number-condoleances-link {
+  margin-bottom: rem(15px);
+}
+
+@include from-tablet {
+  .number-condoleances-link {
+    margin-right: rem(20px);
+    margin-bottom: 0;
+  }
 }

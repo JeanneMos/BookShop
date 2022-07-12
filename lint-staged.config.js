@@ -1,5 +1,5 @@
 module.exports = {
-  "*.{js,jsx,ts,tsx}": "eslint --fix",
+  "*.{js,jsx}": "eslint --fix",
   "*.{scss,css}": "postcss --config postcss.config.js --replace",
-  "*.{js,jsx,ts,tsx,md,html,css,scss}": "prettier --write",
+  "*.{js,jsx,tsx,md,html,css,scss}": "prettier --write",
 };

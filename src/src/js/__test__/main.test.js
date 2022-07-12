@@ -3,16 +3,15 @@ import "@testing-library/jest-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import React, { useMemo } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 
-import ContentWrapper from "../components/ContentWrapper/ContentWrapper";
-import MessageItem from "../components/Messages/MessageItem";
+import LinkToMyAccount from "../components/DefuntInfo/LinkToMyAccount";
+import MainPageViews from "../components/MainPageViews/MainPageViews";
 import MessagesList from "../components/Messages/MessagesList";
 import administratorSlice, {
-  currentUserSet,
   isAdminSet,
   userLoggedIn,
 } from "../context/administratorSlice";
@@ -24,15 +23,12 @@ import MainPage from "../pages/MainPage";
 import useGetQuery from "../services/useGetQuery";
 import usePostQuery from "../services/usePostQuery";
 import {
-  currentUser,
-  emptyMessages,
   initialglobalInfoState,
   manyMessages,
   messages,
   receievedFakeAgency,
   receivedEmptyData,
   receivedNoDatesData,
-  unpublishedMessage,
 } from "./constants";
 import { renderedLoggedOutMain } from "./renderedPages";
 
@@ -86,6 +82,46 @@ describe("On the main page", () => {
     await waitFor(() => getByTestId('logoutButton'))
     expect(queryByTestId("heroBannerEdit")).toBeTruthy();
   });  */
+  test("Should not have Back to My Account link if not admin", async () => {
+    useGetQuery.mockImplementation(() => ({ data: initialglobalInfoState }));
+    const { queryByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <React.Suspense fallback={<p>attendez...</p>}>
+            <MemoryRouter>
+              <MainPage />
+            </MemoryRouter>
+          </React.Suspense>
+        </Provider>
+      </QueryClientProvider>,
+    );
+    await waitFor(() => expect(queryByTestId("linkToMyaccount")).toBeFalsy());
+  });
+  test("Should not have Back to My Account link if  no SSO link", async () => {
+    const { queryByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <LinkToMyAccount link={null} />
+      </QueryClientProvider>,
+    );
+    await waitFor(() => expect(queryByTestId("linkToMyaccount")).toBeFalsy());
+  });
+  test("Should have Back to My Account link if admin and have SSO link", async () => {
+    useGetQuery.mockImplementation(() => ({ data: initialglobalInfoState }));
+    const { queryByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <React.Suspense fallback={<p>attendez...</p>}>
+            <MemoryRouter>
+              <MainPage />
+            </MemoryRouter>
+          </React.Suspense>
+        </Provider>
+      </QueryClientProvider>,
+    );
+    store.dispatch(userLoggedIn());
+    store.dispatch(isAdminSet({ isAdmin: true }));
+    await waitFor(() => expect(queryByTestId("linkToMyaccount")).toBeTruthy());
+  });
   test("Should have defunt picture edit button if admin and connected", async () => {
     useGetQuery.mockImplementation(() => ({ data: initialglobalInfoState }));
     const { queryByTestId } = render(
@@ -213,7 +249,7 @@ describe("On the main page", () => {
     expect(getByTestId("defuntBirthdate")).not.toHaveTextContent("NaN");
     expect(getByTestId("defuntDeathdate")).toHaveTextContent("");
   });
-  test("should see 404 error page if no Espace Souvenirs data", async () => {
+  test("should see 404 error page if no Espace Hommage data", async () => {
     useGetQuery.mockImplementation(() => ({ data: receivedEmptyData }));
     const { result } = renderHook(() => useGetQuery());
     await waitFor(() => result.current.data);
@@ -460,7 +496,7 @@ describe("On the main page", () => {
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <MemoryRouter>
-            <ContentWrapper />
+            <MainPageViews />
           </MemoryRouter>
         </Provider>
       </QueryClientProvider>,

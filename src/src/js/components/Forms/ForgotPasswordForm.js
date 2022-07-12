@@ -1,29 +1,18 @@
 import React, { useRef, useState } from "react";
 
-import { postResetPasswordUrl } from "../../constants";
+import { errorMessageNetwork, postResetPasswordUrl } from "../../constants";
 import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import Loader from "../Loader/Loader";
 import FormInput from "./FormInput";
+import { forgotPasswordVlidationValues } from "./FormValidationValues";
 
 const initialFormState = {
   email: "",
 };
 
-const validationValues = {
-  email: {
-    pattern: {
-      value:
-        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/,
-      message:
-        "Merci de renseigner une adresse email valide (p.e. email@domain.com)",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre adresse email",
-  },
-};
 export default function ForgotPasswordForm({ handleConfirmationMessage }) {
   const [isLoader, setIsLoader] = useState(false);
   const form = useRef(null);
@@ -38,7 +27,7 @@ export default function ForgotPasswordForm({ handleConfirmationMessage }) {
     isValid,
   } = useForm({
     initialFormState,
-    validationValues,
+    validationValues: forgotPasswordVlidationValues,
   });
 
   const handleSubmit = async (e) => {
@@ -48,7 +37,8 @@ export default function ForgotPasswordForm({ handleConfirmationMessage }) {
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
         .filter(
-          ([key, value]) => validationValues[key].isRequired && value === "",
+          ([key, value]) =>
+            forgotPasswordVlidationValues[key].isRequired && value === "",
         )
         .map(([key]) => key);
 
@@ -79,25 +69,18 @@ export default function ForgotPasswordForm({ handleConfirmationMessage }) {
                   setIsLoader(false);
                 } else {
                   setIsLoader(false);
-                  setWrongCredentialsMessage(
-                    "Nous avons rencontré un problème de connexion, merci de réessayer plus tard.",
-                  );
+                  setWrongCredentialsMessage(errorMessageNetwork);
                 }
               },
               onError: () => {
                 setIsLoader(false);
-                setWrongCredentialsMessage(
-                  "Nous avons rencontré un problème de connexion, merci de réessayer plus tard.",
-                );
+                setWrongCredentialsMessage(errorMessageNetwork);
               },
             },
           );
         } catch (err) {
           setIsLoader(false);
-          setWrongCredentialsMessage(
-            "Nous avons rencontré un problème de connexion, merci de réessayer plus tard.",
-          );
-          console.error(err);
+          setWrongCredentialsMessage(errorMessageNetwork);
         }
       }
     }
@@ -123,6 +106,14 @@ export default function ForgotPasswordForm({ handleConfirmationMessage }) {
         />
         <input type="hidden" name="form_id" value="user_login_form" />
         <input type="hidden" name="op" value="se connecter" />
+        <p>
+          Saisissez votre email afin de recevoir un nouveau mot de passe qui
+          vous permettra de vous connecter à Votre Espace Hommage.
+        </p>
+        <p>
+          Par la suite, vous serez invité à le modifier pout vos prochaines
+          connexions.
+        </p>
         <div className="button-loader-wrapper">
           <Button type="submit" btnClass="bg-current center">
             <span className="button-text">Envoyer</span>

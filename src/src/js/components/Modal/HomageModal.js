@@ -1,29 +1,30 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { homageMachineName, postSaveFieldApiUrl } from "../../constants";
+import {
+  errorMessageNetwork,
+  homageMachineName,
+  postSaveFieldApiUrl,
+} from "../../constants";
 import { homageTextUpdated } from "../../context/globalInfoSlice";
 import { modalClosed } from "../../context/modalSlice";
-import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import { decoded } from "../../services/formatting";
 import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
-import Button from "../Button/Button";
-import FormTextarea from "../Forms/FormTextarea";
-import Icon from "../Icons/Icon";
+import HomageForm from "../Forms/HomageForm";
 import ModalTitle from "./ModalTitle";
 
 export default function HomageModal() {
   const params = useParams();
-
+  const [errorMessage, setErrorMessage] = useState(null);
   const globalInfoState = useSelector((state) => state.globalInfo);
   const dispatch = useDispatch();
   const updateTextHommage = usePostQuery();
   const form = useRef(null);
 
   const initialFormState = {
-    homage_text: decoded(globalInfoState?.homageText) || "",
+    homage_text: decoded(JSON.parse(globalInfoState?.homageText)) || "",
   };
   const validationValues = {
     homage_text: {
@@ -56,46 +57,36 @@ export default function HomageModal() {
       updateTextHommage.mutate(
         { data: hommage_obj, apiUrl: postSaveFieldApiUrl },
         {
-          onSuccess: (data) => {
+          onSuccess: ({ data }) => {
             dispatch(
-              homageTextUpdated({ homageText: data?.data?.field_value }),
+              homageTextUpdated({
+                homageText: JSON.stringify(data?.field_value),
+              }),
             );
             dispatch(modalClosed());
+          },
+          onError: () => {
+            setErrorMessage(errorMessageNetwork);
           },
         },
       );
     } catch {
       // Something went wrong
+      setErrorMessage(errorMessageNetwork);
     }
   };
 
   return (
     <>
       <ModalTitle>Rendre hommage</ModalTitle>
-
-      <form noValidate onSubmit={handleSubmit} ref={form}>
-        <FormTextarea
-          labelText="Texte d'introduction"
-          id="homage_text"
-          name="homage_text"
-          value={inputValues.homage_text}
-          onInputChange={changeHandler}
-        />
-        <ButtonsWrapper position="right">
-          <Button
-            type="button"
-            btnClass="bg-transparent"
-            onClickAction={closeModal}
-          >
-            Annuler
-          </Button>
-          <Button type="submit" btnClass="bg-current">
-            <Icon name="save" iconClass="white-icon book-icon" />
-            <span className="separator">&nbsp;</span>
-            <span className="button-text">enregistrer</span>
-          </Button>
-        </ButtonsWrapper>
-      </form>
+      {errorMessage && <p className="message-status mb-40">{errorMessage}</p>}
+      <HomageForm
+        handleSubmit={handleSubmit}
+        form={form}
+        inputValues={inputValues}
+        changeHandler={changeHandler}
+        closeModal={closeModal}
+      />
     </>
   );
 }

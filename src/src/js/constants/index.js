@@ -20,6 +20,7 @@ export const postResetPasswordUrl = "/es/user/reset-password";
 
 // Keys and Machine Names
 export const homageMachineName = "field_es_homage";
+export const heroBannerMachineName = "field_es_banner";
 export const bioMachineName = "field_es_bio";
 export const defuntPhotoMachineName = "field_es_profile_image";
 export const messageStatusMachineName = "status";
@@ -31,4 +32,8 @@ export const numberMessagesKey = "numberMessages";
 export const accueil = "accueil";
 export const messages = "messages";
 export const biographie = "biographie";
+export const errorMessageNetwork =
+  "Une erreur est survenue, merci de réessayer plus tard";
 export const lineBreak = "<br />";
+export const forgotPassword = "Mot de passe oublié";
+export const wrongCredentials = "Merci de vérifier vos identifiants";

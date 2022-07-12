@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 
 import PrestationTransversal from "./PrestationTransversal";
 
-/* import './transversalBlocks.scss';
- */
 export default function TransversalWrapper() {
   const globalInfoState = useSelector((state) => state.globalInfo);
 

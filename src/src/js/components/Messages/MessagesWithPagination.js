@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import { messagesPerPage, numberMessagesKey } from "../../constants";
@@ -12,7 +11,6 @@ import MessageItem from "./MessageItem";
 
 export default function MessagesWithPagination({ messages }) {
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
   const messagesState = useSelector((state) => state.messages);
   const firstMessagesArray = messagesState.messagesViewed.length
     ? messagesState.messagesViewed

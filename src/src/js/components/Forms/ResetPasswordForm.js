@@ -6,36 +6,9 @@ import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
+import { resetPasswordValidationValues } from "./FormValidationValues";
 import NewPasswordFieldset from "./NewPasswordFieldset";
 
-const validationValues = {
-  repeat_new_password: {
-    isRequired: true,
-    required: "Merci de confirmer le mot de passe",
-  },
-  new_password: {
-    isRequired: true,
-    required: "Merci de renseigner le mot de passe",
-    patterns: [
-      {
-        name: "patternNumber",
-        value: /[0-9]/,
-      },
-      {
-        name: "patternLength",
-        value: /^[\s\S]{8,}$/,
-      },
-      {
-        name: "patternMaj",
-        value: /[A-Z]/,
-      },
-      {
-        name: "patternSpecialChar",
-        value: /[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/,
-      },
-    ],
-  },
-};
 const initialFormState = {
   new_password: "",
   repeat_new_password: "",
@@ -56,7 +29,7 @@ export default function ResetPasswordForm() {
     isValid,
   } = useForm({
     initialFormState,
-    validationValues,
+    validationValues: resetPasswordValidationValues,
   });
 
   const handleSubmit = (e) => {
@@ -69,7 +42,8 @@ export default function ResetPasswordForm() {
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
         .filter(
-          ([key, value]) => validationValues[key].isRequired && value === "",
+          ([key, value]) =>
+            resetPasswordValidationValues[key].isRequired && value === "",
         )
         .map(([key]) => key);
 
@@ -122,7 +96,7 @@ export default function ResetPasswordForm() {
           resetPassword.mutate(
             { data: infos_obj, apiUrl: "///////" },
             {
-              onSuccess: ({ data }) => {},
+              /* onSuccess: ({ data }) => {}, */
               onError: () => {
                 setIsLoader(false);
               },
@@ -144,7 +118,7 @@ export default function ResetPasswordForm() {
   return (
     <form noValidate onSubmit={handleSubmit} className="reset-password-form">
       <p>Bienvenue,</p>
-      <p>Vous pouvez désormais vous connecter à votre Espace Souvenirs.</p>
+      <p>Vous pouvez désormais vous connecter à votre Espace Hommage.</p>
       <p>Personnaliser votre mot de passe pour vos prochaines connexions.</p>
       {networkErrorMessage && (
         <p ref={networkError} className="message-status mb-40">
@@ -168,7 +142,7 @@ export default function ResetPasswordForm() {
       </fieldset>
       <ButtonsWrapper position="mt-30">
         <Button type="submit" btnClass="bg-current">
-          <span className="button-text">accéder à l&apos;espace souvenirs</span>
+          <span className="button-text">accéder à l&apos;Espace Hommage</span>
           <span className="separator">&nbsp;</span>
           <Icon name="next" iconClass="white-icon" />
         </Button>

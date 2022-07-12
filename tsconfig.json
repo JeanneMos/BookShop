@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 14",
+/*   "exclude": [
+    "./node_modules",
+    "./typings"
+  ], */
+  "types": [ "@types/jest"],
+  "include": [
+    "./docroot/themes/custom/souvenirs/src/js/*",
+    ".eslintrc.js",
+    "webpack.config.js",
+    "jest.config.ts",
+    "lint-staged.config.js",
+    "./docroot/themes/custom/souvenirs/src/**/*.tsx",
+    "./docroot/themes/custom/souvenirs/src/**/*.ts",
+    "./docroot/themes/custom/souvenirs/src/**/*.js",
+   ],
+  "compilerOptions": {
+    "lib": ["es2021", "dom"],
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist/",
+    "noImplicitAny": false,
+    "strict":true,
+    "module": "commonjs",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "declarationMap": true,
+    "noImplicitReturns": true,
+    "pretty": true,
+    "target": "es2017",
+    "paths": {}
+  }
+
+}

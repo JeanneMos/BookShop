@@ -1,7 +1,7 @@
 {
   "name": "espace-souvenir",
   "version": "1.0.0",
-  "description": "Espace Souvenirs",
+  "description": "Espace Hommage",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
@@ -21,6 +21,8 @@
   "author": "OGF",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-decoupled-document": "^34.2.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
@@ -28,6 +30,7 @@
     "dotenv": "^16.0.0",
     "focus-trap-react": "^8.9.2",
     "html-entities": "^2.3.3",
+    "isomorphic-dompurify": "^0.20.0",
     "nanoid": "^3.3.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -49,6 +52,9 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^14.0.4",
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -73,6 +79,7 @@
     "image-minimizer-webpack-plugin": "^3.2.3",
     "jest": "^27.5.1",
     "jest-environment-jsdom": "^27.5.1",
+    "jsdom": "^20.0.0",
     "lint-staged": "^10.0.0",
     "mini-css-extract-plugin": "^2.5.3",
     "postcss": "^8.4.8",
@@ -89,6 +96,11 @@
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.1",
+    "ts-jest": "^27.1.4",
+    "ts-loader": "^9.2.8",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "typescript-eslint": "0.0.1-alpha.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.69.1",
     "webpack-bundle-analyzer": "^4.5.0",
@@ -96,17 +108,5 @@
   },
   "browserslist": [
     "defaults"
-  ],
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "jsdom",
-    "testURL": "http://test.com/",
-    "testMatch": [
-      "<rootDir>/docroot/themes/custom/souvenirs/src/js/__test__/*.test.js"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/docroot/themes/custom/souvenirs/src/js/__test__/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/docroot/themes/custom/souvenirs/src/js/__test__/__mocks__/styleMock.js"
-    }
-  }
+  ]
 }

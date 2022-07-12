@@ -111,7 +111,7 @@ export default function Upload({
         {handleImagePreview(compressedFiles)}
         <div className="modal-image-description">
           <p className="modal-photo-subtitle">
-            Personnaliser l’Espace Souvenirs en y ajoutant une photo du défunt
+            Personnaliser l’Espace Hommage en y ajoutant une photo du défunt
           </p>
           <p className="input-file-description">
             Pour un affichage optimum, privilégier des photos au format portrait

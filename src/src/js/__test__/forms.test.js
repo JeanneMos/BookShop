@@ -3,31 +3,29 @@ import "./__mocks__/fileMock";
 import "../../assets/images/madame-img.jpg";
 
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  cleanup,
-  fireEvent,
-  getByText,
-  queryByText,
-  render,
-  waitFor,
-} from "@testing-library/react";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
+import * as util from "util";
 
 import AdministratorPersonalInfoForm from "../components/Forms/AdministratorPersonalInfoForm";
 import BiographyForm from "../components/Forms/BiographyForm";
+import CKEditorCustom from "../components/Forms/CKEditorCustom";
 import LoginUserForm from "../components/Forms/LoginUserForm";
 import MessageForm from "../components/Forms/MessageForm";
 import administratorSlice from "../context/administratorSlice";
-import biographySlice from "../context/biographySlice";
+import biographySlice, { biographyUpdated } from "../context/biographySlice";
 import globalInfoSlice from "../context/globalInfoSlice";
 import messageSlice from "../context/messageSlice";
 import modalSlice from "../context/modalSlice";
-import useGetQuery from "../services/useGetQuery";
 import usePostQuery from "../services/usePostQuery";
 
+global.TextDecoder = new util.TextDecoder();
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 const mockRevoke = jest.fn();
+
 jest.mock("../services/usePostQuery");
 describe("Forms:", () => {
   afterEach(cleanup);
@@ -59,7 +57,7 @@ describe("Forms:", () => {
   window.HTMLElement.prototype.scrollIntoView = jest.fn();
   window.scrollTo = jest.fn();
 
-  function MockFile() {}
+  /*   function MockFile() {}
 
   MockFile.prototype.create = function (name, size, mimeType) {
     name = name || "mock.txt";
@@ -76,7 +74,7 @@ describe("Forms:", () => {
   const mock = new MockFile();
   const file = mock.create("coucou.jpeg", 1024, "image/jpeg");
 
-  const newFile = mock.create("madame-img.jpg", 1024, "image/jpeg");
+  const newFile = mock.create("madame-img.jpg", 1024, "image/jpeg"); */
 
   test("MessageForm : Message form should have labels for all the fields", async () => {
     const { getByLabelText } = render(
@@ -92,7 +90,7 @@ describe("Forms:", () => {
     expect(getByLabelText("Votre message")).toBeTruthy();
     expect(
       getByLabelText(
-        "Je souhaite être alerté des évènements privés ajoutés dans cet Espace Souvenirs",
+        "Je souhaite être alerté des évènements privés ajoutés dans cet Espace Hommage",
       ),
     ).toBeTruthy();
   });
@@ -131,16 +129,21 @@ describe("Forms:", () => {
     expect(getByText("996 caractères restants.")).toBeTruthy();
   });
   test("BiographyForm: should have caracters count in biography textarea", async () => {
-    const { getByTestId, getByLabelText, getByText } = render(
+    store.dispatch(
+      biographyUpdated({
+        biography: "Biographie",
+        isBiographyEdited: true,
+      }),
+    );
+    const { getByTestId, getByLabelText, getByText, debug } = render(
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <BiographyForm closeForm={closeForm} />
+          <BiographyForm>
+            <CKEditorCustom value="Biographie" />
+          </BiographyForm>
         </Provider>
       </QueryClientProvider>,
     );
-    fireEvent.change(getByLabelText("biographie"), {
-      target: { value: "Biographie" },
-    });
     const btn = getByTestId("submitBiographyForm");
     fireEvent.click(btn);
     expect(getByText("990 caractères restants.")).toBeTruthy();

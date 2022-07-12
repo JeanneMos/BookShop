@@ -37,6 +37,7 @@ export default function DefuntImg({ handleModifyPicture }) {
             onClickAction={handleModifyPicture}
           >
             <Icon name="edit-picture" iconClass="edit-picture-icon" />
+            <span className="sr-only">Modifier la photo du défunt</span>
           </Button>
         )}
       </div>

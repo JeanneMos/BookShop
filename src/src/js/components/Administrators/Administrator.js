@@ -35,6 +35,9 @@ export default function Administrator({ admin, current }) {
           <Icon name="pencil" iconClass="white-icon book-icon" />
           <span className="separator">&nbsp;</span>
           <span className="button-text">modifier</span>
+          <span className="sr-only">
+            les informations de {admin.firstName} {admin.lastName}
+          </span>
         </Button>
       )}
     </li>
