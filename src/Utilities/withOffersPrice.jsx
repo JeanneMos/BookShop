@@ -1,11 +1,11 @@
 let calculatedPrices = []
-const getSlices = (price, offer) => {
+export const getSlices = (price, offer) => {
   return +price / +offer.sliceValue
 }
 const calculatePrice = (offer, price) => {
   const { type, value } = offer
   let newPrice = 0
-  
+
   switch (type) {
     case "minus":
       newPrice = +price - +value

@@ -1,6 +1,6 @@
 import React from "react"
 import { render, getByAltText, queryByText, cleanup } from "@testing-library/react"
-import Search from "./Book"
+import Book from "../Home/Book";
 
 describe("should render components", () => {
   const book = {
