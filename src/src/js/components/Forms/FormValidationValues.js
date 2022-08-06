@@ -1,6 +1,4 @@
-import {ILoginUserValidationValues, IAdministratorValidationValues,IBiographyValidationValues,IForgotPasswordVlidationValues, IMessageValidationValues, IResetPasswordValidationValues} from "./FormValidationInterfaces";
-
-export const administratorValidationValues:IAdministratorValidationValues = {
+export const administratorValidationValues = {
   surname: {
     pattern: {
       value: /^([a-zA-Z\u00C0-\u00FF '-])+$/,
@@ -58,7 +56,7 @@ export const administratorValidationValues:IAdministratorValidationValues = {
   },
 };
 
-export const biographyValidationValues:IBiographyValidationValues = {
+export const biographyValidationValues = {
   biography: {
     isRequired: false,
   },
@@ -118,7 +116,7 @@ export const ceremonyValidationValues = {
   },
 };
 
-export const forgotPasswordVlidationValues:IForgotPasswordVlidationValues = {
+export const forgotPasswordVlidationValues = {
   email: {
     pattern: {
       value:
@@ -131,7 +129,7 @@ export const forgotPasswordVlidationValues:IForgotPasswordVlidationValues = {
   },
 };
 
-export const loginUserValidationValues: ILoginUserValidationValues = {
+export const loginUserValidationValues = {
   username: {
     pattern: {
       value: /^([^<>()[\],"])+$/,
@@ -146,7 +144,7 @@ export const loginUserValidationValues: ILoginUserValidationValues = {
   },
 };
 
-export const messageValidationValues: IMessageValidationValues = {
+export const messageValidationValues = {
   firstName: {
     pattern: {
       value: /^([0-9a-zA-Z\u00C0-\u00FF ',-])+$/,
@@ -185,7 +183,7 @@ export const messageValidationValues: IMessageValidationValues = {
   },
 };
 
-export const resetPasswordValidationValues: IResetPasswordValidationValues = {
+export const resetPasswordValidationValues = {
   repeat_new_password: {
     isRequired: true,
     required: "Merci de confirmer le mot de passe",

@@ -2,13 +2,13 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { postUserUrl } from "../../constants";
+import { forgotPassword, postUserUrl } from "../../constants";
 import {
   currentUserSet,
   isAdminSet,
   userLoggedIn,
-} from "../../context/administratorSlice";
-import { modalClosed, modalOpened } from "../../context/modalSlice";
+} from "../../providers/administratorSlice";
+import { modalClosed, modalOpened } from "../../providers/modalSlice";
 import { getMainAdminESEntities } from "../../services/getGestionnairePrincipalES";
 import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
@@ -16,26 +16,13 @@ import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import Loader from "../Loader/Loader";
 import FormInput from "./FormInput";
+import { loginUserValidationValues } from "./FormValidationValues";
 
 const initialFormState = {
   username: "",
   password: "",
 };
 
-const validationValues = {
-  username: {
-    pattern: {
-      value: /^([^<>()[\],"])+$/,
-      message: "Merci de renseigner votre identifiant",
-    },
-    isRequired: true,
-    required: "Merci de renseigner votre identifiant",
-  },
-  password: {
-    isRequired: true,
-    required: "Merci de renseigner votre mot de passe",
-  },
-};
 export default function LoginUserForm() {
   const params = useParams();
   const [isLoader, setIsLoader] = useState(false);
@@ -52,7 +39,7 @@ export default function LoginUserForm() {
     isValid,
   } = useForm({
     initialFormState,
-    validationValues,
+    validationValues: loginUserValidationValues,
   });
   const form = useRef(null);
 
@@ -76,7 +63,8 @@ export default function LoginUserForm() {
     if (arrayOfErrors.length === 0) {
       const emptyFields = Object.entries(inputValues)
         .filter(
-          ([key, value]) => validationValues[key].isRequired && value === "",
+          ([key, value]) =>
+            loginUserValidationValues[key].isRequired && value === "",
         )
         .map(([key]) => key);
 
@@ -92,71 +80,60 @@ export default function LoginUserForm() {
           postUser.mutate(
             { data: user_obj, apiUrl: postUserUrl },
             {
-              onSuccess: async (data) => {
+              onSuccess: ({ data }) => {
                 // const token = await axios.get('/session/token');
-                if (!data.data.code) {
-                  // check if data is not object.
-                  if (typeof data.data === "string") {
-                    setWrongCredentialsMessage(
-                      "Merci de vérifier vos identifiants",
-                    );
-                    setIsLoader(false);
-                  } else {
-                    setWrongCredentialsMessage(null);
-                    const {
-                      field_user_civility,
-                      field_user_surname,
-                      field_user_name,
-                      field_user_email,
-                      field_user_phone,
-                      user_gp_entity,
-                    } = data.data;
-                    const user = {
-                      isLogged: true,
-                      lastName: field_user_surname,
-                      firstName: field_user_name,
-                      email: field_user_email,
-                      phone: field_user_phone,
-                      civility: field_user_civility,
-                      gp_entities: user_gp_entity,
-                    };
-                    dispatch(userLoggedIn());
-                    dispatch(currentUserSet({ user }));
-                    if (
-                      getMainAdminESEntities(user_gp_entity).length &&
-                      params
-                    ) {
-                      dispatch(
-                        isAdminSet({
-                          isAdmin: getMainAdminESEntities(
-                            user_gp_entity,
-                          ).includes(params.espaceId),
-                        }),
-                      );
-                    }
-                    setIsLoader(false);
-                    if (modalState.isOpen) dispatch(modalClosed());
-                    if (administratorState.isAdmin) window.location.reload();
-                  }
-                } else {
+                // check if data is not object.
+                if (typeof data === "string") {
                   setWrongCredentialsMessage(
                     "Merci de vérifier vos identifiants",
                   );
-                  setIsLoader(false);
+                } else {
+                  setWrongCredentialsMessage(null);
+                  const {
+                    field_user_civility,
+                    field_user_surname,
+                    field_user_name,
+                    field_user_email,
+                    field_user_phone,
+                    user_gp_entity,
+                  } = data;
+                  const user = {
+                    isLogged: true,
+                    lastName: field_user_surname,
+                    firstName: field_user_name,
+                    email: field_user_email,
+                    phone: field_user_phone,
+                    civility: field_user_civility,
+                    gp_entities: user_gp_entity,
+                  };
+                  dispatch(userLoggedIn());
+                  dispatch(currentUserSet({ user }));
+                  if (getMainAdminESEntities(user_gp_entity).length && params) {
+                    dispatch(
+                      isAdminSet({
+                        isAdmin: getMainAdminESEntities(
+                          user_gp_entity,
+                        ).includes(params.espaceId),
+                      }),
+                    );
+                  }
+                  if (modalState.isOpen) dispatch(modalClosed());
+                  if (administratorState.isAdmin) window.location.reload();
                 }
               },
-              onError: () => {
-                setIsLoader(false);
+              onError: (err) => {
                 setWrongCredentialsMessage(
                   "Merci de vérifier vos identifiants",
                 );
+              },
+              onSettled: () => {
+                setIsLoader(false);
               },
             },
           );
         } catch (err) {
           setIsLoader(false);
           setWrongCredentialsMessage(null);
-          console.error(err);
         }
       }
     }
@@ -204,7 +181,7 @@ export default function LoginUserForm() {
           btnClass="forgot-password-link bg-transparent center"
           onClickAction={openForgotPasswordPopin}
         >
-          Mot de passe oublié?
+          {`${forgotPassword}?`}
         </Button>
       </form>
     </>

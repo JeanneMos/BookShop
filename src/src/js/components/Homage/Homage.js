@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { modalOpened } from "../../context/modalSlice";
+import { modalOpened } from "../../providers/modalSlice";
 import { decoded, sanitizedText } from "../../services/formatting";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";

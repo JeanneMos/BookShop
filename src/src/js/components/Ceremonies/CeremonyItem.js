@@ -43,7 +43,7 @@ const CeremonyItem = React.memo(function CeremonyItem({ ceremony }) {
                 <StyledLink
                   as="ahref"
                   linkTo={globalInfoState?.marque?.urlBoutique}
-                  linkClass="link bg-white boutique-link"
+                  linkClass="link bg-white ceremony-boutique-link"
                   dataTestid="boutiqueCta"
                   target="_blank"
                 >

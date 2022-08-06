@@ -1,6 +1,7 @@
-import Img from "Images/bg-images/img-bg.jpg";
 import PropTypes from "prop-types";
 import React from "react";
+
+import Img from "../../../assets/images/bg-images/img-bg.jpg";
 
 export default function SearchList({ profiles }) {
   return (

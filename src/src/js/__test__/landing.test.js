@@ -13,11 +13,11 @@ import administratorSlice, {
   isAdminSet,
   userLoggedIn,
   userLoggedOut,
-} from "../context/administratorSlice";
-import biographySlice from "../context/biographySlice";
-import globalInfoSlice from "../context/globalInfoSlice";
-import messageSlice from "../context/messageSlice";
-import modalSlice from "../context/modalSlice";
+} from "../providers/administratorSlice";
+import biographySlice from "../providers/biographySlice";
+import globalInfoSlice from "../providers/globalInfoSlice";
+import messageSlice from "../providers/messageSlice";
+import modalSlice from "../providers/modalSlice";
 import useGetQuery from "../services/useGetQuery";
 import { resultsSuggestions } from "./constants";
 import { renderedLoggedOutLanding } from "./renderedPages";

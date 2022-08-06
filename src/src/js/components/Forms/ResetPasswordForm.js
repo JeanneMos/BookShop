@@ -96,7 +96,7 @@ export default function ResetPasswordForm() {
           resetPassword.mutate(
             { data: infos_obj, apiUrl: "///////" },
             {
-              /* onSuccess: ({ data }) => {}, */
+              onSuccess: ({ data }) => {},
               onError: () => {
                 setIsLoader(false);
               },

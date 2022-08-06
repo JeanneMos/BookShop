@@ -3,6 +3,29 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import React from "react";
 
 import { decoded } from "../../services/formatting";
+/* 
+const siteColors = {
+  pfg: {
+    color:"#de6518",
+    label: "orange"
+  },
+  roblot: {
+    color:"#691731",
+    label: "rose"
+  },
+  "dignite-funeraire": {
+    color:"#0085a2",
+    label: "bleu"
+  },
+  "marque-locale": {
+    color:"#0b5d67",
+    label: "vert"
+  },
+  "henri-de-borniol": {
+    color:"#0e342e",
+    label: "vert"
+  },
+} */
 
 export default function CKEditorCustom({
   value,
@@ -10,6 +33,7 @@ export default function CKEditorCustom({
   name,
   onInputChange,
   editorRef,
+  /* siteBrand */
 }) {
   return (
     <>
@@ -24,11 +48,20 @@ export default function CKEditorCustom({
             editorRef?.current?.prepend(editor.ui.view.toolbar.element);
           }}
           config={{
+            /*             fontColor: {
+              colors: [
+                {
+                  color: "#151515",
+                  label: "Noir"
+                },
+                siteColors[siteBrand]
+              ]
+            }, */
             toolbar: [
               "bold",
               "italic",
               "underline",
-              "fontColor",
+              /* "fontColor", */
               "|",
               "alignment",
             ],

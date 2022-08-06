@@ -7,8 +7,8 @@ import {
   homageMachineName,
   postSaveFieldApiUrl,
 } from "../../constants";
-import { homageTextUpdated } from "../../context/globalInfoSlice";
-import { modalClosed } from "../../context/modalSlice";
+import { homageTextUpdated } from "../../providers/globalInfoSlice";
+import { modalClosed } from "../../providers/modalSlice";
 import { decoded } from "../../services/formatting";
 import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";

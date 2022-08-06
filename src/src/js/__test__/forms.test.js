@@ -7,25 +7,20 @@ import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
-import * as util from "util";
 
 import AdministratorPersonalInfoForm from "../components/Forms/AdministratorPersonalInfoForm";
 import BiographyForm from "../components/Forms/BiographyForm";
 import CKEditorCustom from "../components/Forms/CKEditorCustom";
 import LoginUserForm from "../components/Forms/LoginUserForm";
 import MessageForm from "../components/Forms/MessageForm";
-import administratorSlice from "../context/administratorSlice";
-import biographySlice, { biographyUpdated } from "../context/biographySlice";
-import globalInfoSlice from "../context/globalInfoSlice";
-import messageSlice from "../context/messageSlice";
-import modalSlice from "../context/modalSlice";
+import administratorSlice from "../providers/administratorSlice";
+import biographySlice, { biographyUpdated } from "../providers/biographySlice";
+import globalInfoSlice from "../providers/globalInfoSlice";
+import messageSlice from "../providers/messageSlice";
+import modalSlice from "../providers/modalSlice";
 import usePostQuery from "../services/usePostQuery";
 
-global.TextDecoder = new util.TextDecoder();
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
 const mockRevoke = jest.fn();
-
 jest.mock("../services/usePostQuery");
 describe("Forms:", () => {
   afterEach(cleanup);
@@ -57,7 +52,7 @@ describe("Forms:", () => {
   window.HTMLElement.prototype.scrollIntoView = jest.fn();
   window.scrollTo = jest.fn();
 
-  /*   function MockFile() {}
+  function MockFile() {}
 
   MockFile.prototype.create = function (name, size, mimeType) {
     name = name || "mock.txt";
@@ -74,7 +69,7 @@ describe("Forms:", () => {
   const mock = new MockFile();
   const file = mock.create("coucou.jpeg", 1024, "image/jpeg");
 
-  const newFile = mock.create("madame-img.jpg", 1024, "image/jpeg"); */
+  const newFile = mock.create("madame-img.jpg", 1024, "image/jpeg");
 
   test("MessageForm : Message form should have labels for all the fields", async () => {
     const { getByLabelText } = render(

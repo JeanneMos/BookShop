@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { postUserUpdateUrl } from "../../constants";
+import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import {
   administratorPersonalInfoModified,
   currentUserSet,
-} from "../../context/administratorSlice";
-import { espaceAdministratorUpdated } from "../../context/globalInfoSlice";
-import ButtonsWrapper from "../../layouts/ButtonsWrapper";
+} from "../../providers/administratorSlice";
+import { espaceAdministratorUpdated } from "../../providers/globalInfoSlice";
 import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 import useForm from "../../services/useForm";
 import usePostQuery from "../../services/usePostQuery";
@@ -275,7 +275,6 @@ export default function AdministratorPersonalInfoForm({ closeForm, heading }) {
             type="checkbox"
             id="eventsOptin"
             name="eventsOptin"
-            onInputChange={changeHandler}
             wrapperClass="mt-30"
             isRequired={false}
             labelText="Je souhaite être alerté des évènements privés ajoutés dans cet Espace Hommage"

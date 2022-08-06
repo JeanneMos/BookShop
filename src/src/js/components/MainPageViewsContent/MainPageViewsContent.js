@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { accueil, biographie, messages } from "../../constants";
+import { accueilPage, biographiePage, messagesPage } from "../../constants";
 import MessagesLoader from "../Loader/MessagesLoader";
 import TabPanel from "./TabPanel";
 
@@ -16,7 +16,7 @@ const Messages = React.lazy(() =>
 );
 
 export default function MainPageViewsContent({ name, handleActiveTab }) {
-  if (name === accueil) {
+  if (name === accueilPage) {
     return (
       <React.Suspense fallback={<MessagesLoader />}>
         <TabPanel name={name}>
@@ -25,7 +25,7 @@ export default function MainPageViewsContent({ name, handleActiveTab }) {
       </React.Suspense>
     );
   }
-  if (name === biographie) {
+  if (name === biographiePage) {
     return (
       <React.Suspense fallback={<MessagesLoader />}>
         <TabPanel name={name}>
@@ -34,7 +34,7 @@ export default function MainPageViewsContent({ name, handleActiveTab }) {
       </React.Suspense>
     );
   }
-  if (name === messages) {
+  if (name === messagesPage) {
     return (
       <React.Suspense fallback={<MessagesLoader />}>
         <TabPanel name={name}>

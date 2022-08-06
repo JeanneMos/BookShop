@@ -17,6 +17,15 @@
   margin-left: rem(-15px);
   background-color: rgba(var(--bg-color), $alpha: 25%);
 }
+.biography-loader-wrapper {
+  display: flex;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  margin-left: rem(-15px);
+  background-color: rgba(var(--bg-color), $alpha: 25%);
+}
 
 .loader-header {
   display: flex;
@@ -92,6 +101,23 @@
   div {
     width: 100%;
     height: rem(200px);
+    border-radius: rem(4px);
+    background-color: $white;
+  }
+}
+.loader-biography {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: rem(30px);
+  background-color: var(--bg-color);
+  padding: rem(60px) rem(15px);
+  animation: opacityToggle 1.5s ease-in-out infinite;
+  div {
+    width: 100%;
+    max-width: rem(820px);
+    height: rem(350px);
     border-radius: rem(4px);
     background-color: $white;
   }

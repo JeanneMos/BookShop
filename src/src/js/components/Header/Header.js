@@ -8,8 +8,8 @@ import {
   isAdminSet,
   userLoggedIn,
   userLoggedOut,
-} from "../../context/administratorSlice";
-import { modalOpened } from "../../context/modalSlice";
+} from "../../providers/administratorSlice";
+import { modalOpened } from "../../providers/modalSlice";
 import { getMainAdminESEntities } from "../../services/getGestionnairePrincipalES";
 import useGetQuery from "../../services/useGetQuery";
 import LoginLoader from "../Loader/LoginLoader";

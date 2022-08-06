@@ -4,8 +4,9 @@ import React, { useCallback, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { modalClosed } from "../../context/modalSlice";
+import { modalClosed } from "../../providers/modalSlice";
 import Icon from "../Icons/Icon";
+import CeremonyModal from "./CeremonyModal";
 import DefuntPictureModal from "./DefuntPictureModal";
 import ForgotPasswordModal from "./ForgotPasswordModal";
 import HeroBannerModal from "./HeroBannerModal";
@@ -47,6 +48,7 @@ export default function Modal() {
     DefuntPictureModal,
     ShareModal,
     ForgotPasswordModal,
+    CeremonyModal,
   };
   const modalContent = () => {
     if (!modalState.modalType) return null;

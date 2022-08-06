@@ -2,122 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import InfoWrapper from "../components/DefuntInfo/InfoWrapper";
-import FullPageLoader from "../components/Loader/FullPageLoader";
-import MainPageViews from "../components/MainPageViews/MainPageViews";
-import { getEspaceSouvenirsApi } from "../constants";
-import { biographyUpdated } from "../context/biographySlice";
-import { espaceInfoUpdated } from "../context/globalInfoSlice";
-import Layout from "../layouts/Layout";
-import { decoded } from "../services/formatting";
-import scrollSmoothToElement from "../services/scrollSmoothToElement";
-import useGetQuery from "../services/useGetQuery";
-import NoMatch from "./NoMatch";
+import { biographyUpdated } from "../providers/biographySlice";
+import { espaceInfoUpdated } from "../providers/globalInfoSlice";
+import { decoded } from "./formatting";
+import scrollSmoothToElement from "./scrollSmoothToElement";
+import useGetQuery from "./useGetQuery";
 
-interface IRetrievedData {
-  manager: {
-    field_birth_date: string;
-    field_user_civility?: string;
-    field_user_email: string;
-    field_user_name: string;
-    field_user_phone?: string;
-    field_user_surname: string;
-    idUser: string;
-    user_gp_entity: string[];
-  };
-  field_es_civility: string;
-  field_es_surname: string;
-  field_es_birth_name: string;
-  field_es_name: string;
-  field_es_profile_image: IDefuntImage | null;
-  field_es_banner?: string;
-  field_es_birthday: string;
-  field_es_death_date: string;
-  field_nom_de_naissance: string;
-  field_es_marque: {
-    field_marque_system_name: string;
-    field_marque_boutique: string;
-    field_marque_domain: string;
-    field_marque_emc: boolean;
-    field_marque_add_public: boolean;
-    field_marque_logo?: string;
-    field_marque_prestation?: [
-      {
-        field_prest_image: string;
-        field_prest_titre: string;
-        field_prest_description: string;
-        field_prest_url: {
-          url: string;
-          title: string;
-          attributes: {
-            attributes: {
-              activate_sso_link: number;
-            };
-            external: boolean;
-          };
-        };
-      },
-    ];
-  };
-  field_es_homage: string;
-  field_es_bio: {
-    field_bio_custom: boolean;
-    field_bio_story: string;
-    field_bio_photo?: [];
-  };
-  field_es_avis?: {
-    defunt_fk?: {
-      civilite_fk: {
-        libelle: string;
-      };
-      prenom: string;
-      nom: string;
-      nomjeunefille?: string;
-      codepostal: string;
-      commune: string;
-      photo: {
-        url: string;
-      };
-    };
-    datepublication: string;
-    fleursautorise: boolean;
-    statut_fk?: {
-      libelle: string;
-    };
-    url_emc_detail: string;
-    url_emc_update: string;
-    url_avis_public: string;
-    nombreCondoleances: number;
-    lieux: [];
-  };
-  field_es_agency?: {
-    agency_name: string;
-    agency_address: string;
-    agency_postal_code: string;
-    agency_town: string;
-    agency_phone: string;
-    agency_url: string;
-  };
-  field_es_avis_id: string;
-  field_es_admin: boolean;
-  field_es_ville_naissance: string;
-  field_es_cp_naissance: string;
-  field_es_ville_deces: string;
-  field_es_cp_deces: string;
-}
-
-interface IDefuntImage {
-  name?: string;
-  url: string;
-}
-
-export default function MainPage() {
+export default function useGetMainPageContent({
+  espaceId,
+  getEspaceSouvenirsApi,
+}) {
   const [hasError, setHasError] = useState(false);
   const dispatch = useDispatch();
-  const params = useParams();
   const { data, error, isFetching } = useGetQuery({
-    key: `espace-souvenir-${params.espaceId}`,
-    API: `${getEspaceSouvenirsApi}/${params.espaceId}`,
+    key: `espace-souvenir-${espaceId}`,
+    API: `${getEspaceSouvenirsApi}/${espaceId}`,
     staleTime: 10000,
     cacheTime: Infinity,
   });
@@ -137,7 +36,8 @@ export default function MainPage() {
     const imageUrl = retrievedData ? retrievedData.url : null;
     return imageUrl;
   };
-  const setDefuntImage = (retrievedData: IDefuntImage | null) => {
+
+  const setDefuntImage = (retrievedData) => {
     return retrievedData
       ? {
           name: getDefuntImageName(retrievedData),
@@ -146,7 +46,7 @@ export default function MainPage() {
       : null;
   };
 
-  const setStructuredData = (sentData: IRetrievedData) => {
+  const setStructuredData = (sentData) => {
     const fieldMarque =
       sentData?.field_es_marque?.field_marque_prestation || "";
     const obituary =
@@ -209,6 +109,7 @@ export default function MainPage() {
 
   useEffect(() => {
     document.title = "Espace Hommage";
+
     scrollSmoothToElement();
     if (data?.error || typeof data === "string") {
       setHasError(true);
@@ -220,13 +121,5 @@ export default function MainPage() {
     }
   }, [data]);
 
-  if (isFetching) return <FullPageLoader />;
-  if (error || hasError || data?.length === 0) return <NoMatch />;
-
-  return (
-    <Layout>
-      <InfoWrapper />
-      <MainPageViews />
-    </Layout>
-  );
+  return { data, isFetching, error, hasError };
 }

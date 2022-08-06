@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { APIJsonPlaceholder } from "../constants";
+import { APIJsonPlaceholder, errorMessageNetwork } from "../constants";
 import Layout from "../layouts/Layout";
 import scrollSmoothToElement from "../services/scrollSmoothToElement";
 import useGetQuery from "../services/useGetQuery";
@@ -33,9 +33,7 @@ export default function LegalNotice() {
         <h1>Mentions légales</h1>
         {isFetching ? "Fetching" : null}
         {Number.isNaN(data) && (
-          <p className="fetch-error-message">
-            Nous avons rencontré une erreur, merci de réessayer plus tard
-          </p>
+          <p className="fetch-error-message">{errorMessageNetwork}</p>
         )}
         {data && data.length && displayPosts(data)}
       </div>

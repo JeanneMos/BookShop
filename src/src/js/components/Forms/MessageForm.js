@@ -11,12 +11,12 @@ import {
   numberMessagesKey,
   postMessageSendUrl,
 } from "../../constants";
+import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import {
   messagePictureDeleted,
   messagePictureUpdated,
-} from "../../context/messageSlice";
-import { modalOpened } from "../../context/modalSlice";
-import ButtonsWrapper from "../../layouts/ButtonsWrapper";
+} from "../../providers/messageSlice";
+import { modalOpened } from "../../providers/modalSlice";
 import { isEmptyArray } from "../../services/formatting";
 import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 import useForm from "../../services/useForm";
@@ -299,7 +299,6 @@ export default function MessageForm({ reference, closeForm }) {
             type="checkbox"
             id="eventsOptin"
             name="eventsOptin"
-            onInputChange={changeHandler}
             isRequired={false}
             labelText="Je souhaite être alerté des évènements privés ajoutés dans cet Espace Hommage"
           />

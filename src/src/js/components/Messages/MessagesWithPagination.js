@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import { messagesPerPage, numberMessagesKey } from "../../constants";
-import { messagesViewed } from "../../context/messageSlice";
+import { messagesPerPage } from "../../constants";
 import ButtonsWrapper from "../../layouts/ButtonsWrapper";
 import { slicedArray } from "../../services/formatting";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import MessageItem from "./MessageItem";
 
-export default function MessagesWithPagination({ messages }) {
-  const dispatch = useDispatch();
-  const messagesState = useSelector((state) => state.messages);
-  const firstMessagesArray = messagesState.messagesViewed.length
-    ? messagesState.messagesViewed
-    : slicedArray(messages, 0, messagesPerPage);
-  const [messagesList, setMessagesList] = useState(firstMessagesArray);
+export default function MessagesWithPagination({ messages, listRef }) {
+  const [messagesList, setMessagesList] = useState(
+    slicedArray(messages, 0, messagesPerPage),
+  );
+
+  useEffect(() => {
+    setMessagesList(slicedArray(messages, 0, messagesPerPage));
+  }, [messages]);
 
   const viewMoreMessages = () => {
     let begin = messagesList.length;
@@ -26,12 +25,16 @@ export default function MessagesWithPagination({ messages }) {
     ];
 
     setMessagesList(newMessagesArray);
-    dispatch(messagesViewed({ messagesViewed: newMessagesArray }));
   };
 
   return (
-    <div className="messages-wrapper">
-      <ul className="messages-list" data-testid="messagesWithPaginationList">
+    <>
+      <ul
+        className="messages-list"
+        data-testid="messagesWithPaginationList"
+        ref={listRef}
+        tabIndex={-1}
+      >
         {messagesList.map((message) => {
           return <MessageItem key={message?.message_id} message={message} />;
         })}
@@ -61,6 +64,6 @@ export default function MessagesWithPagination({ messages }) {
           </Button>
         </ButtonsWrapper>
       )}
-    </div>
+    </>
   );
 }

@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { mainMenu } from "../../constants";
-import { userLoggedOut } from "../../context/administratorSlice";
+import { userLoggedOut } from "../../providers/administratorSlice";
 import useGetQuery from "../../services/useGetQuery";
 import Icon from "../Icons/Icon";
 import StyledLink from "../Link/StyledLink";

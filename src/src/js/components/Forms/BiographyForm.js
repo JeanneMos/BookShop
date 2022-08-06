@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { bioMachineName, postSaveFieldApiUrl } from "../../constants";
-import { biographyUpdated } from "../../context/biographySlice";
 import ButtonsWrapper from "../../layouts/ButtonsWrapper";
+import { biographyUpdated } from "../../providers/biographySlice";
 import { decoded } from "../../services/formatting";
 import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 import usePostQuery from "../../services/usePostQuery";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
+import Loader from "../Loader/Loader";
 import CKEditorCustom from "./CKEditorCustom";
 /* import BiographyPhotosFieldset from "./BiographyPhotosFieldset"; */
 
 export default function BiographyForm({ reference, closeForm }) {
   const params = useParams();
   const biographyState = useSelector((state) => state.biography);
+  /*   const globalState = useSelector((state) => state.globalInfo); */
   const dispatch = useDispatch();
   const initialFormState = {
     biography: biographyState?.isBiographyEdited
@@ -134,6 +136,7 @@ export default function BiographyForm({ reference, closeForm }) {
               editorRef={editorRef}
               id="biography"
               onInputChange={changeHandler}
+              /*  siteBrand={globalState?.marque?.name} */
             />
             {max && (
               <p
@@ -148,22 +151,25 @@ export default function BiographyForm({ reference, closeForm }) {
           {/* <BiographyPhotosFieldset /> */}
 
           <ButtonsWrapper position="right" btnWrapperClass="mt-30">
-            <Button
-              type="button"
-              btnClass="bg-transparent"
-              onClickAction={handleCloseForm}
-            >
-              Annuler
-            </Button>
-            <Button
-              type="submit"
-              btnClass="bg-current"
-              dataTestid="submitBiographyForm"
-            >
-              <Icon name="save" iconClass="white-icon" />
-              <span className="separator">&nbsp;</span>
-              <span className="button-text">Enregistrer</span>
-            </Button>
+            <div className="button-loader-wrapper">
+              <Button
+                type="button"
+                btnClass="bg-transparent"
+                onClickAction={handleCloseForm}
+              >
+                Annuler
+              </Button>
+              <Button
+                type="submit"
+                btnClass="bg-current"
+                dataTestid="submitBiographyForm"
+              >
+                <Icon name="save" iconClass="white-icon" />
+                <span className="separator">&nbsp;</span>
+                <span className="button-text">Enregistrer</span>
+              </Button>
+              {updateBiography?.isLoading && <Loader position="relative" />}
+            </div>
           </ButtonsWrapper>
         </form>
       </div>

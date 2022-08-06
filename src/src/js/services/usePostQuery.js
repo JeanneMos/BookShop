@@ -5,6 +5,7 @@ import { useMutation } from "react-query";
 const defaultOptions = {
   headers: {
     "Content-Type": "application/json",
+    Authorization: process.env.REACT_API_TOKEN,
   },
   withCredentials: true,
   credentials: "include",

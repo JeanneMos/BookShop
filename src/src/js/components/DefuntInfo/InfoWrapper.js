@@ -1,9 +1,9 @@
-import img from "Images/bg-images/hero.jpg";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import img from "../../../assets/images/bg-images/hero.jpg";
 import { mobileBreakpoint } from "../../constants";
-import { modalOpened } from "../../context/modalSlice";
+import { modalOpened } from "../../providers/modalSlice";
 import useViewport from "../../services/useViewport";
 import DefuntImg from "./DefuntImg";
 import DefuntWithAdministrator from "./DefuntWithAdministrator";

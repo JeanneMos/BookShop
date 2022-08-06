@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 
+/* import { renderToStaticMarkup } from "react-dom/server"; */
 import Icon from "../Icons/Icon";
 
 const FormInput = React.memo(function FormInput({
@@ -29,9 +29,9 @@ const FormInput = React.memo(function FormInput({
   ariaDescription,
 }) {
   const svgString = encodeURIComponent(
-    renderToStaticMarkup(
-      <Icon name="cross-red" iconClass="input-error-icon" />,
-    ),
+    /*     renderToStaticMarkup( */
+    <Icon name="cross-red" iconClass="input-error-icon" />,
+    /*     ), */
   );
   const dataUri = `url("data:image/svg+xml,${svgString}")`;
   const optionalInput = !isRequired && (
@@ -57,9 +57,8 @@ const FormInput = React.memo(function FormInput({
         name={name}
         readOnly={readOnly}
         data-imagename={imageName}
-        className={classNames("input", {
+        className={classNames("input", inputClass, {
           "input-error": error,
-          inputClass,
         })}
         style={{
           backgroundImage: error ? dataUri : "none",

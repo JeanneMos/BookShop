@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { bioMachineName, postSaveFieldApiUrl } from "../../constants";
-import { biographyUpdated } from "../../context/biographySlice";
 import ButtonsWrapper from "../../layouts/ButtonsWrapper";
+import { biographyUpdated } from "../../providers/biographySlice";
 import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 import usePostQuery from "../../services/usePostQuery";
 import BiographyText from "../Biography/BiographyText";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
+import BiographyLoader from "../Loader/BiographyLoader";
 
 const BiographyForm = React.lazy(() =>
   import(/* webpackChunkName: "BiographyForm" */ "../Forms/BiographyForm"),
@@ -133,7 +134,11 @@ export default function Biography() {
   }, [isEditing]); */
 
   if (isEditing) {
-    return <BiographyForm closeForm={handlCloseForm} reference={form} />;
+    return (
+      <React.Suspense fallback={<BiographyLoader />}>
+        <BiographyForm closeForm={handlCloseForm} reference={form} />
+      </React.Suspense>
+    );
   }
 
   return (

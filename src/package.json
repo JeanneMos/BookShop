@@ -1,7 +1,7 @@
 {
   "name": "espace-souvenir",
   "version": "1.0.0",
-  "description": "Espace Souvenirs",
+  "description": "Espace Hommage",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
@@ -21,6 +21,8 @@
   "author": "OGF",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-decoupled-document": "^34.2.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
@@ -28,6 +30,7 @@
     "dotenv": "^16.0.0",
     "focus-trap-react": "^8.9.2",
     "html-entities": "^2.3.3",
+    "isomorphic-dompurify": "^0.20.0",
     "nanoid": "^3.3.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -99,7 +102,7 @@
   ],
   "jest": {
     "verbose": true,
-    "testEnvironment": "jsdom",
+    "testEnvironment": "./docroot/themes/custom/souvenirs/src/js/__test__/jsdom-custom.js",
     "testURL": "http://test.com/",
     "testMatch": [
       "<rootDir>/docroot/themes/custom/souvenirs/src/js/__test__/*.test.js"

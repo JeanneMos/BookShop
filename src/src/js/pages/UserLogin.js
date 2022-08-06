@@ -12,7 +12,7 @@ export default function UserLogin() {
     scrollSmoothToElement();
   }, []);
   return (
-    <Layout>
+    <Layout showLogin={false}>
       <div className="user-admin-login">
         <LoginUserForm />
       </div>

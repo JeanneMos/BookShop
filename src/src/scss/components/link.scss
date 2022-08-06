@@ -27,9 +27,10 @@
   width: rem(10px);
 }
 
-.boutique-link {
+.ceremony-boutique-link {
   max-width: 100%;
   flex: 0 0 auto;
+  margin: rem(10px) 0;
 }
 .edit-obituary-link {
   padding: rem(15px);
@@ -43,5 +44,8 @@
   .number-condoleances-link {
     margin-right: rem(20px);
     margin-bottom: 0;
+  }
+  .ceremony-boutique-link {
+    margin: 0;
   }
 }

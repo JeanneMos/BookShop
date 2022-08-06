@@ -1,6 +1,6 @@
-import img from "Images/profile-grey.jpg";
 import React from "react";
 
+import img from "../../../assets/images/profile-grey.jpg";
 import Loader from "./Loader";
 
 export default function FullPageLoader() {

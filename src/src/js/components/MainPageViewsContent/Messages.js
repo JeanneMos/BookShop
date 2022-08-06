@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
+import { messagesPage } from "../../constants";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import MessagesList from "../Messages/MessagesList";
@@ -63,7 +64,7 @@ export default function Messages() {
           <Icon name="next" iconClass="white-icon" />
         </Button>
       </div>
-      <MessagesList />
+      <MessagesList page={messagesPage} />
     </>
   );
 }

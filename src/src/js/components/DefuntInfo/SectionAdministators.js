@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { administratorEdited } from "../../context/administratorSlice";
+import { administratorEdited } from "../../providers/administratorSlice";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 

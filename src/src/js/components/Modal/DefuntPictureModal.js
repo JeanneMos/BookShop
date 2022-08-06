@@ -7,8 +7,8 @@ import {
   errorMessageNetwork,
   postSaveFieldApiUrl,
 } from "../../constants";
-import { defuntImageUpdated } from "../../context/globalInfoSlice";
-import { modalClosed } from "../../context/modalSlice";
+import { defuntImageUpdated } from "../../providers/globalInfoSlice";
+import { modalClosed } from "../../providers/modalSlice";
 import usePostQuery from "../../services/usePostQuery";
 import Upload from "../Upload/Upload";
 import ModalTitle from "./ModalTitle";

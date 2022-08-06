@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { messagePictureUpdated } from "../../context/messageSlice";
-import { modalClosed } from "../../context/modalSlice";
+import { messagePictureUpdated } from "../../providers/messageSlice";
+import { modalClosed } from "../../providers/modalSlice";
 import Button from "../Button/Button";
 import FormInput from "../Forms/FormInput";
 import Icon from "../Icons/Icon";
@@ -48,7 +48,7 @@ export default function MessagePictureHeroModal() {
       <form noValidate onSubmit={handleSubmit}>
         <div className="image-radios-wrapper">
           {imagesWithId.map(({ name }) => {
-            const localSrc = `${window.location.origin}/themes/custom/souvenirs/src/assets/images/bg-images/${name}`;
+            const localSrc = `${window.location.origin}/themes/custom/souvenirs/src/assets/images/bg-images/thumbnails/${name}`;
             return (
               <FormInput
                 key={name}

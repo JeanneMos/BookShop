@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { modalOpened } from "../../context/modalSlice";
+import { modalOpened } from "../../providers/modalSlice";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { administratorPersonalInfoModified } from "../../context/administratorSlice";
+import { administratorPersonalInfoModified } from "../../providers/administratorSlice";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 

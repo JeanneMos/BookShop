@@ -1,13 +1,13 @@
 import React from "react";
 
-import { messages } from "../../constants";
+import { accueilPage, messagesPage } from "../../constants";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 import MessagesList from "../Messages/MessagesList";
 
 export default function AccueilMessages({ handleActiveTab }) {
   const handleActivetab = () => {
-    handleActiveTab(messages);
+    handleActiveTab(messagesPage);
   };
 
   return (
@@ -24,7 +24,7 @@ export default function AccueilMessages({ handleActiveTab }) {
           <Icon name="next" iconClass="white-icon" />
         </Button>
       </div>
-      <MessagesList page="accueil" />
+      <MessagesList page={accueilPage} />
     </div>
   );
 }

@@ -202,3 +202,9 @@
 .previous-icon {
   transform: rotate(180deg);
 }
+
+.plus-icon {
+  width: rem(24px);
+  height: rem(24px);
+  font-family: var(--font);
+}

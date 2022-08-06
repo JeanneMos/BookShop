@@ -114,7 +114,8 @@ h1 {
 }
 h2,
 p,
-div {
+div,
+ul {
   &:focus {
     outline: none;
   }

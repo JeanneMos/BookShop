@@ -4,7 +4,6 @@ import scrollSmoothToElement from "../../services/scrollSmoothToElement";
 import useForm from "../../services/useForm";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
-import ModalTitle from "../Modal/ModalTitle";
 import FormInput from "./FormInput";
 import { ceremonyValidationValues } from "./FormValidationValues";
 
@@ -57,7 +56,6 @@ export default function CeremonyForm() {
   };
   return (
     <>
-      <ModalTitle>Ajouter un évènement</ModalTitle>
       <form noValidate onSubmit={handleSubmit}>
         {!isValid && (
           <p className="sr-only" tabIndex={0} ref={hiddenGlobalError}>

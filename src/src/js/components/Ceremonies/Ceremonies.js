@@ -1,11 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
+import ButtonsWrapper from "../../layouts/ButtonsWrapper";
+import { modalOpened } from "../../providers/modalSlice";
+import Button from "../Button/Button";
+import Icon from "../Icons/Icon";
 import CeremonyItem from "./CeremonyItem";
 
 export default function Ceremonies() {
   const globalInfoState = useSelector((state) => state.globalInfo);
+  const administratorState = useSelector((state) => state.administrator);
 
+  const dispatch = useDispatch();
+  const addNewCeremony = () => {
+    dispatch(
+      modalOpened({
+        theme: "dark",
+        hasCloseButton: true,
+        modalType: "CeremonyModal",
+      }),
+    );
+  };
   if (
     globalInfoState?.obituary?.ceremonies &&
     globalInfoState?.obituary?.ceremonies.length > 0
@@ -45,6 +60,15 @@ export default function Ceremonies() {
             })}
           </ul>
         </div>
+        {administratorState.isAdmin && (
+          <ButtonsWrapper btnWrapperClass="mt-30" position="left">
+            <Button btnClass="bg-current" onClickAction={addNewCeremony}>
+              <Icon name="plus" iconClass="white-icon" />
+              <span className="separator">&nbsp;</span>
+              <span className="button-text">ajouter un événement privé</span>
+            </Button>
+          </ButtonsWrapper>
+        )}
       </div>
     );
   }

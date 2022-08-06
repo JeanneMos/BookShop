@@ -2,8 +2,6 @@ import { decode } from "html-entities";
 import DOMPurify from "isomorphic-dompurify";
 import React from "react";
 
-import { lineBreak } from "../constants";
-
 export const dateFormat = (date) => {
   return `le ${date.toLocaleString("fr-FR", {
     day: "numeric",
@@ -61,6 +59,7 @@ export const civilities = {
 export const decoded = decode;
 
 export const capitalisedName = (name) => {
+  if (!name) return;
   return name.replace(/^\w/, (c) => c.toUpperCase());
 };
 

@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
-  accueil,
-  biographie,
-  messages,
+  accueilPage,
+  biographiePage,
+  messagesPage,
   mobileBreakpoint,
 } from "../../constants";
 import useViewport from "../../services/useViewport";
@@ -25,18 +25,18 @@ export default function MainPageViews() {
   const administratorState = useSelector((state) => state.administrator);
 
   const tabs = [
-    { name: "Accueil", id: accueil, hasContent: true },
-    { name: "Messages", id: messages, hasContent: true },
+    { name: "Accueil", id: accueilPage, hasContent: true },
+    { name: "Messages", id: messagesPage, hasContent: true },
     {
       name: "Biographie",
-      id: biographie,
+      id: biographiePage,
       hasContent: administratorState?.isAdmin
         ? true
         : biographyState?.isBiographyEdited,
     },
     /*   { name: 'Vidéo Cérémonie', id: 'video_ceremonie', hasContent: true }, */
   ];
-  const [activeTab, setActiveTab] = useState(accueil);
+  const [activeTab, setActiveTab] = useState(accueilPage);
   const [hasUserClicked, setUserClicked] = useState(false);
   const contentBlock = useRef(null);
 

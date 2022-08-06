@@ -8,8 +8,8 @@ import {
   heroBannerMachineName,
   postSaveFieldApiUrl,
 } from "../../constants";
-import { heroImageUpdated } from "../../context/globalInfoSlice";
-import { modalClosed } from "../../context/modalSlice";
+import { heroImageUpdated } from "../../providers/globalInfoSlice";
+import { modalClosed } from "../../providers/modalSlice";
 import usePostQuery from "../../services/usePostQuery";
 import Button from "../Button/Button";
 import FormInput from "../Forms/FormInput";

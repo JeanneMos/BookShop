@@ -15,7 +15,11 @@ export default function useGetQuery({
     key,
     async () => {
       try {
-        const { data } = await axios.get(API);
+        const { data } = await axios.get(API, {
+          headers: {
+            Authorization: process.env.REACT_API_TOKEN,
+          },
+        });
         return data;
       } catch (error) {
         return {

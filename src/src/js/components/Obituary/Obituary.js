@@ -1,7 +1,7 @@
-import imgPlaceholder from "Images/profile-grey.jpg";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import imgPlaceholder from "../../../assets/images/profile-grey.jpg";
 import { dateFormat, timeStampToDate } from "../../services/formatting";
 import Icon from "../Icons/Icon";
 import StyledLink from "../Link/StyledLink";

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { forgotPassword } from "../../constants";
-import { modalClosed } from "../../context/modalSlice";
 import ButtonsWrapper from "../../layouts/ButtonsWrapper";
+import { modalClosed } from "../../providers/modalSlice";
 import Button from "../Button/Button";
 import ForgotPasswordForm from "../Forms/ForgotPasswordForm";
 import ModalSubTitle from "./ModalSubTitle";

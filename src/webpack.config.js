@@ -1,3 +1,5 @@
+
+const webpack = require("webpack");
 const path = require("path");
 const { nanoid } = require("nanoid");
 
@@ -7,11 +9,21 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-/* const dotenv = require('dotenv');
-const env = dotenv.config().parsed;
-const isDevMode = env && env.NODE_ENV === 'development' ? true : false; */
+const dotenv = require("dotenv");
 
+let envKeys = {};
 
+const environments = dotenv.config().parsed;
+ /*const isDevMode = env && env.NODE_ENV === 'development' ? true : false; */
+if (environments) {
+  envKeys = Object.keys(environments).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(environments[next]);
+    return prev;
+  }, {});
+}
+
+console.log("CURRENT_ENV:", process.env.CURRENT_ENV);
+console.log("NODE_ENV:", process.env.NODE_ENV);
 
 module.exports = (env) => {
   const isDevMode = !env?.production || env?.production !== true;
@@ -24,17 +36,19 @@ module.exports = (env) => {
     devtool: isDevMode ? "source-map" : false,
     mode: isDevMode ? "development" : "production",
     output: {
+      /* filename: isDevMode ? "[name].[contenthash].js" : "[name].[contenthash].min.js", */
       filename: isDevMode ? "[name].bundle.js" : "[name].bundle.min.js",
+      chunkFilename:  isDevMode ? "[name].[contenthash].js" : "[name].[contenthash].min.js",
       path: isDevMode ? path.resolve(__dirname, "./docroot/themes/custom/souvenirs/js/dist_dev") : path.resolve(__dirname, "./docroot/themes/custom/souvenirs/js/dist"),
       clean: true,
     },
     cache: false,
     resolve: {
       extensions: ["*", ".js", ".jsx"],
-      alias: {
+/*       alias: {
         Images: path.resolve(__dirname, "./docroot/themes/custom/souvenirs/src/assets/images"),
         Components: path.resolve(__dirname, "./docroot/themes/custom/souvenirs/src/js/components"),
-      },
+      }, */
     },
     module: {
       rules: [
@@ -166,7 +180,8 @@ module.exports = (env) => {
     },
     plugins: [
       new ESLintPlugin({
-        fix: false
+        fix: false,
+        quiet: true,
       }),
       new MiniCssExtractPlugin({
         filename: "[name].css"
@@ -176,6 +191,7 @@ module.exports = (env) => {
         defaultSizes: "gzip",
         analyzerMode: "static"
       }),
+      new webpack.DefinePlugin(envKeys)
     ],
   };
 };

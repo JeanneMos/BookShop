@@ -1,7 +1,7 @@
-import img from "Images/profile-grey.jpg";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import img from "../../../assets/images/profile-grey.jpg";
 import Button from "../Button/Button";
 import Icon from "../Icons/Icon";
 

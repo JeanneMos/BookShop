@@ -11,15 +11,15 @@ import { MemoryRouter } from "react-router-dom";
 import LinkToMyAccount from "../components/DefuntInfo/LinkToMyAccount";
 import MainPageViews from "../components/MainPageViews/MainPageViews";
 import MessagesList from "../components/Messages/MessagesList";
+import MainPage from "../pages/MainPage";
 import administratorSlice, {
   isAdminSet,
   userLoggedIn,
-} from "../context/administratorSlice";
-import biographySlice from "../context/biographySlice";
-import globalInfoSlice from "../context/globalInfoSlice";
-import messageSlice from "../context/messageSlice";
-import modalSlice from "../context/modalSlice";
-import MainPage from "../pages/MainPage";
+} from "../providers/administratorSlice";
+import biographySlice from "../providers/biographySlice";
+import globalInfoSlice from "../providers/globalInfoSlice";
+import messageSlice from "../providers/messageSlice";
+import modalSlice from "../providers/modalSlice";
 import useGetQuery from "../services/useGetQuery";
 import usePostQuery from "../services/usePostQuery";
 import {

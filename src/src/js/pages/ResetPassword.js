@@ -11,7 +11,7 @@ export default function ResetPassword() {
   }, []);
 
   return (
-    <Layout>
+    <Layout showLogin={false}>
       <div className="reset-password-wrapper">
         <ResetPasswordForm />
       </div>

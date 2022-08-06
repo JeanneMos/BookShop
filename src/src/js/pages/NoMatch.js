@@ -6,11 +6,11 @@ import scrollSmoothToElement from "../services/scrollSmoothToElement";
 
 export default function NoMatch() {
   useEffect(() => {
-    document.title = "Espace Souvenirs";
+    document.title = "Espace Hommage";
     scrollSmoothToElement();
   }, []);
   return (
-    <Layout>
+    <Layout showLogin={false}>
       <div className="layout-content">
         <h1>Page introuvable (404)</h1>
         <p>Cette page est introuvable ou a été déplacée.</p>

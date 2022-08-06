@@ -23,6 +23,7 @@ import Pencil from "../../../assets/svg/pencil.svg";
 import Photo from "../../../assets/svg/photo.svg";
 import Picture from "../../../assets/svg/picture.svg";
 import PicturePlaceholder from "../../../assets/svg/picture-placeholder.svg";
+import Plus from "../../../assets/svg/plus.svg";
 import Profile from "../../../assets/svg/profile.svg";
 import Save from "../../../assets/svg/save.svg";
 import Search from "../../../assets/svg/search.svg";
@@ -73,6 +74,8 @@ const pickIcon = (name) => {
       return Envelope;
     case "photo":
       return Photo;
+    case "plus":
+      return Plus;
     case "itinerary":
       return Itinerary;
     case "corbeille":

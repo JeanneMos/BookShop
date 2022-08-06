@@ -1,11 +1,14 @@
 import React from "react";
 
-export default function EmptyMessagesList() {
+export default function EmptyMessagesList({ message, listRef }) {
   return (
-    <div className="messages-wrapper">
-      <p className="messages-empty-text" data-testid="emptyMessageList">
-        Il n&apos;y a pas encore de messages sur cet Espace Hommage
-      </p>
-    </div>
+    <p
+      ref={listRef}
+      className="messages-empty-text"
+      data-testid="emptyMessageList"
+      tabIndex={-1}
+    >
+      {message}
+    </p>
   );
 }

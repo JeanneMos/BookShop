@@ -8,20 +8,20 @@ const Landing = React.lazy(() =>
   import(/* webpackChunkName: "Landing" */ "../pages/Landing"),
 );
 const MainPage = React.lazy(() =>
-  import(/* webpackChunkName: "MainPage" */ "../pages/MainPage.tsx"),
+  import(/* webpackChunkName: "MainPage" */ "../pages/MainPage"),
 );
 const LegalNotice = React.lazy(() =>
   import(/* webpackChunkName: "LegalNotice" */ "../pages/LegalNotice"),
 );
 const UserLogin = React.lazy(() =>
-  import(/* webpackChunkName: "UserLogin" */ "../pages/UserLogin.tsx"),
+  import(/* webpackChunkName: "UserLogin" */ "../pages/UserLogin"),
 );
 const ResetPassword = React.lazy(() =>
-  import(/* webpackChunkName: "ResetPassword" */ "../pages/ResetPassword.tsx"),
+  import(/* webpackChunkName: "ResetPassword" */ "../pages/ResetPassword"),
 );
 
 const NoMatch = React.lazy(() =>
-  import(/* webpackChunkName: "NoMatch" */ "../pages/NoMatch.tsx"),
+  import(/* webpackChunkName: "NoMatch" */ "../pages/NoMatch"),
 );
 const BasePage = React.lazy(() =>
   import(/* webpackChunkName: "BasePage" */ "../pages/BasePage"),

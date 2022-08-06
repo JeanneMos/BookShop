@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-/* import './button.scss';
- */
 export default function Button({
   children,
   type = "button",
@@ -11,6 +9,7 @@ export default function Button({
   onClickAction,
   dataTestid,
   ariaLabel,
+  id,
 }) {
   return (
     <button
@@ -19,6 +18,7 @@ export default function Button({
       type={type === "submit" ? "submit" : "button"}
       className={btnClass}
       onClick={onClickAction}
+      id={id ? id : null}
       aria-label={ariaLabel ? ariaLabel : null}
     >
       {children}

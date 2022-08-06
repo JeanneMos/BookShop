@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { messages } from "../../constants";
-import { administratorEdited } from "../../context/administratorSlice";
+import { messagesPage } from "../../constants";
+import { administratorEdited } from "../../providers/administratorSlice";
 import NewMessagesNumber from "../Messages/NewMessagesNumber";
 
 export default function TabItem({ tabInfos, activeMobileTab }) {
@@ -16,7 +16,7 @@ export default function TabItem({ tabInfos, activeMobileTab }) {
   };
   const getMessageNumber = () => {
     if (
-      tabInfos.id === messages &&
+      tabInfos.id === messagesPage &&
       messagesState.messagesNumber &&
       messagesState.messagesNumber > 0
     ) {

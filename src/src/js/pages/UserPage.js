@@ -7,7 +7,7 @@ export default function UserPage() {
   const { id } = useParams();
 
   return (
-    <Layout>
+    <Layout showLogin={false}>
       <div className="layout-content">
         <p>
           User id:

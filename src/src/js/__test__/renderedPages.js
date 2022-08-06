@@ -5,12 +5,12 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 
 import Footer from "../components/Footer/Footer";
-import administratorSlice from "../context/administratorSlice";
-import globalInfoSlice from "../context/globalInfoSlice";
-import messageSlice from "../context/messageSlice";
-import modalSlice from "../context/modalSlice";
-import Landing from "../pages/Landing";
+import Landing from "../pages/Landing.js";
 import MainPage from "../pages/MainPage";
+import administratorSlice from "../providers/administratorSlice";
+import globalInfoSlice from "../providers/globalInfoSlice";
+import messageSlice from "../providers/messageSlice";
+import modalSlice from "../providers/modalSlice";
 
 /* const dispatch = useDispatch(); */
 
